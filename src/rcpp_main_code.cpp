@@ -11,13 +11,6 @@ using namespace apache::thrift::transport;
 using std::make_shared;
 using std::string;
 
-struct Connection{
-  
-  std::shared_ptr<TTransport> transport; //needed to close socket
-  MapDClient client;  //functions come from this class
-  TSessionId sessionId; //this is a typedef alias to string
-  
-};
 
 //forward declarations have to come before '#include <Rcpp.h>'
 #include <Rcpp.h>
@@ -25,7 +18,7 @@ using namespace Rcpp;
 
 
 // [[Rcpp::export]]
-SEXP connect_binary(const std::string& host, int& port, const std::string& user_name, const std::string& passwd, const std::string& db_name){
+List connect(std::string host, int port, std::string user_name, std::string passwd, std::string db_name){
   
   // These have to be shared, all Thrift interface supports
   auto socket = make_shared<TSocket>(host, port);
@@ -40,26 +33,34 @@ SEXP connect_binary(const std::string& host, int& port, const std::string& user_
   //method to get session value from OmniSci
   client.connect(session, user_name, passwd, db_name);
   
-  //bundle up info into Connection struct, return pointer to R
-  auto c = Connection{transport, client, session};
-  Connection* cptr = &c;
-  XPtr<Connection> p(cptr, true);
-  return(p);
+  //bundle up info as pointers, return to R in List
+  TTransport* tt = transport.get();  //needs raw, not shared_ptr
+  XPtr<TTransport> ptt(tt, true);
+  
+  MapDClient* mdc = &client;
+  XPtr<MapDClient> pmdc(mdc, true);
+
+  return List::create(_["transport"] = ptt,
+                      _["client"]    = pmdc,
+                      _["sessionId"] = session
+                      );
   
 }
 
 // [[Rcpp::export]]
-List get_table_details(SEXP conn, std::string table_name) {
+List get_table_details(List conn, std::string table_name) {
   
   TTableDetails table_details;
   
-  //Q1: how do I get back the Connection value from SEXP conn?
-  //this compiles, but bombs out RStudio/R session
+  //Q1: how do I get value of type MapDClient back from conn?
+  //this code bombs out R session
+  XPtr<MapDClient> client = conn["client"];  //generic_name_proxy<19, PreserveStorage> to XPtr
+  string sessionId = conn["sessionId"];
   
-  Rcpp::XPtr<Connection> pConnection(conn);
-  auto client = pConnection->client;
-  auto sessionId = pConnection->sessionId;
-  client.get_table_details(table_details, sessionId, table_name);
+  client->get_table_details(table_details, sessionId, table_name);
+  
+  //for debugging
+  std::cout << table_details << std::endl;
   
   //parse table_details once code works
   return List::create(_["transport"] = sessionId);

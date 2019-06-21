@@ -5,28 +5,28 @@
 
 using namespace Rcpp;
 
-// connect_binary
-SEXP connect_binary(const std::string& host, int& port, const std::string& user_name, const std::string& passwd, const std::string& db_name);
-RcppExport SEXP _ROmniSci_connect_binary(SEXP hostSEXP, SEXP portSEXP, SEXP user_nameSEXP, SEXP passwdSEXP, SEXP db_nameSEXP) {
+// connect
+List connect(std::string host, int port, std::string user_name, std::string passwd, std::string db_name);
+RcppExport SEXP _ROmniSci_connect(SEXP hostSEXP, SEXP portSEXP, SEXP user_nameSEXP, SEXP passwdSEXP, SEXP db_nameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::string& >::type host(hostSEXP);
-    Rcpp::traits::input_parameter< int& >::type port(portSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type user_name(user_nameSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type passwd(passwdSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type db_name(db_nameSEXP);
-    rcpp_result_gen = Rcpp::wrap(connect_binary(host, port, user_name, passwd, db_name));
+    Rcpp::traits::input_parameter< std::string >::type host(hostSEXP);
+    Rcpp::traits::input_parameter< int >::type port(portSEXP);
+    Rcpp::traits::input_parameter< std::string >::type user_name(user_nameSEXP);
+    Rcpp::traits::input_parameter< std::string >::type passwd(passwdSEXP);
+    Rcpp::traits::input_parameter< std::string >::type db_name(db_nameSEXP);
+    rcpp_result_gen = Rcpp::wrap(connect(host, port, user_name, passwd, db_name));
     return rcpp_result_gen;
 END_RCPP
 }
 // get_table_details
-List get_table_details(SEXP conn, std::string table_name);
+List get_table_details(List conn, std::string table_name);
 RcppExport SEXP _ROmniSci_get_table_details(SEXP connSEXP, SEXP table_nameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type conn(connSEXP);
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
     Rcpp::traits::input_parameter< std::string >::type table_name(table_nameSEXP);
     rcpp_result_gen = Rcpp::wrap(get_table_details(conn, table_name));
     return rcpp_result_gen;
@@ -34,7 +34,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_ROmniSci_connect_binary", (DL_FUNC) &_ROmniSci_connect_binary, 5},
+    {"_ROmniSci_connect", (DL_FUNC) &_ROmniSci_connect, 5},
     {"_ROmniSci_get_table_details", (DL_FUNC) &_ROmniSci_get_table_details, 2},
     {NULL, NULL, 0}
 };
