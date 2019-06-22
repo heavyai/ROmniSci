@@ -20,25 +20,24 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 List connect(std::string host, int port, std::string user_name, std::string passwd, std::string db_name){
   
-  // These have to be shared, all Thrift interface supports
+  // These have to be shared_ptr per Thrift interface
   auto socket = make_shared<TSocket>(host, port);
   auto transport = make_shared<TBufferedTransport>(socket);
   auto protocol = make_shared<TBinaryProtocol>(transport);
-  MapDClient client = MapDClient(protocol);
+  MapDClient* client = new MapDClient(protocol);  //new required to avoid falling out of scope
   TSessionId session;
   
   //open the transport, which effectively makes the client active
   transport->open();
   
   //method to get session value from OmniSci
-  client.connect(session, user_name, passwd, db_name);
+  client->connect(session, user_name, passwd, db_name);
   
   //bundle up info as pointers, return to R in List
   TTransport* tt = transport.get();  //needs raw, not shared_ptr
   XPtr<TTransport> ptt(tt, true);
   
-  MapDClient* mdc = &client;
-  XPtr<MapDClient> pmdc(mdc, true);
+  XPtr<MapDClient> pmdc(client, true);
 
   return List::create(_["transport"] = ptt,
                       _["client"]    = pmdc,
@@ -52,9 +51,7 @@ List get_table_details(List conn, std::string table_name) {
   
   TTableDetails table_details;
   
-  //Q1: how do I get value of type MapDClient back from conn?
-  //this code bombs out R session
-  XPtr<MapDClient> client = conn["client"];  //generic_name_proxy<19, PreserveStorage> to XPtr
+  XPtr<MapDClient> client = conn["client"];
   string sessionId = conn["sessionId"];
   
   client->get_table_details(table_details, sessionId, table_name);
