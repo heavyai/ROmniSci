@@ -5,6 +5,10 @@ connect <- function(host, port, user_name, passwd, db_name) {
     .Call(`_ROmniSci_connect`, host, port, user_name, passwd, db_name)
 }
 
+disconnect <- function(conn) {
+    invisible(.Call(`_ROmniSci_disconnect`, conn))
+}
+
 get_table_details <- function(conn, table_name) {
     .Call(`_ROmniSci_get_table_details`, conn, table_name)
 }

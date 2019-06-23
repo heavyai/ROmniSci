@@ -9,3 +9,4 @@ Description: One paragraph description of what the package does as one or more f
 License: Apache + file LICENSE
 Imports: Rcpp (>= 1.0.1)
 LinkingTo: Rcpp
+RoxygenNote: 6.1.1

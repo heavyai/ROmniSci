@@ -20,6 +20,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// disconnect
+void disconnect(List conn);
+RcppExport SEXP _ROmniSci_disconnect(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    disconnect(conn);
+    return R_NilValue;
+END_RCPP
+}
 // get_table_details
 List get_table_details(List conn, std::string table_name);
 RcppExport SEXP _ROmniSci_get_table_details(SEXP connSEXP, SEXP table_nameSEXP) {
@@ -35,6 +45,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_connect", (DL_FUNC) &_ROmniSci_connect, 5},
+    {"_ROmniSci_disconnect", (DL_FUNC) &_ROmniSci_disconnect, 1},
     {"_ROmniSci_get_table_details", (DL_FUNC) &_ROmniSci_get_table_details, 2},
     {NULL, NULL, 0}
 };

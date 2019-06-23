@@ -47,6 +47,18 @@ List connect(std::string host, int port, std::string user_name, std::string pass
 }
 
 // [[Rcpp::export]]
+void disconnect(List conn){
+  
+  XPtr<MapDClient> client = conn["client"];
+  string sessionId = conn["sessionId"];
+  XPtr<TTransport> transport = conn["transport"];
+  
+  client->disconnect(sessionId);
+  transport->close();
+  
+}
+
+// [[Rcpp::export]]
 List get_table_details(List conn, std::string table_name) {
   
   TTableDetails table_details;
@@ -60,6 +72,14 @@ List get_table_details(List conn, std::string table_name) {
   std::cout << table_details << std::endl;
   
   //parse table_details once code works
-  return List::create(_["transport"] = sessionId);
+  //_["partition_detail"] = table_details.partition_detail
+  //_["row_desc"] = table_details.row_desc
+  return List::create(_["fragment_size"] = table_details.fragment_size,
+                      _["page_size"] = table_details.page_size,
+                      _["max_rows"] = table_details.max_rows,
+                      _["view_sql"] = table_details.view_sql,
+                      _["shard_count"] = table_details.shard_count,
+                      _["key_metainfo"] = table_details.key_metainfo,
+                      _["is_temporary"] = table_details.is_temporary);
   
 }
