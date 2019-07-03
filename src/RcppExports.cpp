@@ -6,17 +6,17 @@
 using namespace Rcpp;
 
 // connect
-List connect(std::string host, int port, std::string username, std::string passwd, std::string db_name);
-RcppExport SEXP _ROmniSci_connect(SEXP hostSEXP, SEXP portSEXP, SEXP usernameSEXP, SEXP passwdSEXP, SEXP db_nameSEXP) {
+List connect(std::string host, int port, std::string username, std::string password, std::string dbname);
+RcppExport SEXP _ROmniSci_connect(SEXP hostSEXP, SEXP portSEXP, SEXP usernameSEXP, SEXP passwordSEXP, SEXP dbnameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type host(hostSEXP);
     Rcpp::traits::input_parameter< int >::type port(portSEXP);
     Rcpp::traits::input_parameter< std::string >::type username(usernameSEXP);
-    Rcpp::traits::input_parameter< std::string >::type passwd(passwdSEXP);
-    Rcpp::traits::input_parameter< std::string >::type db_name(db_nameSEXP);
-    rcpp_result_gen = Rcpp::wrap(connect(host, port, username, passwd, db_name));
+    Rcpp::traits::input_parameter< std::string >::type password(passwordSEXP);
+    Rcpp::traits::input_parameter< std::string >::type dbname(dbnameSEXP);
+    rcpp_result_gen = Rcpp::wrap(connect(host, port, username, password, dbname));
     return rcpp_result_gen;
 END_RCPP
 }

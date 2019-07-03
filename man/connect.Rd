@@ -4,7 +4,7 @@
 \alias{connect}
 \title{Connect to an OmniSci database}
 \usage{
-connect(host, port, username, passwd, db_name)
+connect(host, port, username, password, dbname)
 }
 \arguments{
 \item{host}{host}
@@ -13,10 +13,23 @@ connect(host, port, username, passwd, db_name)
 
 \item{username}{username}
 
-\item{passwd}{passwd}
+\item{password}{password}
 
-\item{db_name}{db_name}
+\item{dbname}{dbname}
+}
+\value{
+List
 }
 \description{
-Connect to an OmniSci database
+TBD description
+}
+\details{
+TBD Details
+}
+\examples{
+\dontrun{
+  
+  conn <- connect("localhost", 6274, "admin", "HyperInteractive", "omnisci")
+  
+}
 }

@@ -9,6 +9,19 @@ disconnect(conn)
 \arguments{
 \item{conn}{conn}
 }
+\value{
+Nothing
+}
 \description{
-Disconnect from an OmniSci database
+TBD description
+}
+\details{
+TBD Details
+}
+\examples{
+\dontrun{
+  
+  disconnect(conn)
+  
+}
 }

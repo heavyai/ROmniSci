@@ -11,6 +11,19 @@ get_table_details(conn, table_name)
 
 \item{table_name}{table_name}
 }
+\value{
+List (TTableDetails)
+}
 \description{
-Get details of the specified database table
+TBD description
+}
+\details{
+TBD Details
+}
+\examples{
+\dontrun{
+
+tbl_details <- get_table_details(conn, "omnisci_states")
+
+} 
 }

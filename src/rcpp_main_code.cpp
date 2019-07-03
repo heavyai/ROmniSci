@@ -12,24 +12,32 @@ using namespace apache::thrift;
 using namespace apache::thrift::protocol;
 using namespace apache::thrift::transport;
 
-//' Connect to an OmniSci database
+//' @title Connect to an OmniSci database
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
 //' 
 //' @param host host
 //' @param port port
 //' @param username username
-//' @param passwd passwd
-//' @param db_name db_name
+//' @param password password
+//' @param dbname dbname
 //' 
-//'
-//' 
-//'
+//' @return List
 //' @export
+//' @examples
+//' \dontrun{
+//'   
+//'   conn <- connect("localhost", 6274, "admin", "HyperInteractive", "omnisci")
+//'   
+//' }
 // [[Rcpp::export]]
 List connect(std::string host, 
              int port, 
              std::string username, 
-             std::string passwd, 
-             std::string db_name){
+             std::string password, 
+             std::string dbname){
   
   auto socket = std::make_shared<TSocket>(host, port);
   auto transport = std::make_shared<TBufferedTransport>(socket);
@@ -41,7 +49,7 @@ List connect(std::string host,
   transport->open();
   
   //get session value from OmniSci
-  client->connect(session, username, passwd, db_name);
+  client->connect(session, username, password, dbname);
   
   //bundle up info as pointers, return to R in List
   //Per Matt Pulver, is this scoped right or am I getting lucky?
@@ -52,16 +60,27 @@ List connect(std::string host,
   
   return List::create(_["transport"] = ptt,
                       _["client"]    = pmdc,
-                      _["sessionId"] = session
+                      _["sessionid"] = session
   );
   
 }
 
-//' Disconnect from an OmniSci database
+//' @title Disconnect from an OmniSci database
 //'
 //' @param conn conn
-//'
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return Nothing
 //' @export
+//' @examples
+//' \dontrun{
+//'   
+//'   disconnect(conn)
+//'   
+//' }
 // [[Rcpp::export]]
 void disconnect(List conn){
   
@@ -74,12 +93,23 @@ void disconnect(List conn){
   
 }
   
-//' Get details of the specified database table
+//' @title Get details of the specified database table
 //'
 //' @param conn conn
 //' @param table_name table_name
-//'
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List (TTableDetails)
 //' @export
+//' @examples
+//' \dontrun{
+//' 
+//' tbl_details <- get_table_details(conn, "omnisci_states")
+//' 
+//' } 
 // [[Rcpp::export]]
 List get_table_details(List conn, std::string table_name) {
   
