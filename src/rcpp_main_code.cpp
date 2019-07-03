@@ -9,15 +9,17 @@ using namespace apache::thrift;
 using namespace apache::thrift::protocol;
 using namespace apache::thrift::transport;
 
-//forward declarations of wrap functions have to come before '#include <Rcpp.h>'
+//forward declarations have to come before '#include <Rcpp.h>'
 #include "rcpp_wrap.h"
 
 #include <Rcpp.h>
 using namespace Rcpp;
 
 
-
-
+//' connect
+//'
+//'
+//' @export
 // [[Rcpp::export]]
 List connect(std::string host, 
              int port, 
@@ -25,7 +27,6 @@ List connect(std::string host,
              std::string passwd, 
              std::string db_name){
   
-  // These have to be shared_ptr per Thrift interface
   auto socket = std::make_shared<TSocket>(host, port);
   auto transport = std::make_shared<TBufferedTransport>(socket);
   auto pcol = std::make_shared<TBinaryProtocol>(transport);
@@ -52,27 +53,36 @@ List connect(std::string host,
   
 }
 
+//' disconnect
+//'
+//'
+//' @export
 // [[Rcpp::export]]
 void disconnect(List conn){
   
   XPtr<MapDClient> client = conn["client"];
-  std::string sessionId = conn["sessionId"];
+  std::string sessionid = conn["sessionid"];
   XPtr<TTransport> transport = conn["transport"];
   
-  client->disconnect(sessionId);
+  client->disconnect(sessionid);
   transport->close();
   
 }
 
+
+//' get_table_details
+//'
+//'
+//' @export
 // [[Rcpp::export]]
 List get_table_details(List conn, std::string table_name) {
   
   TTableDetails table_details;
   
   XPtr<MapDClient> client = conn["client"];
-  std::string sessionId = conn["sessionId"];
+  std::string sessionid = conn["sessionid"];
   
-  client->get_table_details(table_details, sessionId, table_name);
+  client->get_table_details(table_details, sessionid, table_name);
 
   return(Rcpp::wrap(table_details));
 }

@@ -3,6 +3,11 @@
 
 namespace Rcpp {
 
+    //TODO: define enums to return strings, remove static casts below?
+    // template <> SEXP wrap(const TPartitionDetail& tpd);
+    // template <> SEXP wrap(const TDatumType& tdt);
+    // template <> SEXP wrap(const TEncodingType& tet);
+
     template <> SEXP wrap(const TTypeInfo& tti){
       
       return List::create(_["type"] = static_cast<int>(tti.type),  //enum
