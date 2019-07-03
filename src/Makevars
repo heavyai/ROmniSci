@@ -1,2 +1,2 @@
 CXX_STD = CXX17
-PKG_LIBS = -L/usr/local/lib/ -lthrift
+PKG_LIBS = -lthrift
