@@ -2,10 +2,13 @@
 % Please edit documentation in R/RcppExports.R
 \name{disconnect}
 \alias{disconnect}
-\title{disconnect}
+\title{Disconnect from an OmniSci database}
 \usage{
 disconnect(conn)
 }
+\arguments{
+\item{conn}{conn}
+}
 \description{
-disconnect
+Disconnect from an OmniSci database
 }

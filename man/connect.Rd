@@ -2,10 +2,21 @@
 % Please edit documentation in R/RcppExports.R
 \name{connect}
 \alias{connect}
-\title{connect}
+\title{Connect to an OmniSci database}
 \usage{
-connect(host, port, user_name, passwd, db_name)
+connect(host, port, username, passwd, db_name)
+}
+\arguments{
+\item{host}{host}
+
+\item{port}{port}
+
+\item{username}{username}
+
+\item{passwd}{passwd}
+
+\item{db_name}{db_name}
 }
 \description{
-connect
+Connect to an OmniSci database
 }

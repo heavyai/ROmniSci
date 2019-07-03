@@ -2,10 +2,15 @@
 % Please edit documentation in R/RcppExports.R
 \name{get_table_details}
 \alias{get_table_details}
-\title{get_table_details}
+\title{Get details of the specified database table}
 \usage{
 get_table_details(conn, table_name)
 }
+\arguments{
+\item{conn}{conn}
+
+\item{table_name}{table_name}
+}
 \description{
-get_table_details
+Get details of the specified database table
 }

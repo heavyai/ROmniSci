@@ -1,29 +1,33 @@
-#include <RcppCommon.h>
+#include <RcppCommon.h> // has to be before forward declarations
 #include <iostream>
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/transport/TSocket.h>
 #include <thrift/transport/TTransportUtils.h>
 #include "MapD.h"
+#include "rcpp_wrap.h" //forward declarations have to come before '#include <Rcpp.h>'
+#include <Rcpp.h>
 
+using namespace Rcpp;
 using namespace apache::thrift;
 using namespace apache::thrift::protocol;
 using namespace apache::thrift::transport;
 
-//forward declarations have to come before '#include <Rcpp.h>'
-#include "rcpp_wrap.h"
-
-#include <Rcpp.h>
-using namespace Rcpp;
-
-
-//' connect
+//' Connect to an OmniSci database
+//' 
+//' @param host host
+//' @param port port
+//' @param username username
+//' @param passwd passwd
+//' @param db_name db_name
+//' 
 //'
+//' 
 //'
 //' @export
 // [[Rcpp::export]]
 List connect(std::string host, 
              int port, 
-             std::string user_name, 
+             std::string username, 
              std::string passwd, 
              std::string db_name){
   
@@ -37,7 +41,7 @@ List connect(std::string host,
   transport->open();
   
   //get session value from OmniSci
-  client->connect(session, user_name, passwd, db_name);
+  client->connect(session, username, passwd, db_name);
   
   //bundle up info as pointers, return to R in List
   //Per Matt Pulver, is this scoped right or am I getting lucky?
@@ -53,8 +57,9 @@ List connect(std::string host,
   
 }
 
-//' disconnect
+//' Disconnect from an OmniSci database
 //'
+//' @param conn conn
 //'
 //' @export
 // [[Rcpp::export]]
@@ -68,10 +73,11 @@ void disconnect(List conn){
   transport->close();
   
 }
-
-
-//' get_table_details
+  
+//' Get details of the specified database table
 //'
+//' @param conn conn
+//' @param table_name table_name
 //'
 //' @export
 // [[Rcpp::export]]
