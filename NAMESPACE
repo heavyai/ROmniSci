@@ -2,6 +2,7 @@
 
 export(connect)
 export(disconnect)
+export(get_server_status)
 export(get_table_details)
 import(Rcpp)
 importFrom(Rcpp,evalCpp)
