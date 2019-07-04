@@ -37,12 +37,6 @@ namespace Rcpp {
 
     template <> SEXP wrap(const TTableDetails& x){
 
-      //parse ttd.row_desc to SEXP using wrap defined above
-      std::vector<SEXP> outvec;
-      for(TColumnType tct: x.row_desc) {
-        outvec.push_back(Rcpp::wrap(tct));
-      }
-
       return List::create(_["fragment_size"] = x.fragment_size,
                           _["page_size"] = static_cast<int>(x.page_size),
                           _["max_rows"] = x.max_rows,
@@ -51,7 +45,7 @@ namespace Rcpp {
                           _["key_metainfo"] = x.key_metainfo,
                           _["is_temporary"] = x.is_temporary,
                           _["partition_detail"] = static_cast<int>(x.partition_detail), //enum
-                          _["row_desc"] = outvec
+                          _["row_desc"] = Rcpp::wrap(x.row_desc)
       );
 
     };
