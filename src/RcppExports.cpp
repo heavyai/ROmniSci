@@ -119,6 +119,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// get_session_info
+List get_session_info(List conn);
+RcppExport SEXP _ROmniSci_get_session_info(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_session_info(conn));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_databases
+List get_databases(List conn);
+RcppExport SEXP _ROmniSci_get_databases(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_databases(conn));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_connect", (DL_FUNC) &_ROmniSci_connect, 5},
@@ -131,6 +153,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_get_users", (DL_FUNC) &_ROmniSci_get_users, 1},
     {"_ROmniSci_get_physical_tables", (DL_FUNC) &_ROmniSci_get_physical_tables, 1},
     {"_ROmniSci_get_views", (DL_FUNC) &_ROmniSci_get_views, 1},
+    {"_ROmniSci_get_session_info", (DL_FUNC) &_ROmniSci_get_session_info, 1},
+    {"_ROmniSci_get_databases", (DL_FUNC) &_ROmniSci_get_databases, 1},
     {NULL, NULL, 0}
 };
 

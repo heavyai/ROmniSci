@@ -213,3 +213,45 @@ get_views <- function(conn) {
     .Call('_ROmniSci_get_views', PACKAGE = 'ROmniSci', conn)
 }
 
+#' @title Get session information
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(TSessionInfo)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gsi <- get_session_info(conn)
+#' 
+#' } 
+get_session_info <- function(conn) {
+    .Call('_ROmniSci_get_session_info', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Get databases list
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(TDBInfo)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gdb <- get_databases(conn)
+#' 
+#' } 
+get_databases <- function(conn) {
+    .Call('_ROmniSci_get_databases', PACKAGE = 'ROmniSci', conn)
+}
+

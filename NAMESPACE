@@ -2,8 +2,10 @@
 
 export(connect)
 export(disconnect)
+export(get_databases)
 export(get_physical_tables)
 export(get_server_status)
+export(get_session_info)
 export(get_status)
 export(get_table_details)
 export(get_tables)
