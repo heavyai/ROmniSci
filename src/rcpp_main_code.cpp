@@ -213,10 +213,40 @@ CharacterVector get_version(List conn){
   std::string gv;
   
   XPtr<MapDClient> client = conn["client"];
-  std::string sessionid = conn["sessionid"];
-  
+
   client->get_version(gv);
   
   return(gv);  
+  
+}
+
+//' @title Get tables in current database
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(Character)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gt <- get_tables(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+CharacterVector get_tables(List conn){
+  
+  std::vector<std::string> tables;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_tables(tables, sessionid);
+  
+  return(Rcpp::wrap(tables));  
   
 }

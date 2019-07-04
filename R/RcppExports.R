@@ -129,3 +129,24 @@ get_version <- function(conn) {
     .Call('_ROmniSci_get_version', PACKAGE = 'ROmniSci', conn)
 }
 
+#' @title Get tables in current database
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(Character)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gt <- get_tables(conn)
+#' 
+#' } 
+get_tables <- function(conn) {
+    .Call('_ROmniSci_get_tables', PACKAGE = 'ROmniSci', conn)
+}
+
