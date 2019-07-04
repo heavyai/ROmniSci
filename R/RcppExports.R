@@ -171,3 +171,45 @@ get_users <- function(conn) {
     .Call('_ROmniSci_get_users', PACKAGE = 'ROmniSci', conn)
 }
 
+#' @title Get physical tables in current database
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(Character)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gpt <- get_physical_tables(conn)
+#' 
+#' } 
+get_physical_tables <- function(conn) {
+    .Call('_ROmniSci_get_physical_tables', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Get views in current database
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(Character)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gvs <- get_views(conn)
+#' 
+#' } 
+get_views <- function(conn) {
+    .Call('_ROmniSci_get_views', PACKAGE = 'ROmniSci', conn)
+}
+

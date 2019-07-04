@@ -281,3 +281,65 @@ CharacterVector get_users(List conn){
   return(Rcpp::wrap(users));  
   
 }
+
+//' @title Get physical tables in current database
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(Character)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gpt <- get_physical_tables(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+CharacterVector get_physical_tables(List conn){
+  
+  std::vector<std::string> tables;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_physical_tables(tables, sessionid);
+  
+  return(Rcpp::wrap(tables));
+  
+}
+
+//' @title Get views in current database
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(Character)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gvs <- get_views(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+CharacterVector get_views(List conn){
+  
+  std::vector<std::string> views;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_views(views, sessionid);
+  
+  return(Rcpp::wrap(views));
+  
+}
