@@ -108,3 +108,24 @@ get_status <- function(conn) {
     .Call('_ROmniSci_get_status', PACKAGE = 'ROmniSci', conn)
 }
 
+#' @title Get version of OmniSci server
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return Character
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gv <- get_version(conn)
+#' 
+#' } 
+get_version <- function(conn) {
+    .Call('_ROmniSci_get_version', PACKAGE = 'ROmniSci', conn)
+}
+

@@ -189,3 +189,34 @@ List get_status(List conn){
   return(Rcpp::wrap(tss));  
   
 }
+
+//' @title Get version of OmniSci server
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return Character
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gv <- get_version(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+CharacterVector get_version(List conn){
+  
+  std::string gv;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_version(gv);
+  
+  return(gv);  
+  
+}

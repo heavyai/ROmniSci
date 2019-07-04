@@ -64,6 +64,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// get_version
+CharacterVector get_version(List conn);
+RcppExport SEXP _ROmniSci_get_version(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_version(conn));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_connect", (DL_FUNC) &_ROmniSci_connect, 5},
@@ -71,6 +82,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_get_table_details", (DL_FUNC) &_ROmniSci_get_table_details, 2},
     {"_ROmniSci_get_server_status", (DL_FUNC) &_ROmniSci_get_server_status, 1},
     {"_ROmniSci_get_status", (DL_FUNC) &_ROmniSci_get_status, 1},
+    {"_ROmniSci_get_version", (DL_FUNC) &_ROmniSci_get_version, 1},
     {NULL, NULL, 0}
 };
 
