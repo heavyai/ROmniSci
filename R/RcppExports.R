@@ -66,3 +66,150 @@ get_table_details <- function(conn, table_name) {
     .Call('_ROmniSci_get_table_details', PACKAGE = 'ROmniSci', conn, table_name)
 }
 
+#' @title Get status of OmniSci server
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List (TServerStatus)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gss <- get_server_status(conn)
+#' 
+#' } 
+get_server_status <- function(conn) {
+    .Call('_ROmniSci_get_server_status', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Get status of OmniSci server
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List (TServerStatus)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gs <- get_status(conn)
+#' 
+#' } 
+get_status <- function(conn) {
+    .Call('_ROmniSci_get_status', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Get version of OmniSci server
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return Character
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gv <- get_version(conn)
+#' 
+#' } 
+get_version <- function(conn) {
+    .Call('_ROmniSci_get_version', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Get tables in current database
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(Character)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gt <- get_tables(conn)
+#' 
+#' } 
+get_tables <- function(conn) {
+    .Call('_ROmniSci_get_tables', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Get users in current database
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(Character)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gu <- get_users(conn)
+#' 
+#' } 
+get_users <- function(conn) {
+    .Call('_ROmniSci_get_users', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Get physical tables in current database
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(Character)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gpt <- get_physical_tables(conn)
+#' 
+#' } 
+get_physical_tables <- function(conn) {
+    .Call('_ROmniSci_get_physical_tables', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Get views in current database
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(Character)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gvs <- get_views(conn)
+#' 
+#' } 
+get_views <- function(conn) {
+    .Call('_ROmniSci_get_views', PACKAGE = 'ROmniSci', conn)
+}
+

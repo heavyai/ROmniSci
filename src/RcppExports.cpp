@@ -42,11 +42,95 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// get_server_status
+List get_server_status(List conn);
+RcppExport SEXP _ROmniSci_get_server_status(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_server_status(conn));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_status
+List get_status(List conn);
+RcppExport SEXP _ROmniSci_get_status(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_status(conn));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_version
+CharacterVector get_version(List conn);
+RcppExport SEXP _ROmniSci_get_version(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_version(conn));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_tables
+CharacterVector get_tables(List conn);
+RcppExport SEXP _ROmniSci_get_tables(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_tables(conn));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_users
+CharacterVector get_users(List conn);
+RcppExport SEXP _ROmniSci_get_users(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_users(conn));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_physical_tables
+CharacterVector get_physical_tables(List conn);
+RcppExport SEXP _ROmniSci_get_physical_tables(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_physical_tables(conn));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_views
+CharacterVector get_views(List conn);
+RcppExport SEXP _ROmniSci_get_views(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_views(conn));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_connect", (DL_FUNC) &_ROmniSci_connect, 5},
     {"_ROmniSci_disconnect", (DL_FUNC) &_ROmniSci_disconnect, 1},
     {"_ROmniSci_get_table_details", (DL_FUNC) &_ROmniSci_get_table_details, 2},
+    {"_ROmniSci_get_server_status", (DL_FUNC) &_ROmniSci_get_server_status, 1},
+    {"_ROmniSci_get_status", (DL_FUNC) &_ROmniSci_get_status, 1},
+    {"_ROmniSci_get_version", (DL_FUNC) &_ROmniSci_get_version, 1},
+    {"_ROmniSci_get_tables", (DL_FUNC) &_ROmniSci_get_tables, 1},
+    {"_ROmniSci_get_users", (DL_FUNC) &_ROmniSci_get_users, 1},
+    {"_ROmniSci_get_physical_tables", (DL_FUNC) &_ROmniSci_get_physical_tables, 1},
+    {"_ROmniSci_get_views", (DL_FUNC) &_ROmniSci_get_views, 1},
     {NULL, NULL, 0}
 };
 

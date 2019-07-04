@@ -13,6 +13,7 @@ namespace Rcpp {
   template <> SEXP wrap(const TTypeInfo& tti);
   template <> SEXP wrap(const TTableDetails& ttd);
   template <> SEXP wrap(const TColumnType& tct);
+  template <> SEXP wrap(const TServerStatus& tss);
   
 
 }

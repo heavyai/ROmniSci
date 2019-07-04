@@ -122,3 +122,224 @@ List get_table_details(List conn, std::string table_name) {
 
   return(Rcpp::wrap(table_details));
 }
+
+
+//' @title Get status of OmniSci server
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List (TServerStatus)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gss <- get_server_status(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+List get_server_status(List conn){
+  
+  TServerStatus tss;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_server_status(tss, sessionid);
+  
+  return(Rcpp::wrap(tss));  
+  
+}
+
+//' @title Get status of OmniSci server
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List (TServerStatus)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gs <- get_status(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+List get_status(List conn){
+  
+  std::vector<TServerStatus> tss;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_status(tss, sessionid);
+  
+  for(auto x: tss){
+    tss.push_back(x);
+  }
+
+  return(Rcpp::wrap(tss));  
+  
+}
+
+//' @title Get version of OmniSci server
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return Character
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gv <- get_version(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+CharacterVector get_version(List conn){
+  
+  std::string gv;
+  
+  XPtr<MapDClient> client = conn["client"];
+
+  client->get_version(gv);
+  
+  return(gv);  
+  
+}
+
+//' @title Get tables in current database
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(Character)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gt <- get_tables(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+CharacterVector get_tables(List conn){
+  
+  std::vector<std::string> tables;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_tables(tables, sessionid);
+  
+  return(Rcpp::wrap(tables));  
+  
+}
+
+//' @title Get users in current database
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(Character)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gu <- get_users(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+CharacterVector get_users(List conn){
+  
+  std::vector<std::string> users;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_users(users, sessionid);
+  
+  return(Rcpp::wrap(users));  
+  
+}
+
+//' @title Get physical tables in current database
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(Character)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gpt <- get_physical_tables(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+CharacterVector get_physical_tables(List conn){
+  
+  std::vector<std::string> tables;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_physical_tables(tables, sessionid);
+  
+  return(Rcpp::wrap(tables));
+  
+}
+
+//' @title Get views in current database
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(Character)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gvs <- get_views(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+CharacterVector get_views(List conn){
+  
+  std::vector<std::string> views;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_views(views, sessionid);
+  
+  return(Rcpp::wrap(views));
+  
+}
