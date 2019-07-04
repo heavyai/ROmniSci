@@ -87,3 +87,24 @@ get_server_status <- function(conn) {
     .Call('_ROmniSci_get_server_status', PACKAGE = 'ROmniSci', conn)
 }
 
+#' @title Get status of OmniSci server
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List (TServerStatus)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gs <- get_status(conn)
+#' 
+#' } 
+get_status <- function(conn) {
+    .Call('_ROmniSci_get_status', PACKAGE = 'ROmniSci', conn)
+}
+

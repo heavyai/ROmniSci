@@ -154,3 +154,38 @@ List get_server_status(List conn){
   return(Rcpp::wrap(tss));  
   
 }
+
+//' @title Get status of OmniSci server
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List (TServerStatus)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gs <- get_status(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+List get_status(List conn){
+  
+  std::vector<TServerStatus> tss;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_status(tss, sessionid);
+  
+  for(auto x: tss){
+    tss.push_back(x);
+  }
+
+  return(Rcpp::wrap(tss));  
+  
+}
