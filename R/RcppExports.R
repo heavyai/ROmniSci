@@ -150,3 +150,24 @@ get_tables <- function(conn) {
     .Call('_ROmniSci_get_tables', PACKAGE = 'ROmniSci', conn)
 }
 
+#' @title Get users in current database
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(Character)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gu <- get_users(conn)
+#' 
+#' } 
+get_users <- function(conn) {
+    .Call('_ROmniSci_get_users', PACKAGE = 'ROmniSci', conn)
+}
+

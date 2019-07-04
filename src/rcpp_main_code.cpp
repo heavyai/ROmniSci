@@ -250,3 +250,34 @@ CharacterVector get_tables(List conn){
   return(Rcpp::wrap(tables));  
   
 }
+
+//' @title Get users in current database
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(Character)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gu <- get_users(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+CharacterVector get_users(List conn){
+  
+  std::vector<std::string> users;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_users(users, sessionid);
+  
+  return(Rcpp::wrap(users));  
+  
+}
