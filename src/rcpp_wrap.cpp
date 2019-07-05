@@ -8,10 +8,15 @@ namespace Rcpp {
     // template <> SEXP wrap(const TEncodingType& tet);
     // template <> SEXP wrap(const TDatumType& x){
     //   
-    //   return List::create(_["TODO"] = 1);
+    //   TDatumType y{x};
     //   
+    //   switch(static_cast<int>(y))
+    //   
+    //   return List::create(_["TODO"] = 1);
+    // 
     // };
 
+    //structs
     template <> SEXP wrap(const TTypeInfo& x){
 
       return List::create(_["type"] = static_cast<int>(x.type),  //enum

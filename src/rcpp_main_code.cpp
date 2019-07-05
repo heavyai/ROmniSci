@@ -466,3 +466,31 @@ List get_tables_meta(List conn){
   return(Rcpp::wrap(info));
   
 }
+
+//' @title Switch current database
+//' 
+//' @param conn conn
+//' @param dbname dbname
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return Nothing
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' switch_database(conn)
+//' 
+//' } 
+// [[Rcpp::export]] 
+void switch_database(List conn, std::string dbname){
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->switch_database(sessionid, dbname);
+  
+}

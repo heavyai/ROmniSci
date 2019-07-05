@@ -163,6 +163,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// switch_database
+void switch_database(List conn, std::string dbname);
+RcppExport SEXP _ROmniSci_switch_database(SEXP connSEXP, SEXP dbnameSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    Rcpp::traits::input_parameter< std::string >::type dbname(dbnameSEXP);
+    switch_database(conn, dbname);
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_connect", (DL_FUNC) &_ROmniSci_connect, 5},
@@ -179,6 +190,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_get_databases", (DL_FUNC) &_ROmniSci_get_databases, 1},
     {"_ROmniSci_get_hardware_info", (DL_FUNC) &_ROmniSci_get_hardware_info, 1},
     {"_ROmniSci_get_tables_meta", (DL_FUNC) &_ROmniSci_get_tables_meta, 1},
+    {"_ROmniSci_switch_database", (DL_FUNC) &_ROmniSci_switch_database, 2},
     {NULL, NULL, 0}
 };
 

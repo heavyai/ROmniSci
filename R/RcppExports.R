@@ -297,3 +297,25 @@ get_tables_meta <- function(conn) {
     .Call('_ROmniSci_get_tables_meta', PACKAGE = 'ROmniSci', conn)
 }
 
+#' @title Switch current database
+#' 
+#' @param conn conn
+#' @param dbname dbname
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return Nothing
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' switch_database(conn)
+#' 
+#' } 
+switch_database <- function(conn, dbname) {
+    invisible(.Call('_ROmniSci_switch_database', PACKAGE = 'ROmniSci', conn, dbname))
+}
+
