@@ -6,6 +6,7 @@ namespace Rcpp {
   // template <> SEXP wrap(const TPartitionDetail& tpd);
   // template <> SEXP wrap(const TDatumType& tdt);
   // template <> SEXP wrap(const TEncodingType& tet);
+  //template <> SEXP wrap(const TDatumType& x);
   
   //structs
   template <> SEXP wrap(const TTypeInfo& x);
@@ -17,5 +18,6 @@ namespace Rcpp {
   template <> SEXP wrap(const TClusterHardwareInfo& x);
   template <> SEXP wrap(const THardwareInfo& x);
   template <> SEXP wrap(const TGpuSpecification& x);
+  template <> SEXP wrap(const TTableMeta& x);
 
 }

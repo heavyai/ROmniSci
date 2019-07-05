@@ -5,8 +5,12 @@ namespace Rcpp {
 
     //TODO: define enums to return strings, remove static casts below?
     // template <> SEXP wrap(const TPartitionDetail& tpd);
-    // template <> SEXP wrap(const TDatumType& tdt);
     // template <> SEXP wrap(const TEncodingType& tet);
+    // template <> SEXP wrap(const TDatumType& x){
+    //   
+    //   return List::create(_["TODO"] = 1);
+    //   
+    // };
 
     template <> SEXP wrap(const TTypeInfo& x){
 
@@ -106,6 +110,25 @@ namespace Rcpp {
                           _["compute_capability_minor"] = x.compute_capability_minor
                          );
       
+    };
+    
+    template <> SEXP wrap(const TTableMeta& x){
+      
+      std::vector<int> dtypes;
+      for(auto i: x.col_datum_types){
+        dtypes.push_back(i);
+      }
+      
+      return List::create(_["table_name"] = x.table_name,
+                          _["num_cols"] = x.num_cols,
+                          _["col_datum_types"] = dtypes, //enum
+                          _["is_view"] = x.is_view,
+                          _["is_replicated"] = x.is_replicated,
+                          _["shard_count"] = x.shard_count,
+                          _["max_rows"] = x.max_rows,
+                          _["table_id"] = x.table_id,
+                          _["max_table_id"] = x.max_table_id
+                         );
     };
     
 } //end namespace

@@ -435,3 +435,34 @@ List get_hardware_info(List conn){
   return(Rcpp::wrap(info));
   
 }
+
+//' @title Get metadata of tables in current database
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(TTableMeta)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gtm <- get_tables_meta(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+List get_tables_meta(List conn){
+  
+  std::vector<TTableMeta> info;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_tables_meta(info, sessionid);
+  
+  return(Rcpp::wrap(info));
+  
+}

@@ -276,3 +276,24 @@ get_hardware_info <- function(conn) {
     .Call('_ROmniSci_get_hardware_info', PACKAGE = 'ROmniSci', conn)
 }
 
+#' @title Get metadata of tables in current database
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(TTableMeta)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gtm <- get_tables_meta(conn)
+#' 
+#' } 
+get_tables_meta <- function(conn) {
+    .Call('_ROmniSci_get_tables_meta', PACKAGE = 'ROmniSci', conn)
+}
+
