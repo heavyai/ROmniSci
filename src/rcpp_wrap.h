@@ -1,5 +1,4 @@
-#include "MapD.h" // TODO: will this cause problems being included twice? here, and where
-                  // included in current rcpp_main_code.cpp?
+#include "MapD.h" 
 
 namespace Rcpp {
 
@@ -15,5 +14,8 @@ namespace Rcpp {
   template <> SEXP wrap(const TServerStatus& x);
   template <> SEXP wrap(const TSessionInfo& x);
   template <> SEXP wrap(const TDBInfo& x);
+  template <> SEXP wrap(const TClusterHardwareInfo& x);
+  template <> SEXP wrap(const THardwareInfo& x);
+  template <> SEXP wrap(const TGpuSpecification& x);
 
 }

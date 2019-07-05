@@ -404,3 +404,34 @@ List get_databases(List conn){
   return(Rcpp::wrap(info));
   
 }
+
+//' @title Get hardware info
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(TClusterHardwareInfo)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' ghi <- get_hardware_info(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+List get_hardware_info(List conn){
+  
+  TClusterHardwareInfo info;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_hardware_info(info, sessionid);
+  
+  return(Rcpp::wrap(info));
+  
+}

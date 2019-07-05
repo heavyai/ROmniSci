@@ -141,6 +141,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// get_hardware_info
+List get_hardware_info(List conn);
+RcppExport SEXP _ROmniSci_get_hardware_info(SEXP connSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_hardware_info(conn));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_connect", (DL_FUNC) &_ROmniSci_connect, 5},
@@ -155,6 +166,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_get_views", (DL_FUNC) &_ROmniSci_get_views, 1},
     {"_ROmniSci_get_session_info", (DL_FUNC) &_ROmniSci_get_session_info, 1},
     {"_ROmniSci_get_databases", (DL_FUNC) &_ROmniSci_get_databases, 1},
+    {"_ROmniSci_get_hardware_info", (DL_FUNC) &_ROmniSci_get_hardware_info, 1},
     {NULL, NULL, 0}
 };
 

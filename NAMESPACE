@@ -3,6 +3,7 @@
 export(connect)
 export(disconnect)
 export(get_databases)
+export(get_hardware_info)
 export(get_physical_tables)
 export(get_server_status)
 export(get_session_info)

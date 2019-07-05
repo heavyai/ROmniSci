@@ -255,3 +255,24 @@ get_databases <- function(conn) {
     .Call('_ROmniSci_get_databases', PACKAGE = 'ROmniSci', conn)
 }
 
+#' @title Get hardware info
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(TClusterHardwareInfo)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' ghi <- get_hardware_info(conn)
+#' 
+#' } 
+get_hardware_info <- function(conn) {
+    .Call('_ROmniSci_get_hardware_info', PACKAGE = 'ROmniSci', conn)
+}
+

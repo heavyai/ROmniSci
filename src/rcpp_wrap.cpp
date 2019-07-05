@@ -79,5 +79,33 @@ namespace Rcpp {
                           _["db_owner"] = x.db_owner);
       
     };
+
+    template <> SEXP wrap(const TClusterHardwareInfo& x){
+      
+      return List::create(_["hardware_info"] = Rcpp::wrap(x.hardware_info));
+      
+    };
+    
+    template <> SEXP wrap(const THardwareInfo& x){
+      
+      return List::create(_["num_gpu_hw"] = x.num_gpu_hw,
+                          _["num_cpu_hw"] = x.num_cpu_hw,
+                          _["num_gpu_allocated"] = x.num_gpu_allocated,
+                          _["start_gpu"] = x.start_gpu,
+                          _["host_name"] = x.host_name,
+                          _["gpu_info"] = Rcpp::wrap(x.gpu_info));
+      
+    };
+    
+    template <> SEXP wrap(const TGpuSpecification& x){
+      
+      return List::create(_["num_sm"] = x.num_sm,
+                          _["clock_frequency_kHz"] = x.clock_frequency_kHz,
+                          _["memory"] = x.memory,
+                          _["compute_capability_major"] = x.compute_capability_major,
+                          _["compute_capability_minor"] = x.compute_capability_minor
+                         );
+      
+    };
     
 } //end namespace
