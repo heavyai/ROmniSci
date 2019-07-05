@@ -5,69 +5,135 @@ namespace Rcpp {
 
     //TODO: define enums to return strings, remove static casts below?
     // template <> SEXP wrap(const TPartitionDetail& tpd);
-    // template <> SEXP wrap(const TDatumType& tdt);
     // template <> SEXP wrap(const TEncodingType& tet);
+    // template <> SEXP wrap(const TDatumType& x){
+    //   
+    //   TDatumType y{x};
+    //   
+    //   switch(static_cast<int>(y))
+    //   
+    //   return List::create(_["TODO"] = 1);
+    // 
+    // };
 
-    template <> SEXP wrap(const TTypeInfo& tti){
+    //structs
+    template <> SEXP wrap(const TTypeInfo& x){
 
-      return List::create(_["type"] = static_cast<int>(tti.type),  //enum
-                          _["encoding"] = static_cast<int>(tti.encoding), //enum
-                          _["nullable"] = tti.nullable,
-                          _["is_array"] = tti.is_array,
-                          _["precision"] = tti.precision,
-                          _["scale"] = tti.scale,
-                          _["comp_param"] = tti.comp_param,
-                          _["size"] = tti.size
+      return List::create(_["type"] = static_cast<int>(x.type),  //enum
+                          _["encoding"] = static_cast<int>(x.encoding), //enum
+                          _["nullable"] = x.nullable,
+                          _["is_array"] = x.is_array,
+                          _["precision"] = x.precision,
+                          _["scale"] = x.scale,
+                          _["comp_param"] = x.comp_param,
+                          _["size"] = x.size
       );
 
     };
 
-    template <> SEXP wrap(const TColumnType& tct){
+    template <> SEXP wrap(const TColumnType& x){
 
-      return List::create(_["col_name"] = tct.col_name,
-                          _["col_type"] = tct.col_type,
-                          _["is_reserved_keyword"] = tct.is_reserved_keyword,
-                          _["src_name"] = tct.src_name,
-                          _["is_system"] = tct.is_system,
-                          _["is_physical"] = tct.is_physical,
-                          _["col_id"] = tct.col_id
+      return List::create(_["col_name"] = x.col_name,
+                          _["col_type"] = x.col_type,
+                          _["is_reserved_keyword"] = x.is_reserved_keyword,
+                          _["src_name"] = x.src_name,
+                          _["is_system"] = x.is_system,
+                          _["is_physical"] = x.is_physical,
+                          _["col_id"] = x.col_id
       );
 
     };
 
-    template <> SEXP wrap(const TTableDetails& ttd){
+    template <> SEXP wrap(const TTableDetails& x){
 
-      //parse ttd.row_desc to SEXP using wrap defined above
-      std::vector<SEXP> outvec;
-      for(TColumnType x: ttd.row_desc) {
-        outvec.push_back(Rcpp::wrap(x));
+      return List::create(_["fragment_size"] = x.fragment_size,
+                          _["page_size"] = static_cast<int>(x.page_size),
+                          _["max_rows"] = x.max_rows,
+                          _["view_sql"] = x.view_sql,
+                          _["shard_count"] = static_cast<int>(x.shard_count),
+                          _["key_metainfo"] = x.key_metainfo,
+                          _["is_temporary"] = x.is_temporary,
+                          _["partition_detail"] = static_cast<int>(x.partition_detail), //enum
+                          _["row_desc"] = Rcpp::wrap(x.row_desc)
+      );
+
+    };
+
+    template <> SEXP wrap(const TServerStatus& x){
+
+      return List::create(_["read_only"] = x.read_only,
+                          _["version"] = x.version,
+                          _["rendering_enabled"] = x.rendering_enabled,
+                          _["start_time"] = static_cast<Datetime>(x.start_time),
+                          _["edition"] = x.edition,
+                          _["host_name"] = x.host_name,
+                          _["poly_rendering_enabled"] = x.poly_rendering_enabled,
+                          _["role"] = static_cast<int>(x.role) //enum    
+      );
+
+    };
+    
+    template <> SEXP wrap(const TSessionInfo& x){
+      
+      return List::create(_["user"] = x.user,
+                          _["database"] = x.database,
+                          _["start_time"] = x.start_time
+      );
+      
+    };
+    
+    template <> SEXP wrap(const TDBInfo& x){
+      
+      return List::create(_["db_name"] = x.db_name,
+                          _["db_owner"] = x.db_owner);
+      
+    };
+
+    template <> SEXP wrap(const TClusterHardwareInfo& x){
+      
+      return List::create(_["hardware_info"] = Rcpp::wrap(x.hardware_info));
+      
+    };
+    
+    template <> SEXP wrap(const THardwareInfo& x){
+      
+      return List::create(_["num_gpu_hw"] = x.num_gpu_hw,
+                          _["num_cpu_hw"] = x.num_cpu_hw,
+                          _["num_gpu_allocated"] = x.num_gpu_allocated,
+                          _["start_gpu"] = x.start_gpu,
+                          _["host_name"] = x.host_name,
+                          _["gpu_info"] = Rcpp::wrap(x.gpu_info));
+      
+    };
+    
+    template <> SEXP wrap(const TGpuSpecification& x){
+      
+      return List::create(_["num_sm"] = x.num_sm,
+                          _["clock_frequency_kHz"] = x.clock_frequency_kHz,
+                          _["memory"] = x.memory,
+                          _["compute_capability_major"] = x.compute_capability_major,
+                          _["compute_capability_minor"] = x.compute_capability_minor
+                         );
+      
+    };
+    
+    template <> SEXP wrap(const TTableMeta& x){
+      
+      std::vector<int> dtypes;
+      for(auto i: x.col_datum_types){
+        dtypes.push_back(i);
       }
-
-      return List::create(_["fragment_size"] = ttd.fragment_size,
-                          _["page_size"] = static_cast<int>(ttd.page_size),
-                          _["max_rows"] = ttd.max_rows,
-                          _["view_sql"] = ttd.view_sql,
-                          _["shard_count"] = static_cast<int>(ttd.shard_count),
-                          _["key_metainfo"] = ttd.key_metainfo,
-                          _["is_temporary"] = ttd.is_temporary,
-                          _["partition_detail"] = static_cast<int>(ttd.partition_detail), //enum
-                          _["row_desc"] = outvec
-      );
-
+      
+      return List::create(_["table_name"] = x.table_name,
+                          _["num_cols"] = x.num_cols,
+                          _["col_datum_types"] = dtypes, //enum
+                          _["is_view"] = x.is_view,
+                          _["is_replicated"] = x.is_replicated,
+                          _["shard_count"] = x.shard_count,
+                          _["max_rows"] = x.max_rows,
+                          _["table_id"] = x.table_id,
+                          _["max_table_id"] = x.max_table_id
+                         );
     };
-
-    template <> SEXP wrap(const TServerStatus& tss){
-
-      return List::create(_["read_only"] = tss.read_only,
-                          _["version"] = tss.version,
-                          _["rendering_enabled"] = tss.rendering_enabled,
-                          _["start_time"] = static_cast<Datetime>(tss.start_time),
-                          _["edition"] = tss.edition,
-                          _["host_name"] = tss.host_name,
-                          _["poly_rendering_enabled"] = tss.poly_rendering_enabled,
-                          _["role"] = static_cast<int>(tss.role) //enum    
-      );
-
-    };
-
+    
 } //end namespace

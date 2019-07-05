@@ -213,3 +213,109 @@ get_views <- function(conn) {
     .Call('_ROmniSci_get_views', PACKAGE = 'ROmniSci', conn)
 }
 
+#' @title Get session information
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(TSessionInfo)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gsi <- get_session_info(conn)
+#' 
+#' } 
+get_session_info <- function(conn) {
+    .Call('_ROmniSci_get_session_info', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Get databases list
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(TDBInfo)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gdb <- get_databases(conn)
+#' 
+#' } 
+get_databases <- function(conn) {
+    .Call('_ROmniSci_get_databases', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Get hardware info
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(TClusterHardwareInfo)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' ghi <- get_hardware_info(conn)
+#' 
+#' } 
+get_hardware_info <- function(conn) {
+    .Call('_ROmniSci_get_hardware_info', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Get metadata of tables in current database
+#' 
+#' @param conn conn
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(TTableMeta)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' gtm <- get_tables_meta(conn)
+#' 
+#' } 
+get_tables_meta <- function(conn) {
+    .Call('_ROmniSci_get_tables_meta', PACKAGE = 'ROmniSci', conn)
+}
+
+#' @title Switch current database
+#' 
+#' @param conn conn
+#' @param dbname dbname
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return Nothing
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' switch_database(conn)
+#' 
+#' } 
+switch_database <- function(conn, dbname) {
+    invisible(.Call('_ROmniSci_switch_database', PACKAGE = 'ROmniSci', conn, dbname))
+}
+

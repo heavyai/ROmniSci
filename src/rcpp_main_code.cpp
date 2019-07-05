@@ -123,7 +123,6 @@ List get_table_details(List conn, std::string table_name) {
   return(Rcpp::wrap(table_details));
 }
 
-
 //' @title Get status of OmniSci server
 //' 
 //' @param conn conn
@@ -341,5 +340,157 @@ CharacterVector get_views(List conn){
   client->get_views(views, sessionid);
   
   return(Rcpp::wrap(views));
+  
+}
+
+//' @title Get session information
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(TSessionInfo)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gsi <- get_session_info(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+List get_session_info(List conn){
+  
+  TSessionInfo info;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_session_info(info, sessionid);
+  
+  return(Rcpp::wrap(info));
+  
+}
+
+//' @title Get databases list
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(TDBInfo)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gdb <- get_databases(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+List get_databases(List conn){
+  
+  std::vector<TDBInfo> info;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_databases(info, sessionid);
+  
+  return(Rcpp::wrap(info));
+  
+}
+
+//' @title Get hardware info
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(TClusterHardwareInfo)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' ghi <- get_hardware_info(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+List get_hardware_info(List conn){
+  
+  TClusterHardwareInfo info;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_hardware_info(info, sessionid);
+  
+  return(Rcpp::wrap(info));
+  
+}
+
+//' @title Get metadata of tables in current database
+//' 
+//' @param conn conn
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(TTableMeta)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' gtm <- get_tables_meta(conn)
+//' 
+//' } 
+// [[Rcpp::export]]
+List get_tables_meta(List conn){
+  
+  std::vector<TTableMeta> info;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->get_tables_meta(info, sessionid);
+  
+  return(Rcpp::wrap(info));
+  
+}
+
+//' @title Switch current database
+//' 
+//' @param conn conn
+//' @param dbname dbname
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return Nothing
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' switch_database(conn)
+//' 
+//' } 
+// [[Rcpp::export]] 
+void switch_database(List conn, std::string dbname){
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  client->switch_database(sessionid, dbname);
   
 }
