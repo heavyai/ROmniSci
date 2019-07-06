@@ -300,7 +300,6 @@ get_tables_meta <- function(conn) {
 #' @title Switch current database
 #' 
 #' @param conn conn
-#' @param dbname dbname
 #' 
 #' @details TBD Details
 #' 
@@ -317,5 +316,29 @@ get_tables_meta <- function(conn) {
 #' } 
 switch_database <- function(conn, dbname) {
     invisible(.Call('_ROmniSci_switch_database', PACKAGE = 'ROmniSci', conn, dbname))
+}
+
+#' @title Execute SQL statement
+#' 
+#' @param conn conn
+#' @param query query
+#' @param first_n first_n
+#' @param at_most_n at_most_n
+#' 
+#' @details TBD Details
+#' 
+#' @description TBD description
+#' 
+#' @return List(TQueryResult)
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' 
+#' result <- sql_execute(conn, "select * from omnisci_states")
+#' 
+#' } 
+sql_execute <- function(conn, query, first_n = -1L, at_most_n = -1L) {
+    .Call('_ROmniSci_sql_execute', PACKAGE = 'ROmniSci', conn, query, first_n, at_most_n)
 }
 

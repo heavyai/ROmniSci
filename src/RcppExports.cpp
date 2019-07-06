@@ -174,6 +174,20 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// sql_execute
+List sql_execute(List conn, std::string query, int first_n, int at_most_n);
+RcppExport SEXP _ROmniSci_sql_execute(SEXP connSEXP, SEXP querySEXP, SEXP first_nSEXP, SEXP at_most_nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type conn(connSEXP);
+    Rcpp::traits::input_parameter< std::string >::type query(querySEXP);
+    Rcpp::traits::input_parameter< int >::type first_n(first_nSEXP);
+    Rcpp::traits::input_parameter< int >::type at_most_n(at_most_nSEXP);
+    rcpp_result_gen = Rcpp::wrap(sql_execute(conn, query, first_n, at_most_n));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_connect", (DL_FUNC) &_ROmniSci_connect, 5},
@@ -191,6 +205,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ROmniSci_get_hardware_info", (DL_FUNC) &_ROmniSci_get_hardware_info, 1},
     {"_ROmniSci_get_tables_meta", (DL_FUNC) &_ROmniSci_get_tables_meta, 1},
     {"_ROmniSci_switch_database", (DL_FUNC) &_ROmniSci_switch_database, 2},
+    {"_ROmniSci_sql_execute", (DL_FUNC) &_ROmniSci_sql_execute, 4},
     {NULL, NULL, 0}
 };
 
