@@ -300,6 +300,7 @@ get_tables_meta <- function(conn) {
 #' @title Switch current database
 #' 
 #' @param conn conn
+#' @param dbname dbname
 #' 
 #' @details TBD Details
 #' 

@@ -8,6 +8,8 @@ switch_database(conn, dbname)
 }
 \arguments{
 \item{conn}{conn}
+
+\item{dbname}{dbname}
 }
 \value{
 Nothing

@@ -471,6 +471,7 @@ List get_tables_meta(List conn){
 //' @title Switch current database
 //' 
 //' @param conn conn
+//' @param dbname dbname
 //' 
 //' @details TBD Details
 //' 
