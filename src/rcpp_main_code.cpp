@@ -1,6 +1,5 @@
 #include <RcppCommon.h> // has to be before forward declarations
 #include <iostream>
-#include <random>
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/transport/TSocket.h>
 #include <thrift/transport/TTransportUtils.h>
