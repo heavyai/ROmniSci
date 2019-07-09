@@ -54,7 +54,7 @@ namespace Rcpp {
                           _["key_metainfo"] = x.key_metainfo,
                           _["is_temporary"] = x.is_temporary,
                           _["partition_detail"] = static_cast<int>(x.partition_detail), //enum
-                          _["row_desc"] = Rcpp::wrap(x.row_desc)
+                          _["row_desc"] = x.row_desc
       );
 
     };
@@ -91,7 +91,7 @@ namespace Rcpp {
 
     template <> SEXP wrap(const TClusterHardwareInfo& x){
       
-      return List::create(_["hardware_info"] = Rcpp::wrap(x.hardware_info));
+      return List::create(_["hardware_info"] = x.hardware_info);
       
     };
     
@@ -102,7 +102,8 @@ namespace Rcpp {
                           _["num_gpu_allocated"] = x.num_gpu_allocated,
                           _["start_gpu"] = x.start_gpu,
                           _["host_name"] = x.host_name,
-                          _["gpu_info"] = Rcpp::wrap(x.gpu_info));
+                          _["gpu_info"] = x.gpu_info
+                          );
       
     };
     
@@ -134,6 +135,65 @@ namespace Rcpp {
                           _["table_id"] = x.table_id,
                           _["max_table_id"] = x.max_table_id
                          );
+    };
+    
+    template <> SEXP wrap(const TDatumVal& x){
+
+      return List::create(_["int_val"] = x.int_val,
+                          _["real_val"] = x.real_val,
+                          _["str_val"] = x.str_val,
+                          _["arr_val"] = x.arr_val
+                          );
+    };
+
+    template <> SEXP wrap(const TDatum& x){
+
+      return List::create(_["val"] = x.val,
+                          _["is_null"] = x.is_null
+                          );
+      
+    };
+    
+    template <> SEXP wrap(const TRow& x){
+      
+      return List::create(_["cols"] = x.cols);
+      
+    };
+    
+    template <> SEXP wrap(const TColumnData& x){
+
+      return List::create(_["int_col"] = x.int_col,
+                          _["real_col"] = x.real_col,
+                          _["str_col"] = x.str_col,
+                          _["arr_col"] = x.arr_col
+                          );
+      
+    };
+    
+    template <> SEXP wrap(const TColumn& x){
+
+      return List::create(_["data"] = x.data,
+                          _["nulls"] = x.nulls);
+      
+    };
+    
+    template <> SEXP wrap(const TRowSet& x){
+      
+      return List::create(_["row_desc"] = x.row_desc,
+                          _["rows"] = x.rows,
+                          _["columns"] = x.columns,
+                          _["is_columnar"] = x.is_columnar
+                          );
+      
+    };
+    
+    template <> SEXP wrap(const TQueryResult& x){
+      
+      return List::create(_["row_set"] = x.row_set,
+                          _["execution_time_ms"] = x.execution_time_ms,
+                          _["total_time_ms"] = x.total_time_ms,
+                          _["nonce"] = x.nonce
+                          );
     };
     
 } //end namespace

@@ -494,3 +494,41 @@ void switch_database(List conn, std::string dbname){
   client->switch_database(sessionid, dbname);
   
 }
+
+//' @title Execute SQL statement
+//' 
+//' @param conn conn
+//' @param query query
+//' @param first_n first_n
+//' @param at_most_n at_most_n
+//' 
+//' @details TBD Details
+//' 
+//' @description TBD description
+//' 
+//' @return List(TQueryResult)
+//' 
+//' @export
+//' @examples
+//' \dontrun{
+//' 
+//' result <- sql_execute(conn, "select * from omnisci_states")
+//' 
+//' } 
+// [[Rcpp::export]] 
+List sql_execute(List conn, std::string query, int first_n = -1, int at_most_n = -1){
+  
+  TQueryResult result;
+  
+  XPtr<MapDClient> client = conn["client"];
+  std::string sessionid = conn["sessionid"];
+  
+  //nonce: not concerned about cryptographic security, argument necessity unclear
+  std::string nonce = "test";
+  
+  //setting column format to true, not making a user option
+  client->sql_execute(result, sessionid, query, true, nonce, first_n, at_most_n);
+  
+  return List::create(Rcpp::wrap(result));
+  
+}

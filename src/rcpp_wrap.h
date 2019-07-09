@@ -19,5 +19,12 @@ namespace Rcpp {
   template <> SEXP wrap(const THardwareInfo& x);
   template <> SEXP wrap(const TGpuSpecification& x);
   template <> SEXP wrap(const TTableMeta& x);
-
+  
+  template <> SEXP wrap(const TDatumVal& x);
+  template <> SEXP wrap(const TDatum& x);
+  template <> SEXP wrap(const TRow& x);
+  template <> SEXP wrap(const TColumnData& x);
+  template <> SEXP wrap(const TColumn& x);
+  template <> SEXP wrap(const TRowSet& x);
+  template <> SEXP wrap(const TQueryResult& x);
 }
