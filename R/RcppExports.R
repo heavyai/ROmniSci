@@ -312,7 +312,7 @@ get_tables_meta <- function(conn) {
 #' @examples
 #' \dontrun{
 #' 
-#' switch_database(conn)
+#' switch_database(conn, "database2")
 #' 
 #' } 
 switch_database <- function(conn, dbname) {
