@@ -100,6 +100,8 @@ class MapDIf {
   virtual bool has_object_privilege(const TSessionId& session, const std::string& granteeName, const std::string& ObjectName, const TDBObjectType::type objectType, const TDBObjectPermissions& permissions) = 0;
   virtual void set_license_key(TLicenseInfo& _return, const TSessionId& session, const std::string& key, const std::string& nonce) = 0;
   virtual void get_license_claims(TLicenseInfo& _return, const TSessionId& session, const std::string& nonce) = 0;
+  virtual void get_device_parameters(std::map<std::string, std::string> & _return) = 0;
+  virtual void register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map) = 0;
 };
 
 class MapDIfFactory {
@@ -368,6 +370,12 @@ class MapDNull : virtual public MapDIf {
     return;
   }
   void get_license_claims(TLicenseInfo& /* _return */, const TSessionId& /* session */, const std::string& /* nonce */) {
+    return;
+  }
+  void get_device_parameters(std::map<std::string, std::string> & /* _return */) {
+    return;
+  }
+  void register_runtime_udf(const TSessionId& /* session */, const std::string& /* signatures */, const std::map<std::string, std::string> & /* device_ir_map */) {
     return;
   }
 };
@@ -9874,6 +9882,224 @@ class MapD_get_license_claims_presult {
 
 };
 
+
+class MapD_get_device_parameters_args {
+ public:
+
+  MapD_get_device_parameters_args(const MapD_get_device_parameters_args&);
+  MapD_get_device_parameters_args& operator=(const MapD_get_device_parameters_args&);
+  MapD_get_device_parameters_args() {
+  }
+
+  virtual ~MapD_get_device_parameters_args() throw();
+
+  bool operator == (const MapD_get_device_parameters_args & /* rhs */) const
+  {
+    return true;
+  }
+  bool operator != (const MapD_get_device_parameters_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const MapD_get_device_parameters_args & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+
+class MapD_get_device_parameters_pargs {
+ public:
+
+
+  virtual ~MapD_get_device_parameters_pargs() throw();
+
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _MapD_get_device_parameters_result__isset {
+  _MapD_get_device_parameters_result__isset() : success(false), e(false) {}
+  bool success :1;
+  bool e :1;
+} _MapD_get_device_parameters_result__isset;
+
+class MapD_get_device_parameters_result {
+ public:
+
+  MapD_get_device_parameters_result(const MapD_get_device_parameters_result&);
+  MapD_get_device_parameters_result& operator=(const MapD_get_device_parameters_result&);
+  MapD_get_device_parameters_result() {
+  }
+
+  virtual ~MapD_get_device_parameters_result() throw();
+  std::map<std::string, std::string>  success;
+  TMapDException e;
+
+  _MapD_get_device_parameters_result__isset __isset;
+
+  void __set_success(const std::map<std::string, std::string> & val);
+
+  void __set_e(const TMapDException& val);
+
+  bool operator == (const MapD_get_device_parameters_result & rhs) const
+  {
+    if (!(success == rhs.success))
+      return false;
+    if (!(e == rhs.e))
+      return false;
+    return true;
+  }
+  bool operator != (const MapD_get_device_parameters_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const MapD_get_device_parameters_result & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _MapD_get_device_parameters_presult__isset {
+  _MapD_get_device_parameters_presult__isset() : success(false), e(false) {}
+  bool success :1;
+  bool e :1;
+} _MapD_get_device_parameters_presult__isset;
+
+class MapD_get_device_parameters_presult {
+ public:
+
+
+  virtual ~MapD_get_device_parameters_presult() throw();
+  std::map<std::string, std::string> * success;
+  TMapDException e;
+
+  _MapD_get_device_parameters_presult__isset __isset;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+
+};
+
+typedef struct _MapD_register_runtime_udf_args__isset {
+  _MapD_register_runtime_udf_args__isset() : session(false), signatures(false), device_ir_map(false) {}
+  bool session :1;
+  bool signatures :1;
+  bool device_ir_map :1;
+} _MapD_register_runtime_udf_args__isset;
+
+class MapD_register_runtime_udf_args {
+ public:
+
+  MapD_register_runtime_udf_args(const MapD_register_runtime_udf_args&);
+  MapD_register_runtime_udf_args& operator=(const MapD_register_runtime_udf_args&);
+  MapD_register_runtime_udf_args() : session(), signatures() {
+  }
+
+  virtual ~MapD_register_runtime_udf_args() throw();
+  TSessionId session;
+  std::string signatures;
+  std::map<std::string, std::string>  device_ir_map;
+
+  _MapD_register_runtime_udf_args__isset __isset;
+
+  void __set_session(const TSessionId& val);
+
+  void __set_signatures(const std::string& val);
+
+  void __set_device_ir_map(const std::map<std::string, std::string> & val);
+
+  bool operator == (const MapD_register_runtime_udf_args & rhs) const
+  {
+    if (!(session == rhs.session))
+      return false;
+    if (!(signatures == rhs.signatures))
+      return false;
+    if (!(device_ir_map == rhs.device_ir_map))
+      return false;
+    return true;
+  }
+  bool operator != (const MapD_register_runtime_udf_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const MapD_register_runtime_udf_args & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+
+class MapD_register_runtime_udf_pargs {
+ public:
+
+
+  virtual ~MapD_register_runtime_udf_pargs() throw();
+  const TSessionId* session;
+  const std::string* signatures;
+  const std::map<std::string, std::string> * device_ir_map;
+
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _MapD_register_runtime_udf_result__isset {
+  _MapD_register_runtime_udf_result__isset() : e(false) {}
+  bool e :1;
+} _MapD_register_runtime_udf_result__isset;
+
+class MapD_register_runtime_udf_result {
+ public:
+
+  MapD_register_runtime_udf_result(const MapD_register_runtime_udf_result&);
+  MapD_register_runtime_udf_result& operator=(const MapD_register_runtime_udf_result&);
+  MapD_register_runtime_udf_result() {
+  }
+
+  virtual ~MapD_register_runtime_udf_result() throw();
+  TMapDException e;
+
+  _MapD_register_runtime_udf_result__isset __isset;
+
+  void __set_e(const TMapDException& val);
+
+  bool operator == (const MapD_register_runtime_udf_result & rhs) const
+  {
+    if (!(e == rhs.e))
+      return false;
+    return true;
+  }
+  bool operator != (const MapD_register_runtime_udf_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const MapD_register_runtime_udf_result & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _MapD_register_runtime_udf_presult__isset {
+  _MapD_register_runtime_udf_presult__isset() : e(false) {}
+  bool e :1;
+} _MapD_register_runtime_udf_presult__isset;
+
+class MapD_register_runtime_udf_presult {
+ public:
+
+
+  virtual ~MapD_register_runtime_udf_presult() throw();
+  TMapDException e;
+
+  _MapD_register_runtime_udf_presult__isset __isset;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+
+};
+
 class MapDClient : virtual public MapDIf {
  public:
   MapDClient(apache::thrift::stdcxx::shared_ptr< ::apache::thrift::protocol::TProtocol> prot) {
@@ -10136,6 +10362,12 @@ class MapDClient : virtual public MapDIf {
   void get_license_claims(TLicenseInfo& _return, const TSessionId& session, const std::string& nonce);
   void send_get_license_claims(const TSessionId& session, const std::string& nonce);
   void recv_get_license_claims(TLicenseInfo& _return);
+  void get_device_parameters(std::map<std::string, std::string> & _return);
+  void send_get_device_parameters();
+  void recv_get_device_parameters(std::map<std::string, std::string> & _return);
+  void register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map);
+  void send_register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map);
+  void recv_register_runtime_udf();
  protected:
   apache::thrift::stdcxx::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
   apache::thrift::stdcxx::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot_;
@@ -10230,6 +10462,8 @@ class MapDProcessor : public ::apache::thrift::TDispatchProcessor {
   void process_has_object_privilege(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_set_license_key(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_get_license_claims(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
+  void process_get_device_parameters(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
+  void process_register_runtime_udf(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
  public:
   MapDProcessor(::apache::thrift::stdcxx::shared_ptr<MapDIf> iface) :
     iface_(iface) {
@@ -10312,6 +10546,8 @@ class MapDProcessor : public ::apache::thrift::TDispatchProcessor {
     processMap_["has_object_privilege"] = &MapDProcessor::process_has_object_privilege;
     processMap_["set_license_key"] = &MapDProcessor::process_set_license_key;
     processMap_["get_license_claims"] = &MapDProcessor::process_get_license_claims;
+    processMap_["get_device_parameters"] = &MapDProcessor::process_get_device_parameters;
+    processMap_["register_runtime_udf"] = &MapDProcessor::process_register_runtime_udf;
   }
 
   virtual ~MapDProcessor() {}
@@ -11099,6 +11335,25 @@ class MapDMultiface : virtual public MapDIf {
     return;
   }
 
+  void get_device_parameters(std::map<std::string, std::string> & _return) {
+    size_t sz = ifaces_.size();
+    size_t i = 0;
+    for (; i < (sz - 1); ++i) {
+      ifaces_[i]->get_device_parameters(_return);
+    }
+    ifaces_[i]->get_device_parameters(_return);
+    return;
+  }
+
+  void register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map) {
+    size_t sz = ifaces_.size();
+    size_t i = 0;
+    for (; i < (sz - 1); ++i) {
+      ifaces_[i]->register_runtime_udf(session, signatures, device_ir_map);
+    }
+    ifaces_[i]->register_runtime_udf(session, signatures, device_ir_map);
+  }
+
 };
 
 // The 'concurrent' client is a thread safe client that correctly handles
@@ -11366,6 +11621,12 @@ class MapDConcurrentClient : virtual public MapDIf {
   void get_license_claims(TLicenseInfo& _return, const TSessionId& session, const std::string& nonce);
   int32_t send_get_license_claims(const TSessionId& session, const std::string& nonce);
   void recv_get_license_claims(TLicenseInfo& _return, const int32_t seqid);
+  void get_device_parameters(std::map<std::string, std::string> & _return);
+  int32_t send_get_device_parameters();
+  void recv_get_device_parameters(std::map<std::string, std::string> & _return, const int32_t seqid);
+  void register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map);
+  int32_t send_register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map);
+  void recv_register_runtime_udf(const int32_t seqid);
  protected:
   apache::thrift::stdcxx::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
   apache::thrift::stdcxx::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot_;

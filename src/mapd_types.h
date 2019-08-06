@@ -2108,16 +2108,17 @@ void swap(TNodeMemoryInfo &a, TNodeMemoryInfo &b);
 std::ostream& operator<<(std::ostream& out, const TNodeMemoryInfo& obj);
 
 typedef struct _TTableMeta__isset {
-  _TTableMeta__isset() : table_name(false), num_cols(false), col_datum_types(false), is_view(false), is_replicated(false), shard_count(false), max_rows(false), table_id(false), max_table_id(false) {}
+  _TTableMeta__isset() : table_name(false), num_cols(false), is_view(false), is_replicated(false), shard_count(false), max_rows(false), table_id(false), max_table_id(false), col_types(false), col_names(false) {}
   bool table_name :1;
   bool num_cols :1;
-  bool col_datum_types :1;
   bool is_view :1;
   bool is_replicated :1;
   bool shard_count :1;
   bool max_rows :1;
   bool table_id :1;
   bool max_table_id :1;
+  bool col_types :1;
+  bool col_names :1;
 } _TTableMeta__isset;
 
 class TTableMeta : public virtual ::apache::thrift::TBase {
@@ -2131,21 +2132,20 @@ class TTableMeta : public virtual ::apache::thrift::TBase {
   virtual ~TTableMeta() throw();
   std::string table_name;
   int64_t num_cols;
-  std::vector< ::TDatumType::type>  col_datum_types;
   bool is_view;
   bool is_replicated;
   int64_t shard_count;
   int64_t max_rows;
   int64_t table_id;
   int64_t max_table_id;
+  std::vector< ::TTypeInfo>  col_types;
+  std::vector<std::string>  col_names;
 
   _TTableMeta__isset __isset;
 
   void __set_table_name(const std::string& val);
 
   void __set_num_cols(const int64_t val);
-
-  void __set_col_datum_types(const std::vector< ::TDatumType::type> & val);
 
   void __set_is_view(const bool val);
 
@@ -2159,13 +2159,15 @@ class TTableMeta : public virtual ::apache::thrift::TBase {
 
   void __set_max_table_id(const int64_t val);
 
+  void __set_col_types(const std::vector< ::TTypeInfo> & val);
+
+  void __set_col_names(const std::vector<std::string> & val);
+
   bool operator == (const TTableMeta & rhs) const
   {
     if (!(table_name == rhs.table_name))
       return false;
     if (!(num_cols == rhs.num_cols))
-      return false;
-    if (!(col_datum_types == rhs.col_datum_types))
       return false;
     if (!(is_view == rhs.is_view))
       return false;
@@ -2178,6 +2180,10 @@ class TTableMeta : public virtual ::apache::thrift::TBase {
     if (!(table_id == rhs.table_id))
       return false;
     if (!(max_table_id == rhs.max_table_id))
+      return false;
+    if (!(col_types == rhs.col_types))
+      return false;
+    if (!(col_names == rhs.col_names))
       return false;
     return true;
   }
@@ -3566,10 +3572,11 @@ void swap(TLicenseInfo &a, TLicenseInfo &b);
 std::ostream& operator<<(std::ostream& out, const TLicenseInfo& obj);
 
 typedef struct _TSessionInfo__isset {
-  _TSessionInfo__isset() : user(false), database(false), start_time(false) {}
+  _TSessionInfo__isset() : user(false), database(false), start_time(false), is_super(false) {}
   bool user :1;
   bool database :1;
   bool start_time :1;
+  bool is_super :1;
 } _TSessionInfo__isset;
 
 class TSessionInfo : public virtual ::apache::thrift::TBase {
@@ -3577,13 +3584,14 @@ class TSessionInfo : public virtual ::apache::thrift::TBase {
 
   TSessionInfo(const TSessionInfo&);
   TSessionInfo& operator=(const TSessionInfo&);
-  TSessionInfo() : user(), database(), start_time(0) {
+  TSessionInfo() : user(), database(), start_time(0), is_super(0) {
   }
 
   virtual ~TSessionInfo() throw();
   std::string user;
   std::string database;
   int64_t start_time;
+  bool is_super;
 
   _TSessionInfo__isset __isset;
 
@@ -3593,6 +3601,8 @@ class TSessionInfo : public virtual ::apache::thrift::TBase {
 
   void __set_start_time(const int64_t val);
 
+  void __set_is_super(const bool val);
+
   bool operator == (const TSessionInfo & rhs) const
   {
     if (!(user == rhs.user))
@@ -3600,6 +3610,8 @@ class TSessionInfo : public virtual ::apache::thrift::TBase {
     if (!(database == rhs.database))
       return false;
     if (!(start_time == rhs.start_time))
+      return false;
+    if (!(is_super == rhs.is_super))
       return false;
     return true;
   }
