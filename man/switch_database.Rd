@@ -23,7 +23,7 @@ TBD Details
 \examples{
 \dontrun{
 
-switch_database(conn)
+switch_database(conn, "database2")
 
 } 
 }
