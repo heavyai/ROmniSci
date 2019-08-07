@@ -119,21 +119,22 @@ namespace Rcpp {
     };
     
     template <> SEXP wrap(const TTableMeta& x){
-      
-      std::vector<int> dtypes;
-      for(auto i: x.col_datum_types){
+
+      std::vector<TTypeInfo> dtypes;
+      for(auto i: x.col_types){
         dtypes.push_back(i);
       }
-      
+
       return List::create(_["table_name"] = x.table_name,
                           _["num_cols"] = x.num_cols,
-                          _["col_datum_types"] = dtypes, //enum
                           _["is_view"] = x.is_view,
                           _["is_replicated"] = x.is_replicated,
                           _["shard_count"] = x.shard_count,
                           _["max_rows"] = x.max_rows,
                           _["table_id"] = x.table_id,
-                          _["max_table_id"] = x.max_table_id
+                          _["max_table_id"] = x.max_table_id,
+                          _["col_types"] = dtypes,
+                          _["col_names"] = x.col_names
                          );
     };
     

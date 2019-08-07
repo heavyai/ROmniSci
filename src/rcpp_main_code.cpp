@@ -51,11 +51,8 @@ List connect(std::string host,
   //get session value from OmniSci
   client->connect(session, username, password, dbname);
   
-  //bundle up info as pointers, return to R in List
-  //Per Matt Pulver, is this scoped right or am I getting lucky?
-  TTransport* tt = transport.get();  //needs raw, not shared_ptr
-  XPtr<TTransport> ptt(tt, true);
-  
+  //bundle up info as XPtr, return to R in List
+  XPtr<TTransport> ptt(transport.get(), false); //needs to be false to avoid 'free(): invalid pointer'
   XPtr<MapDClient> pmdc(client, true);
   
   return List::create(_["transport"] = ptt,
@@ -482,7 +479,7 @@ List get_tables_meta(List conn){
 //' @examples
 //' \dontrun{
 //' 
-//' switch_database(conn)
+//' switch_database(conn, "database2")
 //' 
 //' } 
 // [[Rcpp::export]] 
