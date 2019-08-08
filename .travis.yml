@@ -1,10 +1,12 @@
 language: r
 warnings_are_errors: true
 sudo: required
+services:
+  - docker
 os: linux
 before_install:
   - docker pull omnisci/core-os-cpu:latest
-  - docker run -d --ipc=host -p 6278:6278 -p 6274:6274 --privileged --name=omnisci omnisci/core-os-cpu:latest
+  - docker run -d --ipc=host -p 127.0.0.1:6278:6278 -p 127.0.0.1:6274:6274 --name=omnisci omnisci/core-os-cpu:latest
   - docker ps -a
   - sudo apt install libboost-all-dev -qq
   - cd /home/travis/build
