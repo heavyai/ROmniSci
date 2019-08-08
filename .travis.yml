@@ -8,6 +8,7 @@ before_install:
   - docker run -d --ipc=host -p 6278:6278 -p 6274:6274 --name=omnisci omnisci/core-os-cpu:latest
   - docker ps -a
   - wget --continue http://apache.claz.org/thrift/0.11.0/thrift-0.11.0.tar.gz
+  - apt install libboost-all-dev
   - tar xvf thrift-0.11.0.tar.gz
   - cd thrift-0.11.0
   - CFLAGS="-fPIC" CXXFLAGS="-fPIC" ./configure
