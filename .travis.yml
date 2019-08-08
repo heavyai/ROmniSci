@@ -4,10 +4,6 @@ sudo: required
 services:
   - docker
 dist: xenial
-addons:
-  apt:
-    packages:
-      - docker-ce
 before_install:
   - sudo apt install libboost-all-dev -qq
   - cd /home/travis/build
@@ -18,7 +14,7 @@ before_install:
   - make -s
   - sudo make install -s
   - sudo ldconfig
-  - docker pull omnisci/core-os-cpu:latest
+  - docker pull omnisci/core-os-cpu:v4.8.0
   - docker run -d --ipc=host -p 6278:6278 -p 6274:6274 --name=omnisci omnisci/core-os-cpu:latest
   - sleep 30
   - docker ps -a
