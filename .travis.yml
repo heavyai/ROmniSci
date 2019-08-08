@@ -6,6 +6,9 @@ os:
 - osx
 cache: packages
 before_install:
+  - docker pull omnisci/core-os-cpu:latest
+  - docker run -d --ipc=host -p 6278:6278 -p 6274:6274 --name=omnisci omnisci/core-os-cpu:latest
+  - docker ps -a
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update          ; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install thrift; fi
 #  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update          ; fi
