@@ -5,17 +5,17 @@ services:
   - docker
 dist: xenial
 before_install:
-  - sudo apt install libboost-all-dev -qq
+  - sudo apt install libboost-all-dev -y
   - cd /home/travis/build
   - wget --continue http://apache.claz.org/thrift/0.11.0/thrift-0.11.0.tar.gz
   - tar xf thrift-0.11.0.tar.gz
   - cd thrift-0.11.0
   - CFLAGS="-fPIC" CXXFLAGS="-fPIC" ./configure --without-java --without-lua --without-python --without-php --without-ruby --without-qt4 --without-qt5 --without-erlang --without-go --without-nodejs --without-py3
-  - make -s
-  - sudo make install -s
+  - make
+  - sudo make install
   - sudo ldconfig
   - docker pull omnisci/core-os-cpu:v4.8.0
-  - docker run -d --ipc=host -p 6278:6278 -p 6274:6274 --name=omnisci omnisci/core-os-cpu:latest
+  - docker run -d -p 6278:6278 -p 6274:6274 --name=omnisci omnisci/core-os-cpu:latest
   - sleep 30
   - docker ps -a
   - docker exec -d omnisci bash -c "bin/omnisql --pass HyperInteractive"
