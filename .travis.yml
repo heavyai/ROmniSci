@@ -1,6 +1,8 @@
 language: r
 warnings_are_errors: true
-sudo: true
+sudo: required
+services:
+  - docker
 os: linux
 cache: packages
 before_install:
