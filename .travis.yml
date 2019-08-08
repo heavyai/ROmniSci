@@ -1,5 +1,11 @@
 language: r
 warnings_are_errors: true
 sudo: false
-dist: bionic
+#- os: linux
+- os: osx
 cache: packages
+before_install:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update          ; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install thrift; fi
+#  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update          ; fi
+#  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install graphviz; fi
