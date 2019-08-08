@@ -1,7 +1,5 @@
 language: r
 warnings_are_errors: true
 sudo: false
-os:
-- linux
-- osx
+dist: bionic
 cache: packages
