@@ -3,9 +3,7 @@ warnings_are_errors: true
 sudo: required
 services:
   - docker
-dist: 
-  - xenial
-  - bionic
+dist: bionic
 before_install:
   - sudo apt install libboost-all-dev -y
   - cd /home/travis/build
