@@ -14,6 +14,6 @@ before_install:
   - make
   - sudo make install
   - sudo ldconfig
-  - docker pull omnisci/core-os-cpu:v4.7.1
-  - docker run -d -p 6278:6278 -p 6274:6274 --name=omnisci omnisci/core-os-cpu:v4.7.1
+  - docker pull omnisci/core-os-cpu:latest
+  - docker run -d -p 6278:6278 -p 6274:6274 --name=omnisci omnisci/core-os-cpu:latest
   - cd /home/travis/build/omnisci/ROmniSci
