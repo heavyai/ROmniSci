@@ -3,7 +3,9 @@ warnings_are_errors: true
 sudo: required
 services:
   - docker
-dist: xenial
+dist: 
+  - xenial
+  - bionic
 before_install:
   - sudo apt install libboost-all-dev -y
   - cd /home/travis/build
@@ -14,7 +16,6 @@ before_install:
   - make
   - sudo make install
   - sudo ldconfig
-  - docker pull omnisci/core-os-cpu:v4.8.0
-  - docker run -d -p 6278:6278 -p 6274:6274 --name=omnisci omnisci/core-os-cpu:v4.8.0
-  - docker logs -f omnisci
+  - docker pull omnisci/core-os-cpu:v4.7.1
+  - docker run -d -p 6278:6278 -p 6274:6274 --name=omnisci omnisci/core-os-cpu:v4.7.1
   - cd /home/travis/build/omnisci/ROmniSci
