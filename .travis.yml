@@ -16,7 +16,5 @@ before_install:
   - sudo ldconfig
   - docker pull omnisci/core-os-cpu:v4.8.0
   - docker run -d -p 6278:6278 -p 6274:6274 --name=omnisci omnisci/core-os-cpu:v4.8.0
-  - sleep 30
-  - docker ps -a
-  - docker logs omnisci
+  - docker logs -f omnisci
   - cd /home/travis/build/omnisci/ROmniSci
