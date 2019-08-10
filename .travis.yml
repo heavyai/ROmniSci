@@ -2,10 +2,14 @@ language: r
 warnings_are_errors: true
 sudo: required
 services:
-  - docker
+  - xenial
 dist: bionic
 before_install:
   - sudo apt install libboost-all-dev -y
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt update
+  - sudo apt install docker-ce -y
   - cd /home/travis/build
   - wget --continue http://apache.claz.org/thrift/0.11.0/thrift-0.11.0.tar.gz
   - tar xf thrift-0.11.0.tar.gz
