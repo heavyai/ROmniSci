@@ -1,6 +1,6 @@
 test_that("Connect to OmniSci on localhost and defaults", {
   
-  conn <- connect("localhost", 6274, "admin", "HyperInteractive", "omnisci")
+  conn <- connect("0.0.0.0", 6274, "admin", "HyperInteractive", "omnisci")
   
   expect_true(class(conn$transport) == "externalptr")
   expect_true(class(conn$client) == "externalptr")
