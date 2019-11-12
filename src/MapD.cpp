@@ -248,6 +248,229 @@ uint32_t MapD_connect_presult::read(::apache::thrift::protocol::TProtocol* iprot
 }
 
 
+MapD_krb5_connect_args::~MapD_krb5_connect_args() throw() {
+}
+
+
+uint32_t MapD_krb5_connect_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->inputToken);
+          this->__isset.inputToken = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->dbname);
+          this->__isset.dbname = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t MapD_krb5_connect_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("MapD_krb5_connect_args");
+
+  xfer += oprot->writeFieldBegin("inputToken", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString(this->inputToken);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("dbname", ::apache::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeString(this->dbname);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+
+MapD_krb5_connect_pargs::~MapD_krb5_connect_pargs() throw() {
+}
+
+
+uint32_t MapD_krb5_connect_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("MapD_krb5_connect_pargs");
+
+  xfer += oprot->writeFieldBegin("inputToken", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString((*(this->inputToken)));
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("dbname", ::apache::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeString((*(this->dbname)));
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+
+MapD_krb5_connect_result::~MapD_krb5_connect_result() throw() {
+}
+
+
+uint32_t MapD_krb5_connect_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->success.read(iprot);
+          this->__isset.success = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->e.read(iprot);
+          this->__isset.e = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t MapD_krb5_connect_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+
+  uint32_t xfer = 0;
+
+  xfer += oprot->writeStructBegin("MapD_krb5_connect_result");
+
+  if (this->__isset.success) {
+    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_STRUCT, 0);
+    xfer += this->success.write(oprot);
+    xfer += oprot->writeFieldEnd();
+  } else if (this->__isset.e) {
+    xfer += oprot->writeFieldBegin("e", ::apache::thrift::protocol::T_STRUCT, 1);
+    xfer += this->e.write(oprot);
+    xfer += oprot->writeFieldEnd();
+  }
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+
+MapD_krb5_connect_presult::~MapD_krb5_connect_presult() throw() {
+}
+
+
+uint32_t MapD_krb5_connect_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += (*(this->success)).read(iprot);
+          this->__isset.success = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->e.read(iprot);
+          this->__isset.e = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+
 MapD_disconnect_args::~MapD_disconnect_args() throw() {
 }
 
@@ -953,14 +1176,14 @@ uint32_t MapD_get_status_result::read(::apache::thrift::protocol::TProtocol* ipr
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size340;
-            ::apache::thrift::protocol::TType _etype343;
-            xfer += iprot->readListBegin(_etype343, _size340);
-            this->success.resize(_size340);
-            uint32_t _i344;
-            for (_i344 = 0; _i344 < _size340; ++_i344)
+            uint32_t _size343;
+            ::apache::thrift::protocol::TType _etype346;
+            xfer += iprot->readListBegin(_etype346, _size343);
+            this->success.resize(_size343);
+            uint32_t _i347;
+            for (_i347 = 0; _i347 < _size343; ++_i347)
             {
-              xfer += this->success[_i344].read(iprot);
+              xfer += this->success[_i347].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -999,10 +1222,10 @@ uint32_t MapD_get_status_result::write(::apache::thrift::protocol::TProtocol* op
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector<TServerStatus> ::const_iterator _iter345;
-      for (_iter345 = this->success.begin(); _iter345 != this->success.end(); ++_iter345)
+      std::vector<TServerStatus> ::const_iterator _iter348;
+      for (_iter348 = this->success.begin(); _iter348 != this->success.end(); ++_iter348)
       {
-        xfer += (*_iter345).write(oprot);
+        xfer += (*_iter348).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -1047,14 +1270,14 @@ uint32_t MapD_get_status_presult::read(::apache::thrift::protocol::TProtocol* ip
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size346;
-            ::apache::thrift::protocol::TType _etype349;
-            xfer += iprot->readListBegin(_etype349, _size346);
-            (*(this->success)).resize(_size346);
-            uint32_t _i350;
-            for (_i350 = 0; _i350 < _size346; ++_i350)
+            uint32_t _size349;
+            ::apache::thrift::protocol::TType _etype352;
+            xfer += iprot->readListBegin(_etype352, _size349);
+            (*(this->success)).resize(_size349);
+            uint32_t _i353;
+            for (_i353 = 0; _i353 < _size349; ++_i353)
             {
-              xfer += (*(this->success))[_i350].read(iprot);
+              xfer += (*(this->success))[_i353].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -1399,14 +1622,14 @@ uint32_t MapD_get_tables_result::read(::apache::thrift::protocol::TProtocol* ipr
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size351;
-            ::apache::thrift::protocol::TType _etype354;
-            xfer += iprot->readListBegin(_etype354, _size351);
-            this->success.resize(_size351);
-            uint32_t _i355;
-            for (_i355 = 0; _i355 < _size351; ++_i355)
+            uint32_t _size354;
+            ::apache::thrift::protocol::TType _etype357;
+            xfer += iprot->readListBegin(_etype357, _size354);
+            this->success.resize(_size354);
+            uint32_t _i358;
+            for (_i358 = 0; _i358 < _size354; ++_i358)
             {
-              xfer += iprot->readString(this->success[_i355]);
+              xfer += iprot->readString(this->success[_i358]);
             }
             xfer += iprot->readListEnd();
           }
@@ -1445,10 +1668,10 @@ uint32_t MapD_get_tables_result::write(::apache::thrift::protocol::TProtocol* op
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->success.size()));
-      std::vector<std::string> ::const_iterator _iter356;
-      for (_iter356 = this->success.begin(); _iter356 != this->success.end(); ++_iter356)
+      std::vector<std::string> ::const_iterator _iter359;
+      for (_iter359 = this->success.begin(); _iter359 != this->success.end(); ++_iter359)
       {
-        xfer += oprot->writeString((*_iter356));
+        xfer += oprot->writeString((*_iter359));
       }
       xfer += oprot->writeListEnd();
     }
@@ -1493,14 +1716,14 @@ uint32_t MapD_get_tables_presult::read(::apache::thrift::protocol::TProtocol* ip
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size357;
-            ::apache::thrift::protocol::TType _etype360;
-            xfer += iprot->readListBegin(_etype360, _size357);
-            (*(this->success)).resize(_size357);
-            uint32_t _i361;
-            for (_i361 = 0; _i361 < _size357; ++_i361)
+            uint32_t _size360;
+            ::apache::thrift::protocol::TType _etype363;
+            xfer += iprot->readListBegin(_etype363, _size360);
+            (*(this->success)).resize(_size360);
+            uint32_t _i364;
+            for (_i364 = 0; _i364 < _size360; ++_i364)
             {
-              xfer += iprot->readString((*(this->success))[_i361]);
+              xfer += iprot->readString((*(this->success))[_i364]);
             }
             xfer += iprot->readListEnd();
           }
@@ -1638,14 +1861,14 @@ uint32_t MapD_get_physical_tables_result::read(::apache::thrift::protocol::TProt
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size362;
-            ::apache::thrift::protocol::TType _etype365;
-            xfer += iprot->readListBegin(_etype365, _size362);
-            this->success.resize(_size362);
-            uint32_t _i366;
-            for (_i366 = 0; _i366 < _size362; ++_i366)
+            uint32_t _size365;
+            ::apache::thrift::protocol::TType _etype368;
+            xfer += iprot->readListBegin(_etype368, _size365);
+            this->success.resize(_size365);
+            uint32_t _i369;
+            for (_i369 = 0; _i369 < _size365; ++_i369)
             {
-              xfer += iprot->readString(this->success[_i366]);
+              xfer += iprot->readString(this->success[_i369]);
             }
             xfer += iprot->readListEnd();
           }
@@ -1684,10 +1907,10 @@ uint32_t MapD_get_physical_tables_result::write(::apache::thrift::protocol::TPro
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->success.size()));
-      std::vector<std::string> ::const_iterator _iter367;
-      for (_iter367 = this->success.begin(); _iter367 != this->success.end(); ++_iter367)
+      std::vector<std::string> ::const_iterator _iter370;
+      for (_iter370 = this->success.begin(); _iter370 != this->success.end(); ++_iter370)
       {
-        xfer += oprot->writeString((*_iter367));
+        xfer += oprot->writeString((*_iter370));
       }
       xfer += oprot->writeListEnd();
     }
@@ -1732,14 +1955,14 @@ uint32_t MapD_get_physical_tables_presult::read(::apache::thrift::protocol::TPro
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size368;
-            ::apache::thrift::protocol::TType _etype371;
-            xfer += iprot->readListBegin(_etype371, _size368);
-            (*(this->success)).resize(_size368);
-            uint32_t _i372;
-            for (_i372 = 0; _i372 < _size368; ++_i372)
+            uint32_t _size371;
+            ::apache::thrift::protocol::TType _etype374;
+            xfer += iprot->readListBegin(_etype374, _size371);
+            (*(this->success)).resize(_size371);
+            uint32_t _i375;
+            for (_i375 = 0; _i375 < _size371; ++_i375)
             {
-              xfer += iprot->readString((*(this->success))[_i372]);
+              xfer += iprot->readString((*(this->success))[_i375]);
             }
             xfer += iprot->readListEnd();
           }
@@ -1877,14 +2100,14 @@ uint32_t MapD_get_views_result::read(::apache::thrift::protocol::TProtocol* ipro
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size373;
-            ::apache::thrift::protocol::TType _etype376;
-            xfer += iprot->readListBegin(_etype376, _size373);
-            this->success.resize(_size373);
-            uint32_t _i377;
-            for (_i377 = 0; _i377 < _size373; ++_i377)
+            uint32_t _size376;
+            ::apache::thrift::protocol::TType _etype379;
+            xfer += iprot->readListBegin(_etype379, _size376);
+            this->success.resize(_size376);
+            uint32_t _i380;
+            for (_i380 = 0; _i380 < _size376; ++_i380)
             {
-              xfer += iprot->readString(this->success[_i377]);
+              xfer += iprot->readString(this->success[_i380]);
             }
             xfer += iprot->readListEnd();
           }
@@ -1923,10 +2146,10 @@ uint32_t MapD_get_views_result::write(::apache::thrift::protocol::TProtocol* opr
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->success.size()));
-      std::vector<std::string> ::const_iterator _iter378;
-      for (_iter378 = this->success.begin(); _iter378 != this->success.end(); ++_iter378)
+      std::vector<std::string> ::const_iterator _iter381;
+      for (_iter381 = this->success.begin(); _iter381 != this->success.end(); ++_iter381)
       {
-        xfer += oprot->writeString((*_iter378));
+        xfer += oprot->writeString((*_iter381));
       }
       xfer += oprot->writeListEnd();
     }
@@ -1971,14 +2194,14 @@ uint32_t MapD_get_views_presult::read(::apache::thrift::protocol::TProtocol* ipr
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size379;
-            ::apache::thrift::protocol::TType _etype382;
-            xfer += iprot->readListBegin(_etype382, _size379);
-            (*(this->success)).resize(_size379);
-            uint32_t _i383;
-            for (_i383 = 0; _i383 < _size379; ++_i383)
+            uint32_t _size382;
+            ::apache::thrift::protocol::TType _etype385;
+            xfer += iprot->readListBegin(_etype385, _size382);
+            (*(this->success)).resize(_size382);
+            uint32_t _i386;
+            for (_i386 = 0; _i386 < _size382; ++_i386)
             {
-              xfer += iprot->readString((*(this->success))[_i383]);
+              xfer += iprot->readString((*(this->success))[_i386]);
             }
             xfer += iprot->readListEnd();
           }
@@ -2116,14 +2339,14 @@ uint32_t MapD_get_tables_meta_result::read(::apache::thrift::protocol::TProtocol
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size384;
-            ::apache::thrift::protocol::TType _etype387;
-            xfer += iprot->readListBegin(_etype387, _size384);
-            this->success.resize(_size384);
-            uint32_t _i388;
-            for (_i388 = 0; _i388 < _size384; ++_i388)
+            uint32_t _size387;
+            ::apache::thrift::protocol::TType _etype390;
+            xfer += iprot->readListBegin(_etype390, _size387);
+            this->success.resize(_size387);
+            uint32_t _i391;
+            for (_i391 = 0; _i391 < _size387; ++_i391)
             {
-              xfer += this->success[_i388].read(iprot);
+              xfer += this->success[_i391].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -2162,10 +2385,10 @@ uint32_t MapD_get_tables_meta_result::write(::apache::thrift::protocol::TProtoco
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector<TTableMeta> ::const_iterator _iter389;
-      for (_iter389 = this->success.begin(); _iter389 != this->success.end(); ++_iter389)
+      std::vector<TTableMeta> ::const_iterator _iter392;
+      for (_iter392 = this->success.begin(); _iter392 != this->success.end(); ++_iter392)
       {
-        xfer += (*_iter389).write(oprot);
+        xfer += (*_iter392).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -2210,14 +2433,14 @@ uint32_t MapD_get_tables_meta_presult::read(::apache::thrift::protocol::TProtoco
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size390;
-            ::apache::thrift::protocol::TType _etype393;
-            xfer += iprot->readListBegin(_etype393, _size390);
-            (*(this->success)).resize(_size390);
-            uint32_t _i394;
-            for (_i394 = 0; _i394 < _size390; ++_i394)
+            uint32_t _size393;
+            ::apache::thrift::protocol::TType _etype396;
+            xfer += iprot->readListBegin(_etype396, _size393);
+            (*(this->success)).resize(_size393);
+            uint32_t _i397;
+            for (_i397 = 0; _i397 < _size393; ++_i397)
             {
-              xfer += (*(this->success))[_i394].read(iprot);
+              xfer += (*(this->success))[_i397].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -2801,14 +3024,14 @@ uint32_t MapD_get_users_result::read(::apache::thrift::protocol::TProtocol* ipro
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size395;
-            ::apache::thrift::protocol::TType _etype398;
-            xfer += iprot->readListBegin(_etype398, _size395);
-            this->success.resize(_size395);
-            uint32_t _i399;
-            for (_i399 = 0; _i399 < _size395; ++_i399)
+            uint32_t _size398;
+            ::apache::thrift::protocol::TType _etype401;
+            xfer += iprot->readListBegin(_etype401, _size398);
+            this->success.resize(_size398);
+            uint32_t _i402;
+            for (_i402 = 0; _i402 < _size398; ++_i402)
             {
-              xfer += iprot->readString(this->success[_i399]);
+              xfer += iprot->readString(this->success[_i402]);
             }
             xfer += iprot->readListEnd();
           }
@@ -2847,10 +3070,10 @@ uint32_t MapD_get_users_result::write(::apache::thrift::protocol::TProtocol* opr
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->success.size()));
-      std::vector<std::string> ::const_iterator _iter400;
-      for (_iter400 = this->success.begin(); _iter400 != this->success.end(); ++_iter400)
+      std::vector<std::string> ::const_iterator _iter403;
+      for (_iter403 = this->success.begin(); _iter403 != this->success.end(); ++_iter403)
       {
-        xfer += oprot->writeString((*_iter400));
+        xfer += oprot->writeString((*_iter403));
       }
       xfer += oprot->writeListEnd();
     }
@@ -2895,14 +3118,14 @@ uint32_t MapD_get_users_presult::read(::apache::thrift::protocol::TProtocol* ipr
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size401;
-            ::apache::thrift::protocol::TType _etype404;
-            xfer += iprot->readListBegin(_etype404, _size401);
-            (*(this->success)).resize(_size401);
-            uint32_t _i405;
-            for (_i405 = 0; _i405 < _size401; ++_i405)
+            uint32_t _size404;
+            ::apache::thrift::protocol::TType _etype407;
+            xfer += iprot->readListBegin(_etype407, _size404);
+            (*(this->success)).resize(_size404);
+            uint32_t _i408;
+            for (_i408 = 0; _i408 < _size404; ++_i408)
             {
-              xfer += iprot->readString((*(this->success))[_i405]);
+              xfer += iprot->readString((*(this->success))[_i408]);
             }
             xfer += iprot->readListEnd();
           }
@@ -3040,14 +3263,14 @@ uint32_t MapD_get_databases_result::read(::apache::thrift::protocol::TProtocol* 
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size406;
-            ::apache::thrift::protocol::TType _etype409;
-            xfer += iprot->readListBegin(_etype409, _size406);
-            this->success.resize(_size406);
-            uint32_t _i410;
-            for (_i410 = 0; _i410 < _size406; ++_i410)
+            uint32_t _size409;
+            ::apache::thrift::protocol::TType _etype412;
+            xfer += iprot->readListBegin(_etype412, _size409);
+            this->success.resize(_size409);
+            uint32_t _i413;
+            for (_i413 = 0; _i413 < _size409; ++_i413)
             {
-              xfer += this->success[_i410].read(iprot);
+              xfer += this->success[_i413].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -3086,10 +3309,10 @@ uint32_t MapD_get_databases_result::write(::apache::thrift::protocol::TProtocol*
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector<TDBInfo> ::const_iterator _iter411;
-      for (_iter411 = this->success.begin(); _iter411 != this->success.end(); ++_iter411)
+      std::vector<TDBInfo> ::const_iterator _iter414;
+      for (_iter414 = this->success.begin(); _iter414 != this->success.end(); ++_iter414)
       {
-        xfer += (*_iter411).write(oprot);
+        xfer += (*_iter414).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -3134,14 +3357,14 @@ uint32_t MapD_get_databases_presult::read(::apache::thrift::protocol::TProtocol*
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size412;
-            ::apache::thrift::protocol::TType _etype415;
-            xfer += iprot->readListBegin(_etype415, _size412);
-            (*(this->success)).resize(_size412);
-            uint32_t _i416;
-            for (_i416 = 0; _i416 < _size412; ++_i416)
+            uint32_t _size415;
+            ::apache::thrift::protocol::TType _etype418;
+            xfer += iprot->readListBegin(_etype418, _size415);
+            (*(this->success)).resize(_size415);
+            uint32_t _i419;
+            for (_i419 = 0; _i419 < _size415; ++_i419)
             {
-              xfer += (*(this->success))[_i416].read(iprot);
+              xfer += (*(this->success))[_i419].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -4062,14 +4285,14 @@ uint32_t MapD_get_memory_result::read(::apache::thrift::protocol::TProtocol* ipr
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size417;
-            ::apache::thrift::protocol::TType _etype420;
-            xfer += iprot->readListBegin(_etype420, _size417);
-            this->success.resize(_size417);
-            uint32_t _i421;
-            for (_i421 = 0; _i421 < _size417; ++_i421)
+            uint32_t _size420;
+            ::apache::thrift::protocol::TType _etype423;
+            xfer += iprot->readListBegin(_etype423, _size420);
+            this->success.resize(_size420);
+            uint32_t _i424;
+            for (_i424 = 0; _i424 < _size420; ++_i424)
             {
-              xfer += this->success[_i421].read(iprot);
+              xfer += this->success[_i424].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -4108,10 +4331,10 @@ uint32_t MapD_get_memory_result::write(::apache::thrift::protocol::TProtocol* op
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector<TNodeMemoryInfo> ::const_iterator _iter422;
-      for (_iter422 = this->success.begin(); _iter422 != this->success.end(); ++_iter422)
+      std::vector<TNodeMemoryInfo> ::const_iterator _iter425;
+      for (_iter425 = this->success.begin(); _iter425 != this->success.end(); ++_iter425)
       {
-        xfer += (*_iter422).write(oprot);
+        xfer += (*_iter425).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -4156,14 +4379,14 @@ uint32_t MapD_get_memory_presult::read(::apache::thrift::protocol::TProtocol* ip
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size423;
-            ::apache::thrift::protocol::TType _etype426;
-            xfer += iprot->readListBegin(_etype426, _size423);
-            (*(this->success)).resize(_size423);
-            uint32_t _i427;
-            for (_i427 = 0; _i427 < _size423; ++_i427)
+            uint32_t _size426;
+            ::apache::thrift::protocol::TType _etype429;
+            xfer += iprot->readListBegin(_etype429, _size426);
+            (*(this->success)).resize(_size426);
+            uint32_t _i430;
+            for (_i430 = 0; _i430 < _size426; ++_i430)
             {
-              xfer += (*(this->success))[_i427].read(iprot);
+              xfer += (*(this->success))[_i430].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -5980,9 +6203,9 @@ uint32_t MapD_sql_execute_df_args::read(::apache::thrift::protocol::TProtocol* i
         break;
       case 3:
         if (ftype == ::apache::thrift::protocol::T_I32) {
-          int32_t ecast428;
-          xfer += iprot->readI32(ecast428);
-          this->device_type = ( ::TDeviceType::type)ecast428;
+          int32_t ecast431;
+          xfer += iprot->readI32(ecast431);
+          this->device_type = ( ::TDeviceType::type)ecast431;
           this->__isset.device_type = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -6508,9 +6731,9 @@ uint32_t MapD_deallocate_df_args::read(::apache::thrift::protocol::TProtocol* ip
         break;
       case 3:
         if (ftype == ::apache::thrift::protocol::T_I32) {
-          int32_t ecast429;
-          xfer += iprot->readI32(ecast429);
-          this->device_type = ( ::TDeviceType::type)ecast429;
+          int32_t ecast432;
+          xfer += iprot->readI32(ecast432);
+          this->device_type = ( ::TDeviceType::type)ecast432;
           this->__isset.device_type = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -7013,17 +7236,17 @@ uint32_t MapD_sql_validate_result::read(::apache::thrift::protocol::TProtocol* i
         if (ftype == ::apache::thrift::protocol::T_MAP) {
           {
             this->success.clear();
-            uint32_t _size430;
-            ::apache::thrift::protocol::TType _ktype431;
-            ::apache::thrift::protocol::TType _vtype432;
-            xfer += iprot->readMapBegin(_ktype431, _vtype432, _size430);
-            uint32_t _i434;
-            for (_i434 = 0; _i434 < _size430; ++_i434)
+            uint32_t _size433;
+            ::apache::thrift::protocol::TType _ktype434;
+            ::apache::thrift::protocol::TType _vtype435;
+            xfer += iprot->readMapBegin(_ktype434, _vtype435, _size433);
+            uint32_t _i437;
+            for (_i437 = 0; _i437 < _size433; ++_i437)
             {
-              std::string _key435;
-              xfer += iprot->readString(_key435);
-              TColumnType& _val436 = this->success[_key435];
-              xfer += _val436.read(iprot);
+              std::string _key438;
+              xfer += iprot->readString(_key438);
+              TColumnType& _val439 = this->success[_key438];
+              xfer += _val439.read(iprot);
             }
             xfer += iprot->readMapEnd();
           }
@@ -7062,11 +7285,11 @@ uint32_t MapD_sql_validate_result::write(::apache::thrift::protocol::TProtocol* 
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_MAP, 0);
     {
       xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::map<std::string, TColumnType> ::const_iterator _iter437;
-      for (_iter437 = this->success.begin(); _iter437 != this->success.end(); ++_iter437)
+      std::map<std::string, TColumnType> ::const_iterator _iter440;
+      for (_iter440 = this->success.begin(); _iter440 != this->success.end(); ++_iter440)
       {
-        xfer += oprot->writeString(_iter437->first);
-        xfer += _iter437->second.write(oprot);
+        xfer += oprot->writeString(_iter440->first);
+        xfer += _iter440->second.write(oprot);
       }
       xfer += oprot->writeMapEnd();
     }
@@ -7111,17 +7334,17 @@ uint32_t MapD_sql_validate_presult::read(::apache::thrift::protocol::TProtocol* 
         if (ftype == ::apache::thrift::protocol::T_MAP) {
           {
             (*(this->success)).clear();
-            uint32_t _size438;
-            ::apache::thrift::protocol::TType _ktype439;
-            ::apache::thrift::protocol::TType _vtype440;
-            xfer += iprot->readMapBegin(_ktype439, _vtype440, _size438);
-            uint32_t _i442;
-            for (_i442 = 0; _i442 < _size438; ++_i442)
+            uint32_t _size441;
+            ::apache::thrift::protocol::TType _ktype442;
+            ::apache::thrift::protocol::TType _vtype443;
+            xfer += iprot->readMapBegin(_ktype442, _vtype443, _size441);
+            uint32_t _i445;
+            for (_i445 = 0; _i445 < _size441; ++_i445)
             {
-              std::string _key443;
-              xfer += iprot->readString(_key443);
-              TColumnType& _val444 = (*(this->success))[_key443];
-              xfer += _val444.read(iprot);
+              std::string _key446;
+              xfer += iprot->readString(_key446);
+              TColumnType& _val447 = (*(this->success))[_key446];
+              xfer += _val447.read(iprot);
             }
             xfer += iprot->readMapEnd();
           }
@@ -7291,14 +7514,14 @@ uint32_t MapD_get_completion_hints_result::read(::apache::thrift::protocol::TPro
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size445;
-            ::apache::thrift::protocol::TType _etype448;
-            xfer += iprot->readListBegin(_etype448, _size445);
-            this->success.resize(_size445);
-            uint32_t _i449;
-            for (_i449 = 0; _i449 < _size445; ++_i449)
+            uint32_t _size448;
+            ::apache::thrift::protocol::TType _etype451;
+            xfer += iprot->readListBegin(_etype451, _size448);
+            this->success.resize(_size448);
+            uint32_t _i452;
+            for (_i452 = 0; _i452 < _size448; ++_i452)
             {
-              xfer += this->success[_i449].read(iprot);
+              xfer += this->success[_i452].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -7337,10 +7560,10 @@ uint32_t MapD_get_completion_hints_result::write(::apache::thrift::protocol::TPr
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector< ::TCompletionHint> ::const_iterator _iter450;
-      for (_iter450 = this->success.begin(); _iter450 != this->success.end(); ++_iter450)
+      std::vector< ::TCompletionHint> ::const_iterator _iter453;
+      for (_iter453 = this->success.begin(); _iter453 != this->success.end(); ++_iter453)
       {
-        xfer += (*_iter450).write(oprot);
+        xfer += (*_iter453).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -7385,14 +7608,14 @@ uint32_t MapD_get_completion_hints_presult::read(::apache::thrift::protocol::TPr
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size451;
-            ::apache::thrift::protocol::TType _etype454;
-            xfer += iprot->readListBegin(_etype454, _size451);
-            (*(this->success)).resize(_size451);
-            uint32_t _i455;
-            for (_i455 = 0; _i455 < _size451; ++_i455)
+            uint32_t _size454;
+            ::apache::thrift::protocol::TType _etype457;
+            xfer += iprot->readListBegin(_etype457, _size454);
+            (*(this->success)).resize(_size454);
+            uint32_t _i458;
+            for (_i458 = 0; _i458 < _size454; ++_i458)
             {
-              xfer += (*(this->success))[_i455].read(iprot);
+              xfer += (*(this->success))[_i458].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -7457,9 +7680,9 @@ uint32_t MapD_set_execution_mode_args::read(::apache::thrift::protocol::TProtoco
         break;
       case 2:
         if (ftype == ::apache::thrift::protocol::T_I32) {
-          int32_t ecast456;
-          xfer += iprot->readI32(ecast456);
-          this->mode = (TExecuteMode::type)ecast456;
+          int32_t ecast459;
+          xfer += iprot->readI32(ecast459);
+          this->mode = (TExecuteMode::type)ecast459;
           this->__isset.mode = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -7951,26 +8174,26 @@ uint32_t MapD_get_result_row_for_pixel_args::read(::apache::thrift::protocol::TP
         if (ftype == ::apache::thrift::protocol::T_MAP) {
           {
             this->table_col_names.clear();
-            uint32_t _size457;
-            ::apache::thrift::protocol::TType _ktype458;
-            ::apache::thrift::protocol::TType _vtype459;
-            xfer += iprot->readMapBegin(_ktype458, _vtype459, _size457);
-            uint32_t _i461;
-            for (_i461 = 0; _i461 < _size457; ++_i461)
+            uint32_t _size460;
+            ::apache::thrift::protocol::TType _ktype461;
+            ::apache::thrift::protocol::TType _vtype462;
+            xfer += iprot->readMapBegin(_ktype461, _vtype462, _size460);
+            uint32_t _i464;
+            for (_i464 = 0; _i464 < _size460; ++_i464)
             {
-              std::string _key462;
-              xfer += iprot->readString(_key462);
-              std::vector<std::string> & _val463 = this->table_col_names[_key462];
+              std::string _key465;
+              xfer += iprot->readString(_key465);
+              std::vector<std::string> & _val466 = this->table_col_names[_key465];
               {
-                _val463.clear();
-                uint32_t _size464;
-                ::apache::thrift::protocol::TType _etype467;
-                xfer += iprot->readListBegin(_etype467, _size464);
-                _val463.resize(_size464);
-                uint32_t _i468;
-                for (_i468 = 0; _i468 < _size464; ++_i468)
+                _val466.clear();
+                uint32_t _size467;
+                ::apache::thrift::protocol::TType _etype470;
+                xfer += iprot->readListBegin(_etype470, _size467);
+                _val466.resize(_size467);
+                uint32_t _i471;
+                for (_i471 = 0; _i471 < _size467; ++_i471)
                 {
-                  xfer += iprot->readString(_val463[_i468]);
+                  xfer += iprot->readString(_val466[_i471]);
                 }
                 xfer += iprot->readListEnd();
               }
@@ -8038,16 +8261,16 @@ uint32_t MapD_get_result_row_for_pixel_args::write(::apache::thrift::protocol::T
   xfer += oprot->writeFieldBegin("table_col_names", ::apache::thrift::protocol::T_MAP, 4);
   {
     xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_LIST, static_cast<uint32_t>(this->table_col_names.size()));
-    std::map<std::string, std::vector<std::string> > ::const_iterator _iter469;
-    for (_iter469 = this->table_col_names.begin(); _iter469 != this->table_col_names.end(); ++_iter469)
+    std::map<std::string, std::vector<std::string> > ::const_iterator _iter472;
+    for (_iter472 = this->table_col_names.begin(); _iter472 != this->table_col_names.end(); ++_iter472)
     {
-      xfer += oprot->writeString(_iter469->first);
+      xfer += oprot->writeString(_iter472->first);
       {
-        xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(_iter469->second.size()));
-        std::vector<std::string> ::const_iterator _iter470;
-        for (_iter470 = _iter469->second.begin(); _iter470 != _iter469->second.end(); ++_iter470)
+        xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(_iter472->second.size()));
+        std::vector<std::string> ::const_iterator _iter473;
+        for (_iter473 = _iter472->second.begin(); _iter473 != _iter472->second.end(); ++_iter473)
         {
-          xfer += oprot->writeString((*_iter470));
+          xfer += oprot->writeString((*_iter473));
         }
         xfer += oprot->writeListEnd();
       }
@@ -8098,16 +8321,16 @@ uint32_t MapD_get_result_row_for_pixel_pargs::write(::apache::thrift::protocol::
   xfer += oprot->writeFieldBegin("table_col_names", ::apache::thrift::protocol::T_MAP, 4);
   {
     xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_LIST, static_cast<uint32_t>((*(this->table_col_names)).size()));
-    std::map<std::string, std::vector<std::string> > ::const_iterator _iter471;
-    for (_iter471 = (*(this->table_col_names)).begin(); _iter471 != (*(this->table_col_names)).end(); ++_iter471)
+    std::map<std::string, std::vector<std::string> > ::const_iterator _iter474;
+    for (_iter474 = (*(this->table_col_names)).begin(); _iter474 != (*(this->table_col_names)).end(); ++_iter474)
     {
-      xfer += oprot->writeString(_iter471->first);
+      xfer += oprot->writeString(_iter474->first);
       {
-        xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(_iter471->second.size()));
-        std::vector<std::string> ::const_iterator _iter472;
-        for (_iter472 = _iter471->second.begin(); _iter472 != _iter471->second.end(); ++_iter472)
+        xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(_iter474->second.size()));
+        std::vector<std::string> ::const_iterator _iter475;
+        for (_iter475 = _iter474->second.begin(); _iter475 != _iter474->second.end(); ++_iter475)
         {
-          xfer += oprot->writeString((*_iter472));
+          xfer += oprot->writeString((*_iter475));
         }
         xfer += oprot->writeListEnd();
       }
@@ -8241,922 +8464,6 @@ uint32_t MapD_get_result_row_for_pixel_presult::read(::apache::thrift::protocol:
           xfer += iprot->skip(ftype);
         }
         break;
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-
-MapD_get_frontend_view_args::~MapD_get_frontend_view_args() throw() {
-}
-
-
-uint32_t MapD_get_frontend_view_args::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->session);
-          this->__isset.session = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 2:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->view_name);
-          this->__isset.view_name = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_get_frontend_view_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_get_frontend_view_args");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString(this->session);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("view_name", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString(this->view_name);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_frontend_view_pargs::~MapD_get_frontend_view_pargs() throw() {
-}
-
-
-uint32_t MapD_get_frontend_view_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_get_frontend_view_pargs");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString((*(this->session)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("view_name", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString((*(this->view_name)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_frontend_view_result::~MapD_get_frontend_view_result() throw() {
-}
-
-
-uint32_t MapD_get_frontend_view_result::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 0:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->success.read(iprot);
-          this->__isset.success = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_get_frontend_view_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
-
-  uint32_t xfer = 0;
-
-  xfer += oprot->writeStructBegin("MapD_get_frontend_view_result");
-
-  if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_STRUCT, 0);
-    xfer += this->success.write(oprot);
-    xfer += oprot->writeFieldEnd();
-  } else if (this->__isset.e) {
-    xfer += oprot->writeFieldBegin("e", ::apache::thrift::protocol::T_STRUCT, 1);
-    xfer += this->e.write(oprot);
-    xfer += oprot->writeFieldEnd();
-  }
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_frontend_view_presult::~MapD_get_frontend_view_presult() throw() {
-}
-
-
-uint32_t MapD_get_frontend_view_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 0:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += (*(this->success)).read(iprot);
-          this->__isset.success = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-
-MapD_get_frontend_views_args::~MapD_get_frontend_views_args() throw() {
-}
-
-
-uint32_t MapD_get_frontend_views_args::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->session);
-          this->__isset.session = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_get_frontend_views_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_get_frontend_views_args");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString(this->session);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_frontend_views_pargs::~MapD_get_frontend_views_pargs() throw() {
-}
-
-
-uint32_t MapD_get_frontend_views_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_get_frontend_views_pargs");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString((*(this->session)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_frontend_views_result::~MapD_get_frontend_views_result() throw() {
-}
-
-
-uint32_t MapD_get_frontend_views_result::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 0:
-        if (ftype == ::apache::thrift::protocol::T_LIST) {
-          {
-            this->success.clear();
-            uint32_t _size473;
-            ::apache::thrift::protocol::TType _etype476;
-            xfer += iprot->readListBegin(_etype476, _size473);
-            this->success.resize(_size473);
-            uint32_t _i477;
-            for (_i477 = 0; _i477 < _size473; ++_i477)
-            {
-              xfer += this->success[_i477].read(iprot);
-            }
-            xfer += iprot->readListEnd();
-          }
-          this->__isset.success = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_get_frontend_views_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
-
-  uint32_t xfer = 0;
-
-  xfer += oprot->writeStructBegin("MapD_get_frontend_views_result");
-
-  if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
-    {
-      xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector<TFrontendView> ::const_iterator _iter478;
-      for (_iter478 = this->success.begin(); _iter478 != this->success.end(); ++_iter478)
-      {
-        xfer += (*_iter478).write(oprot);
-      }
-      xfer += oprot->writeListEnd();
-    }
-    xfer += oprot->writeFieldEnd();
-  } else if (this->__isset.e) {
-    xfer += oprot->writeFieldBegin("e", ::apache::thrift::protocol::T_STRUCT, 1);
-    xfer += this->e.write(oprot);
-    xfer += oprot->writeFieldEnd();
-  }
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_frontend_views_presult::~MapD_get_frontend_views_presult() throw() {
-}
-
-
-uint32_t MapD_get_frontend_views_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 0:
-        if (ftype == ::apache::thrift::protocol::T_LIST) {
-          {
-            (*(this->success)).clear();
-            uint32_t _size479;
-            ::apache::thrift::protocol::TType _etype482;
-            xfer += iprot->readListBegin(_etype482, _size479);
-            (*(this->success)).resize(_size479);
-            uint32_t _i483;
-            for (_i483 = 0; _i483 < _size479; ++_i483)
-            {
-              xfer += (*(this->success))[_i483].read(iprot);
-            }
-            xfer += iprot->readListEnd();
-          }
-          this->__isset.success = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-
-MapD_create_frontend_view_args::~MapD_create_frontend_view_args() throw() {
-}
-
-
-uint32_t MapD_create_frontend_view_args::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->session);
-          this->__isset.session = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 2:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->view_name);
-          this->__isset.view_name = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 3:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->view_state);
-          this->__isset.view_state = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 4:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->image_hash);
-          this->__isset.image_hash = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 5:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->view_metadata);
-          this->__isset.view_metadata = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_create_frontend_view_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_create_frontend_view_args");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString(this->session);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("view_name", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString(this->view_name);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("view_state", ::apache::thrift::protocol::T_STRING, 3);
-  xfer += oprot->writeString(this->view_state);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("image_hash", ::apache::thrift::protocol::T_STRING, 4);
-  xfer += oprot->writeString(this->image_hash);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("view_metadata", ::apache::thrift::protocol::T_STRING, 5);
-  xfer += oprot->writeString(this->view_metadata);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_create_frontend_view_pargs::~MapD_create_frontend_view_pargs() throw() {
-}
-
-
-uint32_t MapD_create_frontend_view_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_create_frontend_view_pargs");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString((*(this->session)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("view_name", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString((*(this->view_name)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("view_state", ::apache::thrift::protocol::T_STRING, 3);
-  xfer += oprot->writeString((*(this->view_state)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("image_hash", ::apache::thrift::protocol::T_STRING, 4);
-  xfer += oprot->writeString((*(this->image_hash)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("view_metadata", ::apache::thrift::protocol::T_STRING, 5);
-  xfer += oprot->writeString((*(this->view_metadata)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_create_frontend_view_result::~MapD_create_frontend_view_result() throw() {
-}
-
-
-uint32_t MapD_create_frontend_view_result::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_create_frontend_view_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
-
-  uint32_t xfer = 0;
-
-  xfer += oprot->writeStructBegin("MapD_create_frontend_view_result");
-
-  if (this->__isset.e) {
-    xfer += oprot->writeFieldBegin("e", ::apache::thrift::protocol::T_STRUCT, 1);
-    xfer += this->e.write(oprot);
-    xfer += oprot->writeFieldEnd();
-  }
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_create_frontend_view_presult::~MapD_create_frontend_view_presult() throw() {
-}
-
-
-uint32_t MapD_create_frontend_view_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-
-MapD_delete_frontend_view_args::~MapD_delete_frontend_view_args() throw() {
-}
-
-
-uint32_t MapD_delete_frontend_view_args::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->session);
-          this->__isset.session = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 2:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->view_name);
-          this->__isset.view_name = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_delete_frontend_view_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_delete_frontend_view_args");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString(this->session);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("view_name", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString(this->view_name);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_delete_frontend_view_pargs::~MapD_delete_frontend_view_pargs() throw() {
-}
-
-
-uint32_t MapD_delete_frontend_view_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_delete_frontend_view_pargs");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString((*(this->session)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("view_name", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString((*(this->view_name)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_delete_frontend_view_result::~MapD_delete_frontend_view_result() throw() {
-}
-
-
-uint32_t MapD_delete_frontend_view_result::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_delete_frontend_view_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
-
-  uint32_t xfer = 0;
-
-  xfer += oprot->writeStructBegin("MapD_delete_frontend_view_result");
-
-  if (this->__isset.e) {
-    xfer += oprot->writeFieldBegin("e", ::apache::thrift::protocol::T_STRUCT, 1);
-    xfer += this->e.write(oprot);
-    xfer += oprot->writeFieldEnd();
-  }
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_delete_frontend_view_presult::~MapD_delete_frontend_view_presult() throw() {
-}
-
-
-uint32_t MapD_delete_frontend_view_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
       case 1:
         if (ftype == ::apache::thrift::protocol::T_STRUCT) {
           xfer += this->e.read(iprot);
@@ -9509,14 +8816,14 @@ uint32_t MapD_get_dashboards_result::read(::apache::thrift::protocol::TProtocol*
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size484;
-            ::apache::thrift::protocol::TType _etype487;
-            xfer += iprot->readListBegin(_etype487, _size484);
-            this->success.resize(_size484);
-            uint32_t _i488;
-            for (_i488 = 0; _i488 < _size484; ++_i488)
+            uint32_t _size476;
+            ::apache::thrift::protocol::TType _etype479;
+            xfer += iprot->readListBegin(_etype479, _size476);
+            this->success.resize(_size476);
+            uint32_t _i480;
+            for (_i480 = 0; _i480 < _size476; ++_i480)
             {
-              xfer += this->success[_i488].read(iprot);
+              xfer += this->success[_i480].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -9555,10 +8862,10 @@ uint32_t MapD_get_dashboards_result::write(::apache::thrift::protocol::TProtocol
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector<TDashboard> ::const_iterator _iter489;
-      for (_iter489 = this->success.begin(); _iter489 != this->success.end(); ++_iter489)
+      std::vector<TDashboard> ::const_iterator _iter481;
+      for (_iter481 = this->success.begin(); _iter481 != this->success.end(); ++_iter481)
       {
-        xfer += (*_iter489).write(oprot);
+        xfer += (*_iter481).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -9603,14 +8910,14 @@ uint32_t MapD_get_dashboards_presult::read(::apache::thrift::protocol::TProtocol
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size490;
-            ::apache::thrift::protocol::TType _etype493;
-            xfer += iprot->readListBegin(_etype493, _size490);
-            (*(this->success)).resize(_size490);
-            uint32_t _i494;
-            for (_i494 = 0; _i494 < _size490; ++_i494)
+            uint32_t _size482;
+            ::apache::thrift::protocol::TType _etype485;
+            xfer += iprot->readListBegin(_etype485, _size482);
+            (*(this->success)).resize(_size482);
+            uint32_t _i486;
+            for (_i486 = 0; _i486 < _size482; ++_i486)
             {
-              xfer += (*(this->success))[_i494].read(iprot);
+              xfer += (*(this->success))[_i486].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -10442,14 +9749,14 @@ uint32_t MapD_share_dashboard_args::read(::apache::thrift::protocol::TProtocol* 
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->groups.clear();
-            uint32_t _size495;
-            ::apache::thrift::protocol::TType _etype498;
-            xfer += iprot->readListBegin(_etype498, _size495);
-            this->groups.resize(_size495);
-            uint32_t _i499;
-            for (_i499 = 0; _i499 < _size495; ++_i499)
+            uint32_t _size487;
+            ::apache::thrift::protocol::TType _etype490;
+            xfer += iprot->readListBegin(_etype490, _size487);
+            this->groups.resize(_size487);
+            uint32_t _i491;
+            for (_i491 = 0; _i491 < _size487; ++_i491)
             {
-              xfer += iprot->readString(this->groups[_i499]);
+              xfer += iprot->readString(this->groups[_i491]);
             }
             xfer += iprot->readListEnd();
           }
@@ -10462,14 +9769,14 @@ uint32_t MapD_share_dashboard_args::read(::apache::thrift::protocol::TProtocol* 
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->objects.clear();
-            uint32_t _size500;
-            ::apache::thrift::protocol::TType _etype503;
-            xfer += iprot->readListBegin(_etype503, _size500);
-            this->objects.resize(_size500);
-            uint32_t _i504;
-            for (_i504 = 0; _i504 < _size500; ++_i504)
+            uint32_t _size492;
+            ::apache::thrift::protocol::TType _etype495;
+            xfer += iprot->readListBegin(_etype495, _size492);
+            this->objects.resize(_size492);
+            uint32_t _i496;
+            for (_i496 = 0; _i496 < _size492; ++_i496)
             {
-              xfer += iprot->readString(this->objects[_i504]);
+              xfer += iprot->readString(this->objects[_i496]);
             }
             xfer += iprot->readListEnd();
           }
@@ -10522,10 +9829,10 @@ uint32_t MapD_share_dashboard_args::write(::apache::thrift::protocol::TProtocol*
   xfer += oprot->writeFieldBegin("groups", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->groups.size()));
-    std::vector<std::string> ::const_iterator _iter505;
-    for (_iter505 = this->groups.begin(); _iter505 != this->groups.end(); ++_iter505)
+    std::vector<std::string> ::const_iterator _iter497;
+    for (_iter497 = this->groups.begin(); _iter497 != this->groups.end(); ++_iter497)
     {
-      xfer += oprot->writeString((*_iter505));
+      xfer += oprot->writeString((*_iter497));
     }
     xfer += oprot->writeListEnd();
   }
@@ -10534,10 +9841,10 @@ uint32_t MapD_share_dashboard_args::write(::apache::thrift::protocol::TProtocol*
   xfer += oprot->writeFieldBegin("objects", ::apache::thrift::protocol::T_LIST, 4);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->objects.size()));
-    std::vector<std::string> ::const_iterator _iter506;
-    for (_iter506 = this->objects.begin(); _iter506 != this->objects.end(); ++_iter506)
+    std::vector<std::string> ::const_iterator _iter498;
+    for (_iter498 = this->objects.begin(); _iter498 != this->objects.end(); ++_iter498)
     {
-      xfer += oprot->writeString((*_iter506));
+      xfer += oprot->writeString((*_iter498));
     }
     xfer += oprot->writeListEnd();
   }
@@ -10577,10 +9884,10 @@ uint32_t MapD_share_dashboard_pargs::write(::apache::thrift::protocol::TProtocol
   xfer += oprot->writeFieldBegin("groups", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>((*(this->groups)).size()));
-    std::vector<std::string> ::const_iterator _iter507;
-    for (_iter507 = (*(this->groups)).begin(); _iter507 != (*(this->groups)).end(); ++_iter507)
+    std::vector<std::string> ::const_iterator _iter499;
+    for (_iter499 = (*(this->groups)).begin(); _iter499 != (*(this->groups)).end(); ++_iter499)
     {
-      xfer += oprot->writeString((*_iter507));
+      xfer += oprot->writeString((*_iter499));
     }
     xfer += oprot->writeListEnd();
   }
@@ -10589,10 +9896,10 @@ uint32_t MapD_share_dashboard_pargs::write(::apache::thrift::protocol::TProtocol
   xfer += oprot->writeFieldBegin("objects", ::apache::thrift::protocol::T_LIST, 4);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>((*(this->objects)).size()));
-    std::vector<std::string> ::const_iterator _iter508;
-    for (_iter508 = (*(this->objects)).begin(); _iter508 != (*(this->objects)).end(); ++_iter508)
+    std::vector<std::string> ::const_iterator _iter500;
+    for (_iter500 = (*(this->objects)).begin(); _iter500 != (*(this->objects)).end(); ++_iter500)
     {
-      xfer += oprot->writeString((*_iter508));
+      xfer += oprot->writeString((*_iter500));
     }
     xfer += oprot->writeListEnd();
   }
@@ -10765,14 +10072,14 @@ uint32_t MapD_unshare_dashboard_args::read(::apache::thrift::protocol::TProtocol
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->groups.clear();
-            uint32_t _size509;
-            ::apache::thrift::protocol::TType _etype512;
-            xfer += iprot->readListBegin(_etype512, _size509);
-            this->groups.resize(_size509);
-            uint32_t _i513;
-            for (_i513 = 0; _i513 < _size509; ++_i513)
+            uint32_t _size501;
+            ::apache::thrift::protocol::TType _etype504;
+            xfer += iprot->readListBegin(_etype504, _size501);
+            this->groups.resize(_size501);
+            uint32_t _i505;
+            for (_i505 = 0; _i505 < _size501; ++_i505)
             {
-              xfer += iprot->readString(this->groups[_i513]);
+              xfer += iprot->readString(this->groups[_i505]);
             }
             xfer += iprot->readListEnd();
           }
@@ -10785,14 +10092,14 @@ uint32_t MapD_unshare_dashboard_args::read(::apache::thrift::protocol::TProtocol
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->objects.clear();
-            uint32_t _size514;
-            ::apache::thrift::protocol::TType _etype517;
-            xfer += iprot->readListBegin(_etype517, _size514);
-            this->objects.resize(_size514);
-            uint32_t _i518;
-            for (_i518 = 0; _i518 < _size514; ++_i518)
+            uint32_t _size506;
+            ::apache::thrift::protocol::TType _etype509;
+            xfer += iprot->readListBegin(_etype509, _size506);
+            this->objects.resize(_size506);
+            uint32_t _i510;
+            for (_i510 = 0; _i510 < _size506; ++_i510)
             {
-              xfer += iprot->readString(this->objects[_i518]);
+              xfer += iprot->readString(this->objects[_i510]);
             }
             xfer += iprot->readListEnd();
           }
@@ -10837,10 +10144,10 @@ uint32_t MapD_unshare_dashboard_args::write(::apache::thrift::protocol::TProtoco
   xfer += oprot->writeFieldBegin("groups", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->groups.size()));
-    std::vector<std::string> ::const_iterator _iter519;
-    for (_iter519 = this->groups.begin(); _iter519 != this->groups.end(); ++_iter519)
+    std::vector<std::string> ::const_iterator _iter511;
+    for (_iter511 = this->groups.begin(); _iter511 != this->groups.end(); ++_iter511)
     {
-      xfer += oprot->writeString((*_iter519));
+      xfer += oprot->writeString((*_iter511));
     }
     xfer += oprot->writeListEnd();
   }
@@ -10849,10 +10156,10 @@ uint32_t MapD_unshare_dashboard_args::write(::apache::thrift::protocol::TProtoco
   xfer += oprot->writeFieldBegin("objects", ::apache::thrift::protocol::T_LIST, 4);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->objects.size()));
-    std::vector<std::string> ::const_iterator _iter520;
-    for (_iter520 = this->objects.begin(); _iter520 != this->objects.end(); ++_iter520)
+    std::vector<std::string> ::const_iterator _iter512;
+    for (_iter512 = this->objects.begin(); _iter512 != this->objects.end(); ++_iter512)
     {
-      xfer += oprot->writeString((*_iter520));
+      xfer += oprot->writeString((*_iter512));
     }
     xfer += oprot->writeListEnd();
   }
@@ -10888,10 +10195,10 @@ uint32_t MapD_unshare_dashboard_pargs::write(::apache::thrift::protocol::TProtoc
   xfer += oprot->writeFieldBegin("groups", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>((*(this->groups)).size()));
-    std::vector<std::string> ::const_iterator _iter521;
-    for (_iter521 = (*(this->groups)).begin(); _iter521 != (*(this->groups)).end(); ++_iter521)
+    std::vector<std::string> ::const_iterator _iter513;
+    for (_iter513 = (*(this->groups)).begin(); _iter513 != (*(this->groups)).end(); ++_iter513)
     {
-      xfer += oprot->writeString((*_iter521));
+      xfer += oprot->writeString((*_iter513));
     }
     xfer += oprot->writeListEnd();
   }
@@ -10900,10 +10207,10 @@ uint32_t MapD_unshare_dashboard_pargs::write(::apache::thrift::protocol::TProtoc
   xfer += oprot->writeFieldBegin("objects", ::apache::thrift::protocol::T_LIST, 4);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>((*(this->objects)).size()));
-    std::vector<std::string> ::const_iterator _iter522;
-    for (_iter522 = (*(this->objects)).begin(); _iter522 != (*(this->objects)).end(); ++_iter522)
+    std::vector<std::string> ::const_iterator _iter514;
+    for (_iter514 = (*(this->objects)).begin(); _iter514 != (*(this->objects)).end(); ++_iter514)
     {
-      xfer += oprot->writeString((*_iter522));
+      xfer += oprot->writeString((*_iter514));
     }
     xfer += oprot->writeListEnd();
   }
@@ -11151,14 +10458,14 @@ uint32_t MapD_get_dashboard_grantees_result::read(::apache::thrift::protocol::TP
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size523;
-            ::apache::thrift::protocol::TType _etype526;
-            xfer += iprot->readListBegin(_etype526, _size523);
-            this->success.resize(_size523);
-            uint32_t _i527;
-            for (_i527 = 0; _i527 < _size523; ++_i527)
+            uint32_t _size515;
+            ::apache::thrift::protocol::TType _etype518;
+            xfer += iprot->readListBegin(_etype518, _size515);
+            this->success.resize(_size515);
+            uint32_t _i519;
+            for (_i519 = 0; _i519 < _size515; ++_i519)
             {
-              xfer += this->success[_i527].read(iprot);
+              xfer += this->success[_i519].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -11197,10 +10504,10 @@ uint32_t MapD_get_dashboard_grantees_result::write(::apache::thrift::protocol::T
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector<TDashboardGrantees> ::const_iterator _iter528;
-      for (_iter528 = this->success.begin(); _iter528 != this->success.end(); ++_iter528)
+      std::vector<TDashboardGrantees> ::const_iterator _iter520;
+      for (_iter520 = this->success.begin(); _iter520 != this->success.end(); ++_iter520)
       {
-        xfer += (*_iter528).write(oprot);
+        xfer += (*_iter520).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -11245,14 +10552,14 @@ uint32_t MapD_get_dashboard_grantees_presult::read(::apache::thrift::protocol::T
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size529;
-            ::apache::thrift::protocol::TType _etype532;
-            xfer += iprot->readListBegin(_etype532, _size529);
-            (*(this->success)).resize(_size529);
-            uint32_t _i533;
-            for (_i533 = 0; _i533 < _size529; ++_i533)
+            uint32_t _size521;
+            ::apache::thrift::protocol::TType _etype524;
+            xfer += iprot->readListBegin(_etype524, _size521);
+            (*(this->success)).resize(_size521);
+            uint32_t _i525;
+            for (_i525 = 0; _i525 < _size521; ++_i525)
             {
-              xfer += (*(this->success))[_i533].read(iprot);
+              xfer += (*(this->success))[_i525].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -11789,14 +11096,14 @@ uint32_t MapD_load_table_binary_args::read(::apache::thrift::protocol::TProtocol
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->rows.clear();
-            uint32_t _size534;
-            ::apache::thrift::protocol::TType _etype537;
-            xfer += iprot->readListBegin(_etype537, _size534);
-            this->rows.resize(_size534);
-            uint32_t _i538;
-            for (_i538 = 0; _i538 < _size534; ++_i538)
+            uint32_t _size526;
+            ::apache::thrift::protocol::TType _etype529;
+            xfer += iprot->readListBegin(_etype529, _size526);
+            this->rows.resize(_size526);
+            uint32_t _i530;
+            for (_i530 = 0; _i530 < _size526; ++_i530)
             {
-              xfer += this->rows[_i538].read(iprot);
+              xfer += this->rows[_i530].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -11833,10 +11140,10 @@ uint32_t MapD_load_table_binary_args::write(::apache::thrift::protocol::TProtoco
   xfer += oprot->writeFieldBegin("rows", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->rows.size()));
-    std::vector<TRow> ::const_iterator _iter539;
-    for (_iter539 = this->rows.begin(); _iter539 != this->rows.end(); ++_iter539)
+    std::vector<TRow> ::const_iterator _iter531;
+    for (_iter531 = this->rows.begin(); _iter531 != this->rows.end(); ++_iter531)
     {
-      xfer += (*_iter539).write(oprot);
+      xfer += (*_iter531).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -11868,10 +11175,10 @@ uint32_t MapD_load_table_binary_pargs::write(::apache::thrift::protocol::TProtoc
   xfer += oprot->writeFieldBegin("rows", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>((*(this->rows)).size()));
-    std::vector<TRow> ::const_iterator _iter540;
-    for (_iter540 = (*(this->rows)).begin(); _iter540 != (*(this->rows)).end(); ++_iter540)
+    std::vector<TRow> ::const_iterator _iter532;
+    for (_iter532 = (*(this->rows)).begin(); _iter532 != (*(this->rows)).end(); ++_iter532)
     {
-      xfer += (*_iter540).write(oprot);
+      xfer += (*_iter532).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -12036,14 +11343,14 @@ uint32_t MapD_load_table_binary_columnar_args::read(::apache::thrift::protocol::
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->cols.clear();
-            uint32_t _size541;
-            ::apache::thrift::protocol::TType _etype544;
-            xfer += iprot->readListBegin(_etype544, _size541);
-            this->cols.resize(_size541);
-            uint32_t _i545;
-            for (_i545 = 0; _i545 < _size541; ++_i545)
+            uint32_t _size533;
+            ::apache::thrift::protocol::TType _etype536;
+            xfer += iprot->readListBegin(_etype536, _size533);
+            this->cols.resize(_size533);
+            uint32_t _i537;
+            for (_i537 = 0; _i537 < _size533; ++_i537)
             {
-              xfer += this->cols[_i545].read(iprot);
+              xfer += this->cols[_i537].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -12080,10 +11387,10 @@ uint32_t MapD_load_table_binary_columnar_args::write(::apache::thrift::protocol:
   xfer += oprot->writeFieldBegin("cols", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->cols.size()));
-    std::vector<TColumn> ::const_iterator _iter546;
-    for (_iter546 = this->cols.begin(); _iter546 != this->cols.end(); ++_iter546)
+    std::vector<TColumn> ::const_iterator _iter538;
+    for (_iter538 = this->cols.begin(); _iter538 != this->cols.end(); ++_iter538)
     {
-      xfer += (*_iter546).write(oprot);
+      xfer += (*_iter538).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -12115,10 +11422,10 @@ uint32_t MapD_load_table_binary_columnar_pargs::write(::apache::thrift::protocol
   xfer += oprot->writeFieldBegin("cols", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>((*(this->cols)).size()));
-    std::vector<TColumn> ::const_iterator _iter547;
-    for (_iter547 = (*(this->cols)).begin(); _iter547 != (*(this->cols)).end(); ++_iter547)
+    std::vector<TColumn> ::const_iterator _iter539;
+    for (_iter539 = (*(this->cols)).begin(); _iter539 != (*(this->cols)).end(); ++_iter539)
     {
-      xfer += (*_iter547).write(oprot);
+      xfer += (*_iter539).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -12502,14 +11809,14 @@ uint32_t MapD_load_table_args::read(::apache::thrift::protocol::TProtocol* iprot
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->rows.clear();
-            uint32_t _size548;
-            ::apache::thrift::protocol::TType _etype551;
-            xfer += iprot->readListBegin(_etype551, _size548);
-            this->rows.resize(_size548);
-            uint32_t _i552;
-            for (_i552 = 0; _i552 < _size548; ++_i552)
+            uint32_t _size540;
+            ::apache::thrift::protocol::TType _etype543;
+            xfer += iprot->readListBegin(_etype543, _size540);
+            this->rows.resize(_size540);
+            uint32_t _i544;
+            for (_i544 = 0; _i544 < _size540; ++_i544)
             {
-              xfer += this->rows[_i552].read(iprot);
+              xfer += this->rows[_i544].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -12546,10 +11853,10 @@ uint32_t MapD_load_table_args::write(::apache::thrift::protocol::TProtocol* opro
   xfer += oprot->writeFieldBegin("rows", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->rows.size()));
-    std::vector<TStringRow> ::const_iterator _iter553;
-    for (_iter553 = this->rows.begin(); _iter553 != this->rows.end(); ++_iter553)
+    std::vector<TStringRow> ::const_iterator _iter545;
+    for (_iter545 = this->rows.begin(); _iter545 != this->rows.end(); ++_iter545)
     {
-      xfer += (*_iter553).write(oprot);
+      xfer += (*_iter545).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -12581,10 +11888,10 @@ uint32_t MapD_load_table_pargs::write(::apache::thrift::protocol::TProtocol* opr
   xfer += oprot->writeFieldBegin("rows", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>((*(this->rows)).size()));
-    std::vector<TStringRow> ::const_iterator _iter554;
-    for (_iter554 = (*(this->rows)).begin(); _iter554 != (*(this->rows)).end(); ++_iter554)
+    std::vector<TStringRow> ::const_iterator _iter546;
+    for (_iter546 = (*(this->rows)).begin(); _iter546 != (*(this->rows)).end(); ++_iter546)
     {
-      xfer += (*_iter554).write(oprot);
+      xfer += (*_iter546).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -12988,14 +12295,14 @@ uint32_t MapD_create_table_args::read(::apache::thrift::protocol::TProtocol* ipr
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->row_desc.clear();
-            uint32_t _size555;
-            ::apache::thrift::protocol::TType _etype558;
-            xfer += iprot->readListBegin(_etype558, _size555);
-            this->row_desc.resize(_size555);
-            uint32_t _i559;
-            for (_i559 = 0; _i559 < _size555; ++_i559)
+            uint32_t _size547;
+            ::apache::thrift::protocol::TType _etype550;
+            xfer += iprot->readListBegin(_etype550, _size547);
+            this->row_desc.resize(_size547);
+            uint32_t _i551;
+            for (_i551 = 0; _i551 < _size547; ++_i551)
             {
-              xfer += this->row_desc[_i559].read(iprot);
+              xfer += this->row_desc[_i551].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -13006,9 +12313,9 @@ uint32_t MapD_create_table_args::read(::apache::thrift::protocol::TProtocol* ipr
         break;
       case 4:
         if (ftype == ::apache::thrift::protocol::T_I32) {
-          int32_t ecast560;
-          xfer += iprot->readI32(ecast560);
-          this->file_type = (TFileType::type)ecast560;
+          int32_t ecast552;
+          xfer += iprot->readI32(ecast552);
+          this->file_type = (TFileType::type)ecast552;
           this->__isset.file_type = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -13050,10 +12357,10 @@ uint32_t MapD_create_table_args::write(::apache::thrift::protocol::TProtocol* op
   xfer += oprot->writeFieldBegin("row_desc", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->row_desc.size()));
-    std::vector<TColumnType> ::const_iterator _iter561;
-    for (_iter561 = this->row_desc.begin(); _iter561 != this->row_desc.end(); ++_iter561)
+    std::vector<TColumnType> ::const_iterator _iter553;
+    for (_iter553 = this->row_desc.begin(); _iter553 != this->row_desc.end(); ++_iter553)
     {
-      xfer += (*_iter561).write(oprot);
+      xfer += (*_iter553).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -13093,10 +12400,10 @@ uint32_t MapD_create_table_pargs::write(::apache::thrift::protocol::TProtocol* o
   xfer += oprot->writeFieldBegin("row_desc", ::apache::thrift::protocol::T_LIST, 3);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>((*(this->row_desc)).size()));
-    std::vector<TColumnType> ::const_iterator _iter562;
-    for (_iter562 = (*(this->row_desc)).begin(); _iter562 != (*(this->row_desc)).end(); ++_iter562)
+    std::vector<TColumnType> ::const_iterator _iter554;
+    for (_iter554 = (*(this->row_desc)).begin(); _iter554 != (*(this->row_desc)).end(); ++_iter554)
     {
-      xfer += (*_iter562).write(oprot);
+      xfer += (*_iter554).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -13520,14 +12827,14 @@ uint32_t MapD_import_geo_table_args::read(::apache::thrift::protocol::TProtocol*
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->row_desc.clear();
-            uint32_t _size563;
-            ::apache::thrift::protocol::TType _etype566;
-            xfer += iprot->readListBegin(_etype566, _size563);
-            this->row_desc.resize(_size563);
-            uint32_t _i567;
-            for (_i567 = 0; _i567 < _size563; ++_i567)
+            uint32_t _size555;
+            ::apache::thrift::protocol::TType _etype558;
+            xfer += iprot->readListBegin(_etype558, _size555);
+            this->row_desc.resize(_size555);
+            uint32_t _i559;
+            for (_i559 = 0; _i559 < _size555; ++_i559)
             {
-              xfer += this->row_desc[_i567].read(iprot);
+              xfer += this->row_desc[_i559].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -13580,10 +12887,10 @@ uint32_t MapD_import_geo_table_args::write(::apache::thrift::protocol::TProtocol
   xfer += oprot->writeFieldBegin("row_desc", ::apache::thrift::protocol::T_LIST, 5);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->row_desc.size()));
-    std::vector<TColumnType> ::const_iterator _iter568;
-    for (_iter568 = this->row_desc.begin(); _iter568 != this->row_desc.end(); ++_iter568)
+    std::vector<TColumnType> ::const_iterator _iter560;
+    for (_iter560 = this->row_desc.begin(); _iter560 != this->row_desc.end(); ++_iter560)
     {
-      xfer += (*_iter568).write(oprot);
+      xfer += (*_iter560).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -13627,10 +12934,10 @@ uint32_t MapD_import_geo_table_pargs::write(::apache::thrift::protocol::TProtoco
   xfer += oprot->writeFieldBegin("row_desc", ::apache::thrift::protocol::T_LIST, 5);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>((*(this->row_desc)).size()));
-    std::vector<TColumnType> ::const_iterator _iter569;
-    for (_iter569 = (*(this->row_desc)).begin(); _iter569 != (*(this->row_desc)).end(); ++_iter569)
+    std::vector<TColumnType> ::const_iterator _iter561;
+    for (_iter561 = (*(this->row_desc)).begin(); _iter561 != (*(this->row_desc)).end(); ++_iter561)
     {
-      xfer += (*_iter569).write(oprot);
+      xfer += (*_iter561).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -14356,14 +13663,14 @@ uint32_t MapD_get_all_files_in_archive_result::read(::apache::thrift::protocol::
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size570;
-            ::apache::thrift::protocol::TType _etype573;
-            xfer += iprot->readListBegin(_etype573, _size570);
-            this->success.resize(_size570);
-            uint32_t _i574;
-            for (_i574 = 0; _i574 < _size570; ++_i574)
+            uint32_t _size562;
+            ::apache::thrift::protocol::TType _etype565;
+            xfer += iprot->readListBegin(_etype565, _size562);
+            this->success.resize(_size562);
+            uint32_t _i566;
+            for (_i566 = 0; _i566 < _size562; ++_i566)
             {
-              xfer += iprot->readString(this->success[_i574]);
+              xfer += iprot->readString(this->success[_i566]);
             }
             xfer += iprot->readListEnd();
           }
@@ -14402,10 +13709,10 @@ uint32_t MapD_get_all_files_in_archive_result::write(::apache::thrift::protocol:
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->success.size()));
-      std::vector<std::string> ::const_iterator _iter575;
-      for (_iter575 = this->success.begin(); _iter575 != this->success.end(); ++_iter575)
+      std::vector<std::string> ::const_iterator _iter567;
+      for (_iter567 = this->success.begin(); _iter567 != this->success.end(); ++_iter567)
       {
-        xfer += oprot->writeString((*_iter575));
+        xfer += oprot->writeString((*_iter567));
       }
       xfer += oprot->writeListEnd();
     }
@@ -14450,14 +13757,14 @@ uint32_t MapD_get_all_files_in_archive_presult::read(::apache::thrift::protocol:
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size576;
-            ::apache::thrift::protocol::TType _etype579;
-            xfer += iprot->readListBegin(_etype579, _size576);
-            (*(this->success)).resize(_size576);
-            uint32_t _i580;
-            for (_i580 = 0; _i580 < _size576; ++_i580)
+            uint32_t _size568;
+            ::apache::thrift::protocol::TType _etype571;
+            xfer += iprot->readListBegin(_etype571, _size568);
+            (*(this->success)).resize(_size568);
+            uint32_t _i572;
+            for (_i572 = 0; _i572 < _size568; ++_i572)
             {
-              xfer += iprot->readString((*(this->success))[_i580]);
+              xfer += iprot->readString((*(this->success))[_i572]);
             }
             xfer += iprot->readListEnd();
           }
@@ -14627,14 +13934,14 @@ uint32_t MapD_get_layers_in_geo_file_result::read(::apache::thrift::protocol::TP
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size581;
-            ::apache::thrift::protocol::TType _etype584;
-            xfer += iprot->readListBegin(_etype584, _size581);
-            this->success.resize(_size581);
-            uint32_t _i585;
-            for (_i585 = 0; _i585 < _size581; ++_i585)
+            uint32_t _size573;
+            ::apache::thrift::protocol::TType _etype576;
+            xfer += iprot->readListBegin(_etype576, _size573);
+            this->success.resize(_size573);
+            uint32_t _i577;
+            for (_i577 = 0; _i577 < _size573; ++_i577)
             {
-              xfer += this->success[_i585].read(iprot);
+              xfer += this->success[_i577].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -14673,10 +13980,10 @@ uint32_t MapD_get_layers_in_geo_file_result::write(::apache::thrift::protocol::T
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector<TGeoFileLayerInfo> ::const_iterator _iter586;
-      for (_iter586 = this->success.begin(); _iter586 != this->success.end(); ++_iter586)
+      std::vector<TGeoFileLayerInfo> ::const_iterator _iter578;
+      for (_iter578 = this->success.begin(); _iter578 != this->success.end(); ++_iter578)
       {
-        xfer += (*_iter586).write(oprot);
+        xfer += (*_iter578).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -14721,14 +14028,14 @@ uint32_t MapD_get_layers_in_geo_file_presult::read(::apache::thrift::protocol::T
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size587;
-            ::apache::thrift::protocol::TType _etype590;
-            xfer += iprot->readListBegin(_etype590, _size587);
-            (*(this->success)).resize(_size587);
-            uint32_t _i591;
-            for (_i591 = 0; _i591 < _size587; ++_i591)
+            uint32_t _size579;
+            ::apache::thrift::protocol::TType _etype582;
+            xfer += iprot->readListBegin(_etype582, _size579);
+            (*(this->success)).resize(_size579);
+            uint32_t _i583;
+            for (_i583 = 0; _i583 < _size579; ++_i583)
             {
-              xfer += (*(this->success))[_i591].read(iprot);
+              xfer += (*(this->success))[_i583].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -15220,11 +14527,11 @@ uint32_t MapD_start_query_presult::read(::apache::thrift::protocol::TProtocol* i
 }
 
 
-MapD_execute_first_step_args::~MapD_execute_first_step_args() throw() {
+MapD_execute_query_step_args::~MapD_execute_query_step_args() throw() {
 }
 
 
-uint32_t MapD_execute_first_step_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t MapD_execute_query_step_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
   uint32_t xfer = 0;
@@ -15265,10 +14572,10 @@ uint32_t MapD_execute_first_step_args::read(::apache::thrift::protocol::TProtoco
   return xfer;
 }
 
-uint32_t MapD_execute_first_step_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t MapD_execute_query_step_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_execute_first_step_args");
+  xfer += oprot->writeStructBegin("MapD_execute_query_step_args");
 
   xfer += oprot->writeFieldBegin("pending_query", ::apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->pending_query.write(oprot);
@@ -15280,14 +14587,14 @@ uint32_t MapD_execute_first_step_args::write(::apache::thrift::protocol::TProtoc
 }
 
 
-MapD_execute_first_step_pargs::~MapD_execute_first_step_pargs() throw() {
+MapD_execute_query_step_pargs::~MapD_execute_query_step_pargs() throw() {
 }
 
 
-uint32_t MapD_execute_first_step_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t MapD_execute_query_step_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_execute_first_step_pargs");
+  xfer += oprot->writeStructBegin("MapD_execute_query_step_pargs");
 
   xfer += oprot->writeFieldBegin("pending_query", ::apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->pending_query)).write(oprot);
@@ -15299,11 +14606,11 @@ uint32_t MapD_execute_first_step_pargs::write(::apache::thrift::protocol::TProto
 }
 
 
-MapD_execute_first_step_result::~MapD_execute_first_step_result() throw() {
+MapD_execute_query_step_result::~MapD_execute_query_step_result() throw() {
 }
 
 
-uint32_t MapD_execute_first_step_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t MapD_execute_query_step_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
   uint32_t xfer = 0;
@@ -15352,11 +14659,11 @@ uint32_t MapD_execute_first_step_result::read(::apache::thrift::protocol::TProto
   return xfer;
 }
 
-uint32_t MapD_execute_first_step_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t MapD_execute_query_step_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
-  xfer += oprot->writeStructBegin("MapD_execute_first_step_result");
+  xfer += oprot->writeStructBegin("MapD_execute_query_step_result");
 
   if (this->__isset.success) {
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_STRUCT, 0);
@@ -15373,11 +14680,11 @@ uint32_t MapD_execute_first_step_result::write(::apache::thrift::protocol::TProt
 }
 
 
-MapD_execute_first_step_presult::~MapD_execute_first_step_presult() throw() {
+MapD_execute_query_step_presult::~MapD_execute_query_step_presult() throw() {
 }
 
 
-uint32_t MapD_execute_first_step_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t MapD_execute_query_step_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
   uint32_t xfer = 0;
@@ -15464,14 +14771,14 @@ uint32_t MapD_broadcast_serialized_rows_args::read(::apache::thrift::protocol::T
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->row_desc.clear();
-            uint32_t _size592;
-            ::apache::thrift::protocol::TType _etype595;
-            xfer += iprot->readListBegin(_etype595, _size592);
-            this->row_desc.resize(_size592);
-            uint32_t _i596;
-            for (_i596 = 0; _i596 < _size592; ++_i596)
+            uint32_t _size584;
+            ::apache::thrift::protocol::TType _etype587;
+            xfer += iprot->readListBegin(_etype587, _size584);
+            this->row_desc.resize(_size584);
+            uint32_t _i588;
+            for (_i588 = 0; _i588 < _size584; ++_i588)
             {
-              xfer += this->row_desc[_i596].read(iprot);
+              xfer += this->row_desc[_i588].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -15512,10 +14819,10 @@ uint32_t MapD_broadcast_serialized_rows_args::write(::apache::thrift::protocol::
   xfer += oprot->writeFieldBegin("row_desc", ::apache::thrift::protocol::T_LIST, 2);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->row_desc.size()));
-    std::vector<TColumnType> ::const_iterator _iter597;
-    for (_iter597 = this->row_desc.begin(); _iter597 != this->row_desc.end(); ++_iter597)
+    std::vector<TColumnType> ::const_iterator _iter589;
+    for (_iter589 = this->row_desc.begin(); _iter589 != this->row_desc.end(); ++_iter589)
     {
-      xfer += (*_iter597).write(oprot);
+      xfer += (*_iter589).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -15547,10 +14854,10 @@ uint32_t MapD_broadcast_serialized_rows_pargs::write(::apache::thrift::protocol:
   xfer += oprot->writeFieldBegin("row_desc", ::apache::thrift::protocol::T_LIST, 2);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>((*(this->row_desc)).size()));
-    std::vector<TColumnType> ::const_iterator _iter598;
-    for (_iter598 = (*(this->row_desc)).begin(); _iter598 != (*(this->row_desc)).end(); ++_iter598)
+    std::vector<TColumnType> ::const_iterator _iter590;
+    for (_iter590 = (*(this->row_desc)).begin(); _iter590 != (*(this->row_desc)).end(); ++_iter590)
     {
-      xfer += (*_iter598).write(oprot);
+      xfer += (*_iter590).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
@@ -15966,62 +15273,62 @@ uint32_t MapD_execute_next_render_step_args::read(::apache::thrift::protocol::TP
         if (ftype == ::apache::thrift::protocol::T_MAP) {
           {
             this->merged_data.clear();
-            uint32_t _size599;
-            ::apache::thrift::protocol::TType _ktype600;
-            ::apache::thrift::protocol::TType _vtype601;
-            xfer += iprot->readMapBegin(_ktype600, _vtype601, _size599);
-            uint32_t _i603;
-            for (_i603 = 0; _i603 < _size599; ++_i603)
+            uint32_t _size591;
+            ::apache::thrift::protocol::TType _ktype592;
+            ::apache::thrift::protocol::TType _vtype593;
+            xfer += iprot->readMapBegin(_ktype592, _vtype593, _size591);
+            uint32_t _i595;
+            for (_i595 = 0; _i595 < _size591; ++_i595)
             {
-              std::string _key604;
-              xfer += iprot->readString(_key604);
-              std::map<std::string, std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > > & _val605 = this->merged_data[_key604];
+              std::string _key596;
+              xfer += iprot->readString(_key596);
+              std::map<std::string, std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > > & _val597 = this->merged_data[_key596];
               {
-                _val605.clear();
-                uint32_t _size606;
-                ::apache::thrift::protocol::TType _ktype607;
-                ::apache::thrift::protocol::TType _vtype608;
-                xfer += iprot->readMapBegin(_ktype607, _vtype608, _size606);
-                uint32_t _i610;
-                for (_i610 = 0; _i610 < _size606; ++_i610)
+                _val597.clear();
+                uint32_t _size598;
+                ::apache::thrift::protocol::TType _ktype599;
+                ::apache::thrift::protocol::TType _vtype600;
+                xfer += iprot->readMapBegin(_ktype599, _vtype600, _size598);
+                uint32_t _i602;
+                for (_i602 = 0; _i602 < _size598; ++_i602)
                 {
-                  std::string _key611;
-                  xfer += iprot->readString(_key611);
-                  std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > & _val612 = _val605[_key611];
+                  std::string _key603;
+                  xfer += iprot->readString(_key603);
+                  std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > & _val604 = _val597[_key603];
                   {
-                    _val612.clear();
-                    uint32_t _size613;
-                    ::apache::thrift::protocol::TType _ktype614;
-                    ::apache::thrift::protocol::TType _vtype615;
-                    xfer += iprot->readMapBegin(_ktype614, _vtype615, _size613);
-                    uint32_t _i617;
-                    for (_i617 = 0; _i617 < _size613; ++_i617)
+                    _val604.clear();
+                    uint32_t _size605;
+                    ::apache::thrift::protocol::TType _ktype606;
+                    ::apache::thrift::protocol::TType _vtype607;
+                    xfer += iprot->readMapBegin(_ktype606, _vtype607, _size605);
+                    uint32_t _i609;
+                    for (_i609 = 0; _i609 < _size605; ++_i609)
                     {
-                      std::string _key618;
-                      xfer += iprot->readString(_key618);
-                      std::map<std::string, std::vector<TRenderDatum> > & _val619 = _val612[_key618];
+                      std::string _key610;
+                      xfer += iprot->readString(_key610);
+                      std::map<std::string, std::vector<TRenderDatum> > & _val611 = _val604[_key610];
                       {
-                        _val619.clear();
-                        uint32_t _size620;
-                        ::apache::thrift::protocol::TType _ktype621;
-                        ::apache::thrift::protocol::TType _vtype622;
-                        xfer += iprot->readMapBegin(_ktype621, _vtype622, _size620);
-                        uint32_t _i624;
-                        for (_i624 = 0; _i624 < _size620; ++_i624)
+                        _val611.clear();
+                        uint32_t _size612;
+                        ::apache::thrift::protocol::TType _ktype613;
+                        ::apache::thrift::protocol::TType _vtype614;
+                        xfer += iprot->readMapBegin(_ktype613, _vtype614, _size612);
+                        uint32_t _i616;
+                        for (_i616 = 0; _i616 < _size612; ++_i616)
                         {
-                          std::string _key625;
-                          xfer += iprot->readString(_key625);
-                          std::vector<TRenderDatum> & _val626 = _val619[_key625];
+                          std::string _key617;
+                          xfer += iprot->readString(_key617);
+                          std::vector<TRenderDatum> & _val618 = _val611[_key617];
                           {
-                            _val626.clear();
-                            uint32_t _size627;
-                            ::apache::thrift::protocol::TType _etype630;
-                            xfer += iprot->readListBegin(_etype630, _size627);
-                            _val626.resize(_size627);
-                            uint32_t _i631;
-                            for (_i631 = 0; _i631 < _size627; ++_i631)
+                            _val618.clear();
+                            uint32_t _size619;
+                            ::apache::thrift::protocol::TType _etype622;
+                            xfer += iprot->readListBegin(_etype622, _size619);
+                            _val618.resize(_size619);
+                            uint32_t _i623;
+                            for (_i623 = 0; _i623 < _size619; ++_i623)
                             {
-                              xfer += _val626[_i631].read(iprot);
+                              xfer += _val618[_i623].read(iprot);
                             }
                             xfer += iprot->readListEnd();
                           }
@@ -16066,34 +15373,34 @@ uint32_t MapD_execute_next_render_step_args::write(::apache::thrift::protocol::T
   xfer += oprot->writeFieldBegin("merged_data", ::apache::thrift::protocol::T_MAP, 2);
   {
     xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_MAP, static_cast<uint32_t>(this->merged_data.size()));
-    std::map<std::string, std::map<std::string, std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > > > ::const_iterator _iter632;
-    for (_iter632 = this->merged_data.begin(); _iter632 != this->merged_data.end(); ++_iter632)
+    std::map<std::string, std::map<std::string, std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > > > ::const_iterator _iter624;
+    for (_iter624 = this->merged_data.begin(); _iter624 != this->merged_data.end(); ++_iter624)
     {
-      xfer += oprot->writeString(_iter632->first);
+      xfer += oprot->writeString(_iter624->first);
       {
-        xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_MAP, static_cast<uint32_t>(_iter632->second.size()));
-        std::map<std::string, std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > > ::const_iterator _iter633;
-        for (_iter633 = _iter632->second.begin(); _iter633 != _iter632->second.end(); ++_iter633)
+        xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_MAP, static_cast<uint32_t>(_iter624->second.size()));
+        std::map<std::string, std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > > ::const_iterator _iter625;
+        for (_iter625 = _iter624->second.begin(); _iter625 != _iter624->second.end(); ++_iter625)
         {
-          xfer += oprot->writeString(_iter633->first);
+          xfer += oprot->writeString(_iter625->first);
           {
-            xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_MAP, static_cast<uint32_t>(_iter633->second.size()));
-            std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > ::const_iterator _iter634;
-            for (_iter634 = _iter633->second.begin(); _iter634 != _iter633->second.end(); ++_iter634)
+            xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_MAP, static_cast<uint32_t>(_iter625->second.size()));
+            std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > ::const_iterator _iter626;
+            for (_iter626 = _iter625->second.begin(); _iter626 != _iter625->second.end(); ++_iter626)
             {
-              xfer += oprot->writeString(_iter634->first);
+              xfer += oprot->writeString(_iter626->first);
               {
-                xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_LIST, static_cast<uint32_t>(_iter634->second.size()));
-                std::map<std::string, std::vector<TRenderDatum> > ::const_iterator _iter635;
-                for (_iter635 = _iter634->second.begin(); _iter635 != _iter634->second.end(); ++_iter635)
+                xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_LIST, static_cast<uint32_t>(_iter626->second.size()));
+                std::map<std::string, std::vector<TRenderDatum> > ::const_iterator _iter627;
+                for (_iter627 = _iter626->second.begin(); _iter627 != _iter626->second.end(); ++_iter627)
                 {
-                  xfer += oprot->writeString(_iter635->first);
+                  xfer += oprot->writeString(_iter627->first);
                   {
-                    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(_iter635->second.size()));
-                    std::vector<TRenderDatum> ::const_iterator _iter636;
-                    for (_iter636 = _iter635->second.begin(); _iter636 != _iter635->second.end(); ++_iter636)
+                    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(_iter627->second.size()));
+                    std::vector<TRenderDatum> ::const_iterator _iter628;
+                    for (_iter628 = _iter627->second.begin(); _iter628 != _iter627->second.end(); ++_iter628)
                     {
-                      xfer += (*_iter636).write(oprot);
+                      xfer += (*_iter628).write(oprot);
                     }
                     xfer += oprot->writeListEnd();
                   }
@@ -16133,34 +15440,34 @@ uint32_t MapD_execute_next_render_step_pargs::write(::apache::thrift::protocol::
   xfer += oprot->writeFieldBegin("merged_data", ::apache::thrift::protocol::T_MAP, 2);
   {
     xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_MAP, static_cast<uint32_t>((*(this->merged_data)).size()));
-    std::map<std::string, std::map<std::string, std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > > > ::const_iterator _iter637;
-    for (_iter637 = (*(this->merged_data)).begin(); _iter637 != (*(this->merged_data)).end(); ++_iter637)
+    std::map<std::string, std::map<std::string, std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > > > ::const_iterator _iter629;
+    for (_iter629 = (*(this->merged_data)).begin(); _iter629 != (*(this->merged_data)).end(); ++_iter629)
     {
-      xfer += oprot->writeString(_iter637->first);
+      xfer += oprot->writeString(_iter629->first);
       {
-        xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_MAP, static_cast<uint32_t>(_iter637->second.size()));
-        std::map<std::string, std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > > ::const_iterator _iter638;
-        for (_iter638 = _iter637->second.begin(); _iter638 != _iter637->second.end(); ++_iter638)
+        xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_MAP, static_cast<uint32_t>(_iter629->second.size()));
+        std::map<std::string, std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > > ::const_iterator _iter630;
+        for (_iter630 = _iter629->second.begin(); _iter630 != _iter629->second.end(); ++_iter630)
         {
-          xfer += oprot->writeString(_iter638->first);
+          xfer += oprot->writeString(_iter630->first);
           {
-            xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_MAP, static_cast<uint32_t>(_iter638->second.size()));
-            std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > ::const_iterator _iter639;
-            for (_iter639 = _iter638->second.begin(); _iter639 != _iter638->second.end(); ++_iter639)
+            xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_MAP, static_cast<uint32_t>(_iter630->second.size()));
+            std::map<std::string, std::map<std::string, std::vector<TRenderDatum> > > ::const_iterator _iter631;
+            for (_iter631 = _iter630->second.begin(); _iter631 != _iter630->second.end(); ++_iter631)
             {
-              xfer += oprot->writeString(_iter639->first);
+              xfer += oprot->writeString(_iter631->first);
               {
-                xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_LIST, static_cast<uint32_t>(_iter639->second.size()));
-                std::map<std::string, std::vector<TRenderDatum> > ::const_iterator _iter640;
-                for (_iter640 = _iter639->second.begin(); _iter640 != _iter639->second.end(); ++_iter640)
+                xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_LIST, static_cast<uint32_t>(_iter631->second.size()));
+                std::map<std::string, std::vector<TRenderDatum> > ::const_iterator _iter632;
+                for (_iter632 = _iter631->second.begin(); _iter632 != _iter631->second.end(); ++_iter632)
                 {
-                  xfer += oprot->writeString(_iter640->first);
+                  xfer += oprot->writeString(_iter632->first);
                   {
-                    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(_iter640->second.size()));
-                    std::vector<TRenderDatum> ::const_iterator _iter641;
-                    for (_iter641 = _iter640->second.begin(); _iter641 != _iter640->second.end(); ++_iter641)
+                    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(_iter632->second.size()));
+                    std::vector<TRenderDatum> ::const_iterator _iter633;
+                    for (_iter633 = _iter632->second.begin(); _iter633 != _iter632->second.end(); ++_iter633)
                     {
-                      xfer += (*_iter641).write(oprot);
+                      xfer += (*_iter633).write(oprot);
                     }
                     xfer += oprot->writeListEnd();
                   }
@@ -16734,523 +16041,6 @@ uint32_t MapD_checkpoint_presult::read(::apache::thrift::protocol::TProtocol* ip
 }
 
 
-MapD_get_table_descriptor_args::~MapD_get_table_descriptor_args() throw() {
-}
-
-
-uint32_t MapD_get_table_descriptor_args::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->session);
-          this->__isset.session = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 2:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->table_name);
-          this->__isset.table_name = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_get_table_descriptor_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_get_table_descriptor_args");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString(this->session);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("table_name", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString(this->table_name);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_table_descriptor_pargs::~MapD_get_table_descriptor_pargs() throw() {
-}
-
-
-uint32_t MapD_get_table_descriptor_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_get_table_descriptor_pargs");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString((*(this->session)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("table_name", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString((*(this->table_name)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_table_descriptor_result::~MapD_get_table_descriptor_result() throw() {
-}
-
-
-uint32_t MapD_get_table_descriptor_result::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 0:
-        if (ftype == ::apache::thrift::protocol::T_MAP) {
-          {
-            this->success.clear();
-            uint32_t _size642;
-            ::apache::thrift::protocol::TType _ktype643;
-            ::apache::thrift::protocol::TType _vtype644;
-            xfer += iprot->readMapBegin(_ktype643, _vtype644, _size642);
-            uint32_t _i646;
-            for (_i646 = 0; _i646 < _size642; ++_i646)
-            {
-              std::string _key647;
-              xfer += iprot->readString(_key647);
-              TColumnType& _val648 = this->success[_key647];
-              xfer += _val648.read(iprot);
-            }
-            xfer += iprot->readMapEnd();
-          }
-          this->__isset.success = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_get_table_descriptor_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
-
-  uint32_t xfer = 0;
-
-  xfer += oprot->writeStructBegin("MapD_get_table_descriptor_result");
-
-  if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_MAP, 0);
-    {
-      xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::map<std::string, TColumnType> ::const_iterator _iter649;
-      for (_iter649 = this->success.begin(); _iter649 != this->success.end(); ++_iter649)
-      {
-        xfer += oprot->writeString(_iter649->first);
-        xfer += _iter649->second.write(oprot);
-      }
-      xfer += oprot->writeMapEnd();
-    }
-    xfer += oprot->writeFieldEnd();
-  } else if (this->__isset.e) {
-    xfer += oprot->writeFieldBegin("e", ::apache::thrift::protocol::T_STRUCT, 1);
-    xfer += this->e.write(oprot);
-    xfer += oprot->writeFieldEnd();
-  }
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_table_descriptor_presult::~MapD_get_table_descriptor_presult() throw() {
-}
-
-
-uint32_t MapD_get_table_descriptor_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 0:
-        if (ftype == ::apache::thrift::protocol::T_MAP) {
-          {
-            (*(this->success)).clear();
-            uint32_t _size650;
-            ::apache::thrift::protocol::TType _ktype651;
-            ::apache::thrift::protocol::TType _vtype652;
-            xfer += iprot->readMapBegin(_ktype651, _vtype652, _size650);
-            uint32_t _i654;
-            for (_i654 = 0; _i654 < _size650; ++_i654)
-            {
-              std::string _key655;
-              xfer += iprot->readString(_key655);
-              TColumnType& _val656 = (*(this->success))[_key655];
-              xfer += _val656.read(iprot);
-            }
-            xfer += iprot->readMapEnd();
-          }
-          this->__isset.success = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-
-MapD_get_row_descriptor_args::~MapD_get_row_descriptor_args() throw() {
-}
-
-
-uint32_t MapD_get_row_descriptor_args::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->session);
-          this->__isset.session = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 2:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->table_name);
-          this->__isset.table_name = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_get_row_descriptor_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_get_row_descriptor_args");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString(this->session);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("table_name", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString(this->table_name);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_row_descriptor_pargs::~MapD_get_row_descriptor_pargs() throw() {
-}
-
-
-uint32_t MapD_get_row_descriptor_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
-  uint32_t xfer = 0;
-  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_get_row_descriptor_pargs");
-
-  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString((*(this->session)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("table_name", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString((*(this->table_name)));
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_row_descriptor_result::~MapD_get_row_descriptor_result() throw() {
-}
-
-
-uint32_t MapD_get_row_descriptor_result::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 0:
-        if (ftype == ::apache::thrift::protocol::T_LIST) {
-          {
-            this->success.clear();
-            uint32_t _size657;
-            ::apache::thrift::protocol::TType _etype660;
-            xfer += iprot->readListBegin(_etype660, _size657);
-            this->success.resize(_size657);
-            uint32_t _i661;
-            for (_i661 = 0; _i661 < _size657; ++_i661)
-            {
-              xfer += this->success[_i661].read(iprot);
-            }
-            xfer += iprot->readListEnd();
-          }
-          this->__isset.success = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t MapD_get_row_descriptor_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
-
-  uint32_t xfer = 0;
-
-  xfer += oprot->writeStructBegin("MapD_get_row_descriptor_result");
-
-  if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
-    {
-      xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector<TColumnType> ::const_iterator _iter662;
-      for (_iter662 = this->success.begin(); _iter662 != this->success.end(); ++_iter662)
-      {
-        xfer += (*_iter662).write(oprot);
-      }
-      xfer += oprot->writeListEnd();
-    }
-    xfer += oprot->writeFieldEnd();
-  } else if (this->__isset.e) {
-    xfer += oprot->writeFieldBegin("e", ::apache::thrift::protocol::T_STRUCT, 1);
-    xfer += this->e.write(oprot);
-    xfer += oprot->writeFieldEnd();
-  }
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-MapD_get_row_descriptor_presult::~MapD_get_row_descriptor_presult() throw() {
-}
-
-
-uint32_t MapD_get_row_descriptor_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 0:
-        if (ftype == ::apache::thrift::protocol::T_LIST) {
-          {
-            (*(this->success)).clear();
-            uint32_t _size663;
-            ::apache::thrift::protocol::TType _etype666;
-            xfer += iprot->readListBegin(_etype666, _size663);
-            (*(this->success)).resize(_size663);
-            uint32_t _i667;
-            for (_i667 = 0; _i667 < _size663; ++_i667)
-            {
-              xfer += (*(this->success))[_i667].read(iprot);
-            }
-            xfer += iprot->readListEnd();
-          }
-          this->__isset.success = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-
 MapD_get_roles_args::~MapD_get_roles_args() throw() {
 }
 
@@ -17359,14 +16149,14 @@ uint32_t MapD_get_roles_result::read(::apache::thrift::protocol::TProtocol* ipro
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size668;
-            ::apache::thrift::protocol::TType _etype671;
-            xfer += iprot->readListBegin(_etype671, _size668);
-            this->success.resize(_size668);
-            uint32_t _i672;
-            for (_i672 = 0; _i672 < _size668; ++_i672)
+            uint32_t _size634;
+            ::apache::thrift::protocol::TType _etype637;
+            xfer += iprot->readListBegin(_etype637, _size634);
+            this->success.resize(_size634);
+            uint32_t _i638;
+            for (_i638 = 0; _i638 < _size634; ++_i638)
             {
-              xfer += iprot->readString(this->success[_i672]);
+              xfer += iprot->readString(this->success[_i638]);
             }
             xfer += iprot->readListEnd();
           }
@@ -17405,10 +16195,10 @@ uint32_t MapD_get_roles_result::write(::apache::thrift::protocol::TProtocol* opr
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->success.size()));
-      std::vector<std::string> ::const_iterator _iter673;
-      for (_iter673 = this->success.begin(); _iter673 != this->success.end(); ++_iter673)
+      std::vector<std::string> ::const_iterator _iter639;
+      for (_iter639 = this->success.begin(); _iter639 != this->success.end(); ++_iter639)
       {
-        xfer += oprot->writeString((*_iter673));
+        xfer += oprot->writeString((*_iter639));
       }
       xfer += oprot->writeListEnd();
     }
@@ -17453,14 +16243,14 @@ uint32_t MapD_get_roles_presult::read(::apache::thrift::protocol::TProtocol* ipr
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size674;
-            ::apache::thrift::protocol::TType _etype677;
-            xfer += iprot->readListBegin(_etype677, _size674);
-            (*(this->success)).resize(_size674);
-            uint32_t _i678;
-            for (_i678 = 0; _i678 < _size674; ++_i678)
+            uint32_t _size640;
+            ::apache::thrift::protocol::TType _etype643;
+            xfer += iprot->readListBegin(_etype643, _size640);
+            (*(this->success)).resize(_size640);
+            uint32_t _i644;
+            for (_i644 = 0; _i644 < _size640; ++_i644)
             {
-              xfer += iprot->readString((*(this->success))[_i678]);
+              xfer += iprot->readString((*(this->success))[_i644]);
             }
             xfer += iprot->readListEnd();
           }
@@ -17614,14 +16404,14 @@ uint32_t MapD_get_db_objects_for_grantee_result::read(::apache::thrift::protocol
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size679;
-            ::apache::thrift::protocol::TType _etype682;
-            xfer += iprot->readListBegin(_etype682, _size679);
-            this->success.resize(_size679);
-            uint32_t _i683;
-            for (_i683 = 0; _i683 < _size679; ++_i683)
+            uint32_t _size645;
+            ::apache::thrift::protocol::TType _etype648;
+            xfer += iprot->readListBegin(_etype648, _size645);
+            this->success.resize(_size645);
+            uint32_t _i649;
+            for (_i649 = 0; _i649 < _size645; ++_i649)
             {
-              xfer += this->success[_i683].read(iprot);
+              xfer += this->success[_i649].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -17660,10 +16450,10 @@ uint32_t MapD_get_db_objects_for_grantee_result::write(::apache::thrift::protoco
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector<TDBObject> ::const_iterator _iter684;
-      for (_iter684 = this->success.begin(); _iter684 != this->success.end(); ++_iter684)
+      std::vector<TDBObject> ::const_iterator _iter650;
+      for (_iter650 = this->success.begin(); _iter650 != this->success.end(); ++_iter650)
       {
-        xfer += (*_iter684).write(oprot);
+        xfer += (*_iter650).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -17708,14 +16498,14 @@ uint32_t MapD_get_db_objects_for_grantee_presult::read(::apache::thrift::protoco
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size685;
-            ::apache::thrift::protocol::TType _etype688;
-            xfer += iprot->readListBegin(_etype688, _size685);
-            (*(this->success)).resize(_size685);
-            uint32_t _i689;
-            for (_i689 = 0; _i689 < _size685; ++_i689)
+            uint32_t _size651;
+            ::apache::thrift::protocol::TType _etype654;
+            xfer += iprot->readListBegin(_etype654, _size651);
+            (*(this->success)).resize(_size651);
+            uint32_t _i655;
+            for (_i655 = 0; _i655 < _size651; ++_i655)
             {
-              xfer += (*(this->success))[_i689].read(iprot);
+              xfer += (*(this->success))[_i655].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -17788,9 +16578,9 @@ uint32_t MapD_get_db_object_privs_args::read(::apache::thrift::protocol::TProtoc
         break;
       case 3:
         if (ftype == ::apache::thrift::protocol::T_I32) {
-          int32_t ecast690;
-          xfer += iprot->readI32(ecast690);
-          this->type = (TDBObjectType::type)ecast690;
+          int32_t ecast656;
+          xfer += iprot->readI32(ecast656);
+          this->type = (TDBObjectType::type)ecast656;
           this->__isset.type = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -17887,14 +16677,14 @@ uint32_t MapD_get_db_object_privs_result::read(::apache::thrift::protocol::TProt
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size691;
-            ::apache::thrift::protocol::TType _etype694;
-            xfer += iprot->readListBegin(_etype694, _size691);
-            this->success.resize(_size691);
-            uint32_t _i695;
-            for (_i695 = 0; _i695 < _size691; ++_i695)
+            uint32_t _size657;
+            ::apache::thrift::protocol::TType _etype660;
+            xfer += iprot->readListBegin(_etype660, _size657);
+            this->success.resize(_size657);
+            uint32_t _i661;
+            for (_i661 = 0; _i661 < _size657; ++_i661)
             {
-              xfer += this->success[_i695].read(iprot);
+              xfer += this->success[_i661].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -17933,10 +16723,10 @@ uint32_t MapD_get_db_object_privs_result::write(::apache::thrift::protocol::TPro
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->success.size()));
-      std::vector<TDBObject> ::const_iterator _iter696;
-      for (_iter696 = this->success.begin(); _iter696 != this->success.end(); ++_iter696)
+      std::vector<TDBObject> ::const_iterator _iter662;
+      for (_iter662 = this->success.begin(); _iter662 != this->success.end(); ++_iter662)
       {
-        xfer += (*_iter696).write(oprot);
+        xfer += (*_iter662).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -17981,14 +16771,14 @@ uint32_t MapD_get_db_object_privs_presult::read(::apache::thrift::protocol::TPro
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size697;
-            ::apache::thrift::protocol::TType _etype700;
-            xfer += iprot->readListBegin(_etype700, _size697);
-            (*(this->success)).resize(_size697);
-            uint32_t _i701;
-            for (_i701 = 0; _i701 < _size697; ++_i701)
+            uint32_t _size663;
+            ::apache::thrift::protocol::TType _etype666;
+            xfer += iprot->readListBegin(_etype666, _size663);
+            (*(this->success)).resize(_size663);
+            uint32_t _i667;
+            for (_i667 = 0; _i667 < _size663; ++_i667)
             {
-              xfer += (*(this->success))[_i701].read(iprot);
+              xfer += (*(this->success))[_i667].read(iprot);
             }
             xfer += iprot->readListEnd();
           }
@@ -18142,14 +16932,14 @@ uint32_t MapD_get_all_roles_for_user_result::read(::apache::thrift::protocol::TP
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size702;
-            ::apache::thrift::protocol::TType _etype705;
-            xfer += iprot->readListBegin(_etype705, _size702);
-            this->success.resize(_size702);
-            uint32_t _i706;
-            for (_i706 = 0; _i706 < _size702; ++_i706)
+            uint32_t _size668;
+            ::apache::thrift::protocol::TType _etype671;
+            xfer += iprot->readListBegin(_etype671, _size668);
+            this->success.resize(_size668);
+            uint32_t _i672;
+            for (_i672 = 0; _i672 < _size668; ++_i672)
             {
-              xfer += iprot->readString(this->success[_i706]);
+              xfer += iprot->readString(this->success[_i672]);
             }
             xfer += iprot->readListEnd();
           }
@@ -18188,10 +16978,10 @@ uint32_t MapD_get_all_roles_for_user_result::write(::apache::thrift::protocol::T
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->success.size()));
-      std::vector<std::string> ::const_iterator _iter707;
-      for (_iter707 = this->success.begin(); _iter707 != this->success.end(); ++_iter707)
+      std::vector<std::string> ::const_iterator _iter673;
+      for (_iter673 = this->success.begin(); _iter673 != this->success.end(); ++_iter673)
       {
-        xfer += oprot->writeString((*_iter707));
+        xfer += oprot->writeString((*_iter673));
       }
       xfer += oprot->writeListEnd();
     }
@@ -18236,17 +17026,256 @@ uint32_t MapD_get_all_roles_for_user_presult::read(::apache::thrift::protocol::T
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size708;
-            ::apache::thrift::protocol::TType _etype711;
-            xfer += iprot->readListBegin(_etype711, _size708);
-            (*(this->success)).resize(_size708);
-            uint32_t _i712;
-            for (_i712 = 0; _i712 < _size708; ++_i712)
+            uint32_t _size674;
+            ::apache::thrift::protocol::TType _etype677;
+            xfer += iprot->readListBegin(_etype677, _size674);
+            (*(this->success)).resize(_size674);
+            uint32_t _i678;
+            for (_i678 = 0; _i678 < _size674; ++_i678)
             {
-              xfer += iprot->readString((*(this->success))[_i712]);
+              xfer += iprot->readString((*(this->success))[_i678]);
             }
             xfer += iprot->readListEnd();
           }
+          this->__isset.success = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->e.read(iprot);
+          this->__isset.e = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+
+MapD_has_role_args::~MapD_has_role_args() throw() {
+}
+
+
+uint32_t MapD_has_role_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->session);
+          this->__isset.session = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->granteeName);
+          this->__isset.granteeName = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->roleName);
+          this->__isset.roleName = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t MapD_has_role_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("MapD_has_role_args");
+
+  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString(this->session);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("granteeName", ::apache::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeString(this->granteeName);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("roleName", ::apache::thrift::protocol::T_STRING, 3);
+  xfer += oprot->writeString(this->roleName);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+
+MapD_has_role_pargs::~MapD_has_role_pargs() throw() {
+}
+
+
+uint32_t MapD_has_role_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("MapD_has_role_pargs");
+
+  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString((*(this->session)));
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("granteeName", ::apache::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeString((*(this->granteeName)));
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("roleName", ::apache::thrift::protocol::T_STRING, 3);
+  xfer += oprot->writeString((*(this->roleName)));
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+
+MapD_has_role_result::~MapD_has_role_result() throw() {
+}
+
+
+uint32_t MapD_has_role_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
+          xfer += iprot->readBool(this->success);
+          this->__isset.success = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->e.read(iprot);
+          this->__isset.e = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t MapD_has_role_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+
+  uint32_t xfer = 0;
+
+  xfer += oprot->writeStructBegin("MapD_has_role_result");
+
+  if (this->__isset.success) {
+    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_BOOL, 0);
+    xfer += oprot->writeBool(this->success);
+    xfer += oprot->writeFieldEnd();
+  } else if (this->__isset.e) {
+    xfer += oprot->writeFieldBegin("e", ::apache::thrift::protocol::T_STRUCT, 1);
+    xfer += this->e.write(oprot);
+    xfer += oprot->writeFieldEnd();
+  }
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+
+MapD_has_role_presult::~MapD_has_role_presult() throw() {
+}
+
+
+uint32_t MapD_has_role_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
+          xfer += iprot->readBool((*(this->success)));
           this->__isset.success = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -18324,9 +17353,9 @@ uint32_t MapD_has_object_privilege_args::read(::apache::thrift::protocol::TProto
         break;
       case 4:
         if (ftype == ::apache::thrift::protocol::T_I32) {
-          int32_t ecast713;
-          xfer += iprot->readI32(ecast713);
-          this->objectType = (TDBObjectType::type)ecast713;
+          int32_t ecast679;
+          xfer += iprot->readI32(ecast679);
+          this->objectType = (TDBObjectType::type)ecast679;
           this->__isset.objectType = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -19031,7 +18060,20 @@ uint32_t MapD_get_device_parameters_args::read(::apache::thrift::protocol::TProt
     if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
-    xfer += iprot->skip(ftype);
+    switch (fid)
+    {
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->session);
+          this->__isset.session = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
     xfer += iprot->readFieldEnd();
   }
 
@@ -19044,6 +18086,10 @@ uint32_t MapD_get_device_parameters_args::write(::apache::thrift::protocol::TPro
   uint32_t xfer = 0;
   ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("MapD_get_device_parameters_args");
+
+  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString(this->session);
+  xfer += oprot->writeFieldEnd();
 
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -19059,6 +18105,10 @@ uint32_t MapD_get_device_parameters_pargs::write(::apache::thrift::protocol::TPr
   uint32_t xfer = 0;
   ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("MapD_get_device_parameters_pargs");
+
+  xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString((*(this->session)));
+  xfer += oprot->writeFieldEnd();
 
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -19095,17 +18145,17 @@ uint32_t MapD_get_device_parameters_result::read(::apache::thrift::protocol::TPr
         if (ftype == ::apache::thrift::protocol::T_MAP) {
           {
             this->success.clear();
-            uint32_t _size714;
-            ::apache::thrift::protocol::TType _ktype715;
-            ::apache::thrift::protocol::TType _vtype716;
-            xfer += iprot->readMapBegin(_ktype715, _vtype716, _size714);
-            uint32_t _i718;
-            for (_i718 = 0; _i718 < _size714; ++_i718)
+            uint32_t _size680;
+            ::apache::thrift::protocol::TType _ktype681;
+            ::apache::thrift::protocol::TType _vtype682;
+            xfer += iprot->readMapBegin(_ktype681, _vtype682, _size680);
+            uint32_t _i684;
+            for (_i684 = 0; _i684 < _size680; ++_i684)
             {
-              std::string _key719;
-              xfer += iprot->readString(_key719);
-              std::string& _val720 = this->success[_key719];
-              xfer += iprot->readString(_val720);
+              std::string _key685;
+              xfer += iprot->readString(_key685);
+              std::string& _val686 = this->success[_key685];
+              xfer += iprot->readString(_val686);
             }
             xfer += iprot->readMapEnd();
           }
@@ -19144,11 +18194,11 @@ uint32_t MapD_get_device_parameters_result::write(::apache::thrift::protocol::TP
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_MAP, 0);
     {
       xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->success.size()));
-      std::map<std::string, std::string> ::const_iterator _iter721;
-      for (_iter721 = this->success.begin(); _iter721 != this->success.end(); ++_iter721)
+      std::map<std::string, std::string> ::const_iterator _iter687;
+      for (_iter687 = this->success.begin(); _iter687 != this->success.end(); ++_iter687)
       {
-        xfer += oprot->writeString(_iter721->first);
-        xfer += oprot->writeString(_iter721->second);
+        xfer += oprot->writeString(_iter687->first);
+        xfer += oprot->writeString(_iter687->second);
       }
       xfer += oprot->writeMapEnd();
     }
@@ -19193,17 +18243,17 @@ uint32_t MapD_get_device_parameters_presult::read(::apache::thrift::protocol::TP
         if (ftype == ::apache::thrift::protocol::T_MAP) {
           {
             (*(this->success)).clear();
-            uint32_t _size722;
-            ::apache::thrift::protocol::TType _ktype723;
-            ::apache::thrift::protocol::TType _vtype724;
-            xfer += iprot->readMapBegin(_ktype723, _vtype724, _size722);
-            uint32_t _i726;
-            for (_i726 = 0; _i726 < _size722; ++_i726)
+            uint32_t _size688;
+            ::apache::thrift::protocol::TType _ktype689;
+            ::apache::thrift::protocol::TType _vtype690;
+            xfer += iprot->readMapBegin(_ktype689, _vtype690, _size688);
+            uint32_t _i692;
+            for (_i692 = 0; _i692 < _size688; ++_i692)
             {
-              std::string _key727;
-              xfer += iprot->readString(_key727);
-              std::string& _val728 = (*(this->success))[_key727];
-              xfer += iprot->readString(_val728);
+              std::string _key693;
+              xfer += iprot->readString(_key693);
+              std::string& _val694 = (*(this->success))[_key693];
+              xfer += iprot->readString(_val694);
             }
             xfer += iprot->readMapEnd();
           }
@@ -19233,11 +18283,11 @@ uint32_t MapD_get_device_parameters_presult::read(::apache::thrift::protocol::TP
 }
 
 
-MapD_register_runtime_udf_args::~MapD_register_runtime_udf_args() throw() {
+MapD_register_runtime_extension_functions_args::~MapD_register_runtime_extension_functions_args() throw() {
 }
 
 
-uint32_t MapD_register_runtime_udf_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t MapD_register_runtime_extension_functions_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
   uint32_t xfer = 0;
@@ -19267,28 +18317,60 @@ uint32_t MapD_register_runtime_udf_args::read(::apache::thrift::protocol::TProto
         }
         break;
       case 2:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->signatures);
-          this->__isset.signatures = true;
+        if (ftype == ::apache::thrift::protocol::T_LIST) {
+          {
+            this->udfs.clear();
+            uint32_t _size695;
+            ::apache::thrift::protocol::TType _etype698;
+            xfer += iprot->readListBegin(_etype698, _size695);
+            this->udfs.resize(_size695);
+            uint32_t _i699;
+            for (_i699 = 0; _i699 < _size695; ++_i699)
+            {
+              xfer += this->udfs[_i699].read(iprot);
+            }
+            xfer += iprot->readListEnd();
+          }
+          this->__isset.udfs = true;
         } else {
           xfer += iprot->skip(ftype);
         }
         break;
       case 3:
+        if (ftype == ::apache::thrift::protocol::T_LIST) {
+          {
+            this->udtfs.clear();
+            uint32_t _size700;
+            ::apache::thrift::protocol::TType _etype703;
+            xfer += iprot->readListBegin(_etype703, _size700);
+            this->udtfs.resize(_size700);
+            uint32_t _i704;
+            for (_i704 = 0; _i704 < _size700; ++_i704)
+            {
+              xfer += this->udtfs[_i704].read(iprot);
+            }
+            xfer += iprot->readListEnd();
+          }
+          this->__isset.udtfs = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 4:
         if (ftype == ::apache::thrift::protocol::T_MAP) {
           {
             this->device_ir_map.clear();
-            uint32_t _size729;
-            ::apache::thrift::protocol::TType _ktype730;
-            ::apache::thrift::protocol::TType _vtype731;
-            xfer += iprot->readMapBegin(_ktype730, _vtype731, _size729);
-            uint32_t _i733;
-            for (_i733 = 0; _i733 < _size729; ++_i733)
+            uint32_t _size705;
+            ::apache::thrift::protocol::TType _ktype706;
+            ::apache::thrift::protocol::TType _vtype707;
+            xfer += iprot->readMapBegin(_ktype706, _vtype707, _size705);
+            uint32_t _i709;
+            for (_i709 = 0; _i709 < _size705; ++_i709)
             {
-              std::string _key734;
-              xfer += iprot->readString(_key734);
-              std::string& _val735 = this->device_ir_map[_key734];
-              xfer += iprot->readString(_val735);
+              std::string _key710;
+              xfer += iprot->readString(_key710);
+              std::string& _val711 = this->device_ir_map[_key710];
+              xfer += iprot->readString(_val711);
             }
             xfer += iprot->readMapEnd();
           }
@@ -19309,27 +18391,47 @@ uint32_t MapD_register_runtime_udf_args::read(::apache::thrift::protocol::TProto
   return xfer;
 }
 
-uint32_t MapD_register_runtime_udf_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t MapD_register_runtime_extension_functions_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_register_runtime_udf_args");
+  xfer += oprot->writeStructBegin("MapD_register_runtime_extension_functions_args");
 
   xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->session);
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("signatures", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString(this->signatures);
+  xfer += oprot->writeFieldBegin("udfs", ::apache::thrift::protocol::T_LIST, 2);
+  {
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->udfs.size()));
+    std::vector< ::TUserDefinedFunction> ::const_iterator _iter712;
+    for (_iter712 = this->udfs.begin(); _iter712 != this->udfs.end(); ++_iter712)
+    {
+      xfer += (*_iter712).write(oprot);
+    }
+    xfer += oprot->writeListEnd();
+  }
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("device_ir_map", ::apache::thrift::protocol::T_MAP, 3);
+  xfer += oprot->writeFieldBegin("udtfs", ::apache::thrift::protocol::T_LIST, 3);
+  {
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->udtfs.size()));
+    std::vector< ::TUserDefinedTableFunction> ::const_iterator _iter713;
+    for (_iter713 = this->udtfs.begin(); _iter713 != this->udtfs.end(); ++_iter713)
+    {
+      xfer += (*_iter713).write(oprot);
+    }
+    xfer += oprot->writeListEnd();
+  }
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("device_ir_map", ::apache::thrift::protocol::T_MAP, 4);
   {
     xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->device_ir_map.size()));
-    std::map<std::string, std::string> ::const_iterator _iter736;
-    for (_iter736 = this->device_ir_map.begin(); _iter736 != this->device_ir_map.end(); ++_iter736)
+    std::map<std::string, std::string> ::const_iterator _iter714;
+    for (_iter714 = this->device_ir_map.begin(); _iter714 != this->device_ir_map.end(); ++_iter714)
     {
-      xfer += oprot->writeString(_iter736->first);
-      xfer += oprot->writeString(_iter736->second);
+      xfer += oprot->writeString(_iter714->first);
+      xfer += oprot->writeString(_iter714->second);
     }
     xfer += oprot->writeMapEnd();
   }
@@ -19341,31 +18443,51 @@ uint32_t MapD_register_runtime_udf_args::write(::apache::thrift::protocol::TProt
 }
 
 
-MapD_register_runtime_udf_pargs::~MapD_register_runtime_udf_pargs() throw() {
+MapD_register_runtime_extension_functions_pargs::~MapD_register_runtime_extension_functions_pargs() throw() {
 }
 
 
-uint32_t MapD_register_runtime_udf_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t MapD_register_runtime_extension_functions_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("MapD_register_runtime_udf_pargs");
+  xfer += oprot->writeStructBegin("MapD_register_runtime_extension_functions_pargs");
 
   xfer += oprot->writeFieldBegin("session", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->session)));
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("signatures", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString((*(this->signatures)));
+  xfer += oprot->writeFieldBegin("udfs", ::apache::thrift::protocol::T_LIST, 2);
+  {
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>((*(this->udfs)).size()));
+    std::vector< ::TUserDefinedFunction> ::const_iterator _iter715;
+    for (_iter715 = (*(this->udfs)).begin(); _iter715 != (*(this->udfs)).end(); ++_iter715)
+    {
+      xfer += (*_iter715).write(oprot);
+    }
+    xfer += oprot->writeListEnd();
+  }
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("device_ir_map", ::apache::thrift::protocol::T_MAP, 3);
+  xfer += oprot->writeFieldBegin("udtfs", ::apache::thrift::protocol::T_LIST, 3);
+  {
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>((*(this->udtfs)).size()));
+    std::vector< ::TUserDefinedTableFunction> ::const_iterator _iter716;
+    for (_iter716 = (*(this->udtfs)).begin(); _iter716 != (*(this->udtfs)).end(); ++_iter716)
+    {
+      xfer += (*_iter716).write(oprot);
+    }
+    xfer += oprot->writeListEnd();
+  }
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("device_ir_map", ::apache::thrift::protocol::T_MAP, 4);
   {
     xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_STRING, ::apache::thrift::protocol::T_STRING, static_cast<uint32_t>((*(this->device_ir_map)).size()));
-    std::map<std::string, std::string> ::const_iterator _iter737;
-    for (_iter737 = (*(this->device_ir_map)).begin(); _iter737 != (*(this->device_ir_map)).end(); ++_iter737)
+    std::map<std::string, std::string> ::const_iterator _iter717;
+    for (_iter717 = (*(this->device_ir_map)).begin(); _iter717 != (*(this->device_ir_map)).end(); ++_iter717)
     {
-      xfer += oprot->writeString(_iter737->first);
-      xfer += oprot->writeString(_iter737->second);
+      xfer += oprot->writeString(_iter717->first);
+      xfer += oprot->writeString(_iter717->second);
     }
     xfer += oprot->writeMapEnd();
   }
@@ -19377,11 +18499,11 @@ uint32_t MapD_register_runtime_udf_pargs::write(::apache::thrift::protocol::TPro
 }
 
 
-MapD_register_runtime_udf_result::~MapD_register_runtime_udf_result() throw() {
+MapD_register_runtime_extension_functions_result::~MapD_register_runtime_extension_functions_result() throw() {
 }
 
 
-uint32_t MapD_register_runtime_udf_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t MapD_register_runtime_extension_functions_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
   uint32_t xfer = 0;
@@ -19422,11 +18544,11 @@ uint32_t MapD_register_runtime_udf_result::read(::apache::thrift::protocol::TPro
   return xfer;
 }
 
-uint32_t MapD_register_runtime_udf_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t MapD_register_runtime_extension_functions_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
-  xfer += oprot->writeStructBegin("MapD_register_runtime_udf_result");
+  xfer += oprot->writeStructBegin("MapD_register_runtime_extension_functions_result");
 
   if (this->__isset.e) {
     xfer += oprot->writeFieldBegin("e", ::apache::thrift::protocol::T_STRUCT, 1);
@@ -19439,11 +18561,11 @@ uint32_t MapD_register_runtime_udf_result::write(::apache::thrift::protocol::TPr
 }
 
 
-MapD_register_runtime_udf_presult::~MapD_register_runtime_udf_presult() throw() {
+MapD_register_runtime_extension_functions_presult::~MapD_register_runtime_extension_functions_presult() throw() {
 }
 
 
-uint32_t MapD_register_runtime_udf_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t MapD_register_runtime_extension_functions_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
   uint32_t xfer = 0;
@@ -19545,6 +18667,68 @@ void MapDClient::recv_connect(TSessionId& _return)
     throw result.e;
   }
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "connect failed: unknown result");
+}
+
+void MapDClient::krb5_connect(TKrb5Session& _return, const std::string& inputToken, const std::string& dbname)
+{
+  send_krb5_connect(inputToken, dbname);
+  recv_krb5_connect(_return);
+}
+
+void MapDClient::send_krb5_connect(const std::string& inputToken, const std::string& dbname)
+{
+  int32_t cseqid = 0;
+  oprot_->writeMessageBegin("krb5_connect", ::apache::thrift::protocol::T_CALL, cseqid);
+
+  MapD_krb5_connect_pargs args;
+  args.inputToken = &inputToken;
+  args.dbname = &dbname;
+  args.write(oprot_);
+
+  oprot_->writeMessageEnd();
+  oprot_->getTransport()->writeEnd();
+  oprot_->getTransport()->flush();
+}
+
+void MapDClient::recv_krb5_connect(TKrb5Session& _return)
+{
+
+  int32_t rseqid = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TMessageType mtype;
+
+  iprot_->readMessageBegin(fname, mtype, rseqid);
+  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+    ::apache::thrift::TApplicationException x;
+    x.read(iprot_);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw x;
+  }
+  if (mtype != ::apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+  }
+  if (fname.compare("krb5_connect") != 0) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+  }
+  MapD_krb5_connect_presult result;
+  result.success = &_return;
+  result.read(iprot_);
+  iprot_->readMessageEnd();
+  iprot_->getTransport()->readEnd();
+
+  if (result.__isset.success) {
+    // _return pointer has now been filled
+    return;
+  }
+  if (result.__isset.e) {
+    throw result.e;
+  }
+  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "krb5_connect failed: unknown result");
 }
 
 void MapDClient::disconnect(const TSessionId& session)
@@ -21661,246 +20845,6 @@ void MapDClient::recv_get_result_row_for_pixel(TPixelTableRowResult& _return)
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_result_row_for_pixel failed: unknown result");
 }
 
-void MapDClient::get_frontend_view(TFrontendView& _return, const TSessionId& session, const std::string& view_name)
-{
-  send_get_frontend_view(session, view_name);
-  recv_get_frontend_view(_return);
-}
-
-void MapDClient::send_get_frontend_view(const TSessionId& session, const std::string& view_name)
-{
-  int32_t cseqid = 0;
-  oprot_->writeMessageBegin("get_frontend_view", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_get_frontend_view_pargs args;
-  args.session = &session;
-  args.view_name = &view_name;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-}
-
-void MapDClient::recv_get_frontend_view(TFrontendView& _return)
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-    ::apache::thrift::TApplicationException x;
-    x.read(iprot_);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-    throw x;
-  }
-  if (mtype != ::apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  if (fname.compare("get_frontend_view") != 0) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  MapD_get_frontend_view_presult result;
-  result.success = &_return;
-  result.read(iprot_);
-  iprot_->readMessageEnd();
-  iprot_->getTransport()->readEnd();
-
-  if (result.__isset.success) {
-    // _return pointer has now been filled
-    return;
-  }
-  if (result.__isset.e) {
-    throw result.e;
-  }
-  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_frontend_view failed: unknown result");
-}
-
-void MapDClient::get_frontend_views(std::vector<TFrontendView> & _return, const TSessionId& session)
-{
-  send_get_frontend_views(session);
-  recv_get_frontend_views(_return);
-}
-
-void MapDClient::send_get_frontend_views(const TSessionId& session)
-{
-  int32_t cseqid = 0;
-  oprot_->writeMessageBegin("get_frontend_views", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_get_frontend_views_pargs args;
-  args.session = &session;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-}
-
-void MapDClient::recv_get_frontend_views(std::vector<TFrontendView> & _return)
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-    ::apache::thrift::TApplicationException x;
-    x.read(iprot_);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-    throw x;
-  }
-  if (mtype != ::apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  if (fname.compare("get_frontend_views") != 0) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  MapD_get_frontend_views_presult result;
-  result.success = &_return;
-  result.read(iprot_);
-  iprot_->readMessageEnd();
-  iprot_->getTransport()->readEnd();
-
-  if (result.__isset.success) {
-    // _return pointer has now been filled
-    return;
-  }
-  if (result.__isset.e) {
-    throw result.e;
-  }
-  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_frontend_views failed: unknown result");
-}
-
-void MapDClient::create_frontend_view(const TSessionId& session, const std::string& view_name, const std::string& view_state, const std::string& image_hash, const std::string& view_metadata)
-{
-  send_create_frontend_view(session, view_name, view_state, image_hash, view_metadata);
-  recv_create_frontend_view();
-}
-
-void MapDClient::send_create_frontend_view(const TSessionId& session, const std::string& view_name, const std::string& view_state, const std::string& image_hash, const std::string& view_metadata)
-{
-  int32_t cseqid = 0;
-  oprot_->writeMessageBegin("create_frontend_view", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_create_frontend_view_pargs args;
-  args.session = &session;
-  args.view_name = &view_name;
-  args.view_state = &view_state;
-  args.image_hash = &image_hash;
-  args.view_metadata = &view_metadata;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-}
-
-void MapDClient::recv_create_frontend_view()
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-    ::apache::thrift::TApplicationException x;
-    x.read(iprot_);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-    throw x;
-  }
-  if (mtype != ::apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  if (fname.compare("create_frontend_view") != 0) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  MapD_create_frontend_view_presult result;
-  result.read(iprot_);
-  iprot_->readMessageEnd();
-  iprot_->getTransport()->readEnd();
-
-  if (result.__isset.e) {
-    throw result.e;
-  }
-  return;
-}
-
-void MapDClient::delete_frontend_view(const TSessionId& session, const std::string& view_name)
-{
-  send_delete_frontend_view(session, view_name);
-  recv_delete_frontend_view();
-}
-
-void MapDClient::send_delete_frontend_view(const TSessionId& session, const std::string& view_name)
-{
-  int32_t cseqid = 0;
-  oprot_->writeMessageBegin("delete_frontend_view", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_delete_frontend_view_pargs args;
-  args.session = &session;
-  args.view_name = &view_name;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-}
-
-void MapDClient::recv_delete_frontend_view()
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-    ::apache::thrift::TApplicationException x;
-    x.read(iprot_);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-    throw x;
-  }
-  if (mtype != ::apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  if (fname.compare("delete_frontend_view") != 0) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  MapD_delete_frontend_view_presult result;
-  result.read(iprot_);
-  iprot_->readMessageEnd();
-  iprot_->getTransport()->readEnd();
-
-  if (result.__isset.e) {
-    throw result.e;
-  }
-  return;
-}
-
 void MapDClient::get_dashboard(TDashboard& _return, const TSessionId& session, const int32_t dashboard_id)
 {
   send_get_dashboard(session, dashboard_id);
@@ -23367,18 +22311,18 @@ void MapDClient::recv_start_query(TPendingQuery& _return)
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "start_query failed: unknown result");
 }
 
-void MapDClient::execute_first_step(TStepResult& _return, const TPendingQuery& pending_query)
+void MapDClient::execute_query_step(TStepResult& _return, const TPendingQuery& pending_query)
 {
-  send_execute_first_step(pending_query);
-  recv_execute_first_step(_return);
+  send_execute_query_step(pending_query);
+  recv_execute_query_step(_return);
 }
 
-void MapDClient::send_execute_first_step(const TPendingQuery& pending_query)
+void MapDClient::send_execute_query_step(const TPendingQuery& pending_query)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("execute_first_step", ::apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("execute_query_step", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  MapD_execute_first_step_pargs args;
+  MapD_execute_query_step_pargs args;
   args.pending_query = &pending_query;
   args.write(oprot_);
 
@@ -23387,7 +22331,7 @@ void MapDClient::send_execute_first_step(const TPendingQuery& pending_query)
   oprot_->getTransport()->flush();
 }
 
-void MapDClient::recv_execute_first_step(TStepResult& _return)
+void MapDClient::recv_execute_query_step(TStepResult& _return)
 {
 
   int32_t rseqid = 0;
@@ -23407,12 +22351,12 @@ void MapDClient::recv_execute_first_step(TStepResult& _return)
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
   }
-  if (fname.compare("execute_first_step") != 0) {
+  if (fname.compare("execute_query_step") != 0) {
     iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
   }
-  MapD_execute_first_step_presult result;
+  MapD_execute_query_step_presult result;
   result.success = &_return;
   result.read(iprot_);
   iprot_->readMessageEnd();
@@ -23425,7 +22369,7 @@ void MapDClient::recv_execute_first_step(TStepResult& _return)
   if (result.__isset.e) {
     throw result.e;
   }
-  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "execute_first_step failed: unknown result");
+  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "execute_query_step failed: unknown result");
 }
 
 void MapDClient::broadcast_serialized_rows(const  ::TSerializedRows& serialized_rows, const TRowDescriptor& row_desc, const TQueryId query_id)
@@ -23727,130 +22671,6 @@ void MapDClient::recv_checkpoint()
   return;
 }
 
-void MapDClient::get_table_descriptor(TTableDescriptor& _return, const TSessionId& session, const std::string& table_name)
-{
-  send_get_table_descriptor(session, table_name);
-  recv_get_table_descriptor(_return);
-}
-
-void MapDClient::send_get_table_descriptor(const TSessionId& session, const std::string& table_name)
-{
-  int32_t cseqid = 0;
-  oprot_->writeMessageBegin("get_table_descriptor", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_get_table_descriptor_pargs args;
-  args.session = &session;
-  args.table_name = &table_name;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-}
-
-void MapDClient::recv_get_table_descriptor(TTableDescriptor& _return)
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-    ::apache::thrift::TApplicationException x;
-    x.read(iprot_);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-    throw x;
-  }
-  if (mtype != ::apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  if (fname.compare("get_table_descriptor") != 0) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  MapD_get_table_descriptor_presult result;
-  result.success = &_return;
-  result.read(iprot_);
-  iprot_->readMessageEnd();
-  iprot_->getTransport()->readEnd();
-
-  if (result.__isset.success) {
-    // _return pointer has now been filled
-    return;
-  }
-  if (result.__isset.e) {
-    throw result.e;
-  }
-  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_table_descriptor failed: unknown result");
-}
-
-void MapDClient::get_row_descriptor(TRowDescriptor& _return, const TSessionId& session, const std::string& table_name)
-{
-  send_get_row_descriptor(session, table_name);
-  recv_get_row_descriptor(_return);
-}
-
-void MapDClient::send_get_row_descriptor(const TSessionId& session, const std::string& table_name)
-{
-  int32_t cseqid = 0;
-  oprot_->writeMessageBegin("get_row_descriptor", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_get_row_descriptor_pargs args;
-  args.session = &session;
-  args.table_name = &table_name;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-}
-
-void MapDClient::recv_get_row_descriptor(TRowDescriptor& _return)
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-    ::apache::thrift::TApplicationException x;
-    x.read(iprot_);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-    throw x;
-  }
-  if (mtype != ::apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  if (fname.compare("get_row_descriptor") != 0) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  MapD_get_row_descriptor_presult result;
-  result.success = &_return;
-  result.read(iprot_);
-  iprot_->readMessageEnd();
-  iprot_->getTransport()->readEnd();
-
-  if (result.__isset.success) {
-    // _return pointer has now been filled
-    return;
-  }
-  if (result.__isset.e) {
-    throw result.e;
-  }
-  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_row_descriptor failed: unknown result");
-}
-
 void MapDClient::get_roles(std::vector<std::string> & _return, const TSessionId& session)
 {
   send_get_roles(session);
@@ -24099,6 +22919,69 @@ void MapDClient::recv_get_all_roles_for_user(std::vector<std::string> & _return)
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_all_roles_for_user failed: unknown result");
 }
 
+bool MapDClient::has_role(const TSessionId& session, const std::string& granteeName, const std::string& roleName)
+{
+  send_has_role(session, granteeName, roleName);
+  return recv_has_role();
+}
+
+void MapDClient::send_has_role(const TSessionId& session, const std::string& granteeName, const std::string& roleName)
+{
+  int32_t cseqid = 0;
+  oprot_->writeMessageBegin("has_role", ::apache::thrift::protocol::T_CALL, cseqid);
+
+  MapD_has_role_pargs args;
+  args.session = &session;
+  args.granteeName = &granteeName;
+  args.roleName = &roleName;
+  args.write(oprot_);
+
+  oprot_->writeMessageEnd();
+  oprot_->getTransport()->writeEnd();
+  oprot_->getTransport()->flush();
+}
+
+bool MapDClient::recv_has_role()
+{
+
+  int32_t rseqid = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TMessageType mtype;
+
+  iprot_->readMessageBegin(fname, mtype, rseqid);
+  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+    ::apache::thrift::TApplicationException x;
+    x.read(iprot_);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw x;
+  }
+  if (mtype != ::apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+  }
+  if (fname.compare("has_role") != 0) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+  }
+  bool _return;
+  MapD_has_role_presult result;
+  result.success = &_return;
+  result.read(iprot_);
+  iprot_->readMessageEnd();
+  iprot_->getTransport()->readEnd();
+
+  if (result.__isset.success) {
+    return _return;
+  }
+  if (result.__isset.e) {
+    throw result.e;
+  }
+  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "has_role failed: unknown result");
+}
+
 bool MapDClient::has_object_privilege(const TSessionId& session, const std::string& granteeName, const std::string& ObjectName, const TDBObjectType::type objectType, const TDBObjectPermissions& permissions)
 {
   send_has_object_privilege(session, granteeName, ObjectName, objectType, permissions);
@@ -24289,18 +23172,19 @@ void MapDClient::recv_get_license_claims(TLicenseInfo& _return)
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_license_claims failed: unknown result");
 }
 
-void MapDClient::get_device_parameters(std::map<std::string, std::string> & _return)
+void MapDClient::get_device_parameters(std::map<std::string, std::string> & _return, const TSessionId& session)
 {
-  send_get_device_parameters();
+  send_get_device_parameters(session);
   recv_get_device_parameters(_return);
 }
 
-void MapDClient::send_get_device_parameters()
+void MapDClient::send_get_device_parameters(const TSessionId& session)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("get_device_parameters", ::apache::thrift::protocol::T_CALL, cseqid);
 
   MapD_get_device_parameters_pargs args;
+  args.session = &session;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -24349,20 +23233,21 @@ void MapDClient::recv_get_device_parameters(std::map<std::string, std::string> &
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_device_parameters failed: unknown result");
 }
 
-void MapDClient::register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map)
+void MapDClient::register_runtime_extension_functions(const TSessionId& session, const std::vector< ::TUserDefinedFunction> & udfs, const std::vector< ::TUserDefinedTableFunction> & udtfs, const std::map<std::string, std::string> & device_ir_map)
 {
-  send_register_runtime_udf(session, signatures, device_ir_map);
-  recv_register_runtime_udf();
+  send_register_runtime_extension_functions(session, udfs, udtfs, device_ir_map);
+  recv_register_runtime_extension_functions();
 }
 
-void MapDClient::send_register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map)
+void MapDClient::send_register_runtime_extension_functions(const TSessionId& session, const std::vector< ::TUserDefinedFunction> & udfs, const std::vector< ::TUserDefinedTableFunction> & udtfs, const std::map<std::string, std::string> & device_ir_map)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("register_runtime_udf", ::apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("register_runtime_extension_functions", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  MapD_register_runtime_udf_pargs args;
+  MapD_register_runtime_extension_functions_pargs args;
   args.session = &session;
-  args.signatures = &signatures;
+  args.udfs = &udfs;
+  args.udtfs = &udtfs;
   args.device_ir_map = &device_ir_map;
   args.write(oprot_);
 
@@ -24371,7 +23256,7 @@ void MapDClient::send_register_runtime_udf(const TSessionId& session, const std:
   oprot_->getTransport()->flush();
 }
 
-void MapDClient::recv_register_runtime_udf()
+void MapDClient::recv_register_runtime_extension_functions()
 {
 
   int32_t rseqid = 0;
@@ -24391,12 +23276,12 @@ void MapDClient::recv_register_runtime_udf()
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
   }
-  if (fname.compare("register_runtime_udf") != 0) {
+  if (fname.compare("register_runtime_extension_functions") != 0) {
     iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
   }
-  MapD_register_runtime_udf_presult result;
+  MapD_register_runtime_extension_functions_presult result;
   result.read(iprot_);
   iprot_->readMessageEnd();
   iprot_->getTransport()->readEnd();
@@ -24480,6 +23365,63 @@ void MapDProcessor::process_connect(int32_t seqid, ::apache::thrift::protocol::T
 
   if (this->eventHandler_.get() != NULL) {
     this->eventHandler_->postWrite(ctx, "MapD.connect", bytes);
+  }
+}
+
+void MapDProcessor::process_krb5_connect(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
+{
+  void* ctx = NULL;
+  if (this->eventHandler_.get() != NULL) {
+    ctx = this->eventHandler_->getContext("MapD.krb5_connect", callContext);
+  }
+  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.krb5_connect");
+
+  if (this->eventHandler_.get() != NULL) {
+    this->eventHandler_->preRead(ctx, "MapD.krb5_connect");
+  }
+
+  MapD_krb5_connect_args args;
+  args.read(iprot);
+  iprot->readMessageEnd();
+  uint32_t bytes = iprot->getTransport()->readEnd();
+
+  if (this->eventHandler_.get() != NULL) {
+    this->eventHandler_->postRead(ctx, "MapD.krb5_connect", bytes);
+  }
+
+  MapD_krb5_connect_result result;
+  try {
+    iface_->krb5_connect(result.success, args.inputToken, args.dbname);
+    result.__isset.success = true;
+  } catch (TMapDException &e) {
+    result.e = e;
+    result.__isset.e = true;
+  } catch (const std::exception& e) {
+    if (this->eventHandler_.get() != NULL) {
+      this->eventHandler_->handlerError(ctx, "MapD.krb5_connect");
+    }
+
+    ::apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("krb5_connect", ::apache::thrift::protocol::T_EXCEPTION, seqid);
+    x.write(oprot);
+    oprot->writeMessageEnd();
+    oprot->getTransport()->writeEnd();
+    oprot->getTransport()->flush();
+    return;
+  }
+
+  if (this->eventHandler_.get() != NULL) {
+    this->eventHandler_->preWrite(ctx, "MapD.krb5_connect");
+  }
+
+  oprot->writeMessageBegin("krb5_connect", ::apache::thrift::protocol::T_REPLY, seqid);
+  result.write(oprot);
+  oprot->writeMessageEnd();
+  bytes = oprot->getTransport()->writeEnd();
+  oprot->getTransport()->flush();
+
+  if (this->eventHandler_.get() != NULL) {
+    this->eventHandler_->postWrite(ctx, "MapD.krb5_connect", bytes);
   }
 }
 
@@ -26461,232 +25403,6 @@ void MapDProcessor::process_get_result_row_for_pixel(int32_t seqid, ::apache::th
   }
 }
 
-void MapDProcessor::process_get_frontend_view(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
-{
-  void* ctx = NULL;
-  if (this->eventHandler_.get() != NULL) {
-    ctx = this->eventHandler_->getContext("MapD.get_frontend_view", callContext);
-  }
-  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.get_frontend_view");
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preRead(ctx, "MapD.get_frontend_view");
-  }
-
-  MapD_get_frontend_view_args args;
-  args.read(iprot);
-  iprot->readMessageEnd();
-  uint32_t bytes = iprot->getTransport()->readEnd();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postRead(ctx, "MapD.get_frontend_view", bytes);
-  }
-
-  MapD_get_frontend_view_result result;
-  try {
-    iface_->get_frontend_view(result.success, args.session, args.view_name);
-    result.__isset.success = true;
-  } catch (TMapDException &e) {
-    result.e = e;
-    result.__isset.e = true;
-  } catch (const std::exception& e) {
-    if (this->eventHandler_.get() != NULL) {
-      this->eventHandler_->handlerError(ctx, "MapD.get_frontend_view");
-    }
-
-    ::apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("get_frontend_view", ::apache::thrift::protocol::T_EXCEPTION, seqid);
-    x.write(oprot);
-    oprot->writeMessageEnd();
-    oprot->getTransport()->writeEnd();
-    oprot->getTransport()->flush();
-    return;
-  }
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preWrite(ctx, "MapD.get_frontend_view");
-  }
-
-  oprot->writeMessageBegin("get_frontend_view", ::apache::thrift::protocol::T_REPLY, seqid);
-  result.write(oprot);
-  oprot->writeMessageEnd();
-  bytes = oprot->getTransport()->writeEnd();
-  oprot->getTransport()->flush();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postWrite(ctx, "MapD.get_frontend_view", bytes);
-  }
-}
-
-void MapDProcessor::process_get_frontend_views(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
-{
-  void* ctx = NULL;
-  if (this->eventHandler_.get() != NULL) {
-    ctx = this->eventHandler_->getContext("MapD.get_frontend_views", callContext);
-  }
-  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.get_frontend_views");
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preRead(ctx, "MapD.get_frontend_views");
-  }
-
-  MapD_get_frontend_views_args args;
-  args.read(iprot);
-  iprot->readMessageEnd();
-  uint32_t bytes = iprot->getTransport()->readEnd();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postRead(ctx, "MapD.get_frontend_views", bytes);
-  }
-
-  MapD_get_frontend_views_result result;
-  try {
-    iface_->get_frontend_views(result.success, args.session);
-    result.__isset.success = true;
-  } catch (TMapDException &e) {
-    result.e = e;
-    result.__isset.e = true;
-  } catch (const std::exception& e) {
-    if (this->eventHandler_.get() != NULL) {
-      this->eventHandler_->handlerError(ctx, "MapD.get_frontend_views");
-    }
-
-    ::apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("get_frontend_views", ::apache::thrift::protocol::T_EXCEPTION, seqid);
-    x.write(oprot);
-    oprot->writeMessageEnd();
-    oprot->getTransport()->writeEnd();
-    oprot->getTransport()->flush();
-    return;
-  }
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preWrite(ctx, "MapD.get_frontend_views");
-  }
-
-  oprot->writeMessageBegin("get_frontend_views", ::apache::thrift::protocol::T_REPLY, seqid);
-  result.write(oprot);
-  oprot->writeMessageEnd();
-  bytes = oprot->getTransport()->writeEnd();
-  oprot->getTransport()->flush();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postWrite(ctx, "MapD.get_frontend_views", bytes);
-  }
-}
-
-void MapDProcessor::process_create_frontend_view(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
-{
-  void* ctx = NULL;
-  if (this->eventHandler_.get() != NULL) {
-    ctx = this->eventHandler_->getContext("MapD.create_frontend_view", callContext);
-  }
-  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.create_frontend_view");
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preRead(ctx, "MapD.create_frontend_view");
-  }
-
-  MapD_create_frontend_view_args args;
-  args.read(iprot);
-  iprot->readMessageEnd();
-  uint32_t bytes = iprot->getTransport()->readEnd();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postRead(ctx, "MapD.create_frontend_view", bytes);
-  }
-
-  MapD_create_frontend_view_result result;
-  try {
-    iface_->create_frontend_view(args.session, args.view_name, args.view_state, args.image_hash, args.view_metadata);
-  } catch (TMapDException &e) {
-    result.e = e;
-    result.__isset.e = true;
-  } catch (const std::exception& e) {
-    if (this->eventHandler_.get() != NULL) {
-      this->eventHandler_->handlerError(ctx, "MapD.create_frontend_view");
-    }
-
-    ::apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("create_frontend_view", ::apache::thrift::protocol::T_EXCEPTION, seqid);
-    x.write(oprot);
-    oprot->writeMessageEnd();
-    oprot->getTransport()->writeEnd();
-    oprot->getTransport()->flush();
-    return;
-  }
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preWrite(ctx, "MapD.create_frontend_view");
-  }
-
-  oprot->writeMessageBegin("create_frontend_view", ::apache::thrift::protocol::T_REPLY, seqid);
-  result.write(oprot);
-  oprot->writeMessageEnd();
-  bytes = oprot->getTransport()->writeEnd();
-  oprot->getTransport()->flush();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postWrite(ctx, "MapD.create_frontend_view", bytes);
-  }
-}
-
-void MapDProcessor::process_delete_frontend_view(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
-{
-  void* ctx = NULL;
-  if (this->eventHandler_.get() != NULL) {
-    ctx = this->eventHandler_->getContext("MapD.delete_frontend_view", callContext);
-  }
-  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.delete_frontend_view");
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preRead(ctx, "MapD.delete_frontend_view");
-  }
-
-  MapD_delete_frontend_view_args args;
-  args.read(iprot);
-  iprot->readMessageEnd();
-  uint32_t bytes = iprot->getTransport()->readEnd();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postRead(ctx, "MapD.delete_frontend_view", bytes);
-  }
-
-  MapD_delete_frontend_view_result result;
-  try {
-    iface_->delete_frontend_view(args.session, args.view_name);
-  } catch (TMapDException &e) {
-    result.e = e;
-    result.__isset.e = true;
-  } catch (const std::exception& e) {
-    if (this->eventHandler_.get() != NULL) {
-      this->eventHandler_->handlerError(ctx, "MapD.delete_frontend_view");
-    }
-
-    ::apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("delete_frontend_view", ::apache::thrift::protocol::T_EXCEPTION, seqid);
-    x.write(oprot);
-    oprot->writeMessageEnd();
-    oprot->getTransport()->writeEnd();
-    oprot->getTransport()->flush();
-    return;
-  }
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preWrite(ctx, "MapD.delete_frontend_view");
-  }
-
-  oprot->writeMessageBegin("delete_frontend_view", ::apache::thrift::protocol::T_REPLY, seqid);
-  result.write(oprot);
-  oprot->writeMessageEnd();
-  bytes = oprot->getTransport()->writeEnd();
-  oprot->getTransport()->flush();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postWrite(ctx, "MapD.delete_frontend_view", bytes);
-  }
-}
-
 void MapDProcessor::process_get_dashboard(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
 {
   void* ctx = NULL;
@@ -28044,41 +26760,41 @@ void MapDProcessor::process_start_query(int32_t seqid, ::apache::thrift::protoco
   }
 }
 
-void MapDProcessor::process_execute_first_step(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
+void MapDProcessor::process_execute_query_step(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
 {
   void* ctx = NULL;
   if (this->eventHandler_.get() != NULL) {
-    ctx = this->eventHandler_->getContext("MapD.execute_first_step", callContext);
+    ctx = this->eventHandler_->getContext("MapD.execute_query_step", callContext);
   }
-  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.execute_first_step");
+  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.execute_query_step");
 
   if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preRead(ctx, "MapD.execute_first_step");
+    this->eventHandler_->preRead(ctx, "MapD.execute_query_step");
   }
 
-  MapD_execute_first_step_args args;
+  MapD_execute_query_step_args args;
   args.read(iprot);
   iprot->readMessageEnd();
   uint32_t bytes = iprot->getTransport()->readEnd();
 
   if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postRead(ctx, "MapD.execute_first_step", bytes);
+    this->eventHandler_->postRead(ctx, "MapD.execute_query_step", bytes);
   }
 
-  MapD_execute_first_step_result result;
+  MapD_execute_query_step_result result;
   try {
-    iface_->execute_first_step(result.success, args.pending_query);
+    iface_->execute_query_step(result.success, args.pending_query);
     result.__isset.success = true;
   } catch (TMapDException &e) {
     result.e = e;
     result.__isset.e = true;
   } catch (const std::exception& e) {
     if (this->eventHandler_.get() != NULL) {
-      this->eventHandler_->handlerError(ctx, "MapD.execute_first_step");
+      this->eventHandler_->handlerError(ctx, "MapD.execute_query_step");
     }
 
     ::apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("execute_first_step", ::apache::thrift::protocol::T_EXCEPTION, seqid);
+    oprot->writeMessageBegin("execute_query_step", ::apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->writeEnd();
@@ -28087,17 +26803,17 @@ void MapDProcessor::process_execute_first_step(int32_t seqid, ::apache::thrift::
   }
 
   if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preWrite(ctx, "MapD.execute_first_step");
+    this->eventHandler_->preWrite(ctx, "MapD.execute_query_step");
   }
 
-  oprot->writeMessageBegin("execute_first_step", ::apache::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("execute_query_step", ::apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   bytes = oprot->getTransport()->writeEnd();
   oprot->getTransport()->flush();
 
   if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postWrite(ctx, "MapD.execute_first_step", bytes);
+    this->eventHandler_->postWrite(ctx, "MapD.execute_query_step", bytes);
   }
 }
 
@@ -28383,120 +27099,6 @@ void MapDProcessor::process_checkpoint(int32_t seqid, ::apache::thrift::protocol
   }
 }
 
-void MapDProcessor::process_get_table_descriptor(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
-{
-  void* ctx = NULL;
-  if (this->eventHandler_.get() != NULL) {
-    ctx = this->eventHandler_->getContext("MapD.get_table_descriptor", callContext);
-  }
-  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.get_table_descriptor");
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preRead(ctx, "MapD.get_table_descriptor");
-  }
-
-  MapD_get_table_descriptor_args args;
-  args.read(iprot);
-  iprot->readMessageEnd();
-  uint32_t bytes = iprot->getTransport()->readEnd();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postRead(ctx, "MapD.get_table_descriptor", bytes);
-  }
-
-  MapD_get_table_descriptor_result result;
-  try {
-    iface_->get_table_descriptor(result.success, args.session, args.table_name);
-    result.__isset.success = true;
-  } catch (TMapDException &e) {
-    result.e = e;
-    result.__isset.e = true;
-  } catch (const std::exception& e) {
-    if (this->eventHandler_.get() != NULL) {
-      this->eventHandler_->handlerError(ctx, "MapD.get_table_descriptor");
-    }
-
-    ::apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("get_table_descriptor", ::apache::thrift::protocol::T_EXCEPTION, seqid);
-    x.write(oprot);
-    oprot->writeMessageEnd();
-    oprot->getTransport()->writeEnd();
-    oprot->getTransport()->flush();
-    return;
-  }
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preWrite(ctx, "MapD.get_table_descriptor");
-  }
-
-  oprot->writeMessageBegin("get_table_descriptor", ::apache::thrift::protocol::T_REPLY, seqid);
-  result.write(oprot);
-  oprot->writeMessageEnd();
-  bytes = oprot->getTransport()->writeEnd();
-  oprot->getTransport()->flush();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postWrite(ctx, "MapD.get_table_descriptor", bytes);
-  }
-}
-
-void MapDProcessor::process_get_row_descriptor(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
-{
-  void* ctx = NULL;
-  if (this->eventHandler_.get() != NULL) {
-    ctx = this->eventHandler_->getContext("MapD.get_row_descriptor", callContext);
-  }
-  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.get_row_descriptor");
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preRead(ctx, "MapD.get_row_descriptor");
-  }
-
-  MapD_get_row_descriptor_args args;
-  args.read(iprot);
-  iprot->readMessageEnd();
-  uint32_t bytes = iprot->getTransport()->readEnd();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postRead(ctx, "MapD.get_row_descriptor", bytes);
-  }
-
-  MapD_get_row_descriptor_result result;
-  try {
-    iface_->get_row_descriptor(result.success, args.session, args.table_name);
-    result.__isset.success = true;
-  } catch (TMapDException &e) {
-    result.e = e;
-    result.__isset.e = true;
-  } catch (const std::exception& e) {
-    if (this->eventHandler_.get() != NULL) {
-      this->eventHandler_->handlerError(ctx, "MapD.get_row_descriptor");
-    }
-
-    ::apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("get_row_descriptor", ::apache::thrift::protocol::T_EXCEPTION, seqid);
-    x.write(oprot);
-    oprot->writeMessageEnd();
-    oprot->getTransport()->writeEnd();
-    oprot->getTransport()->flush();
-    return;
-  }
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preWrite(ctx, "MapD.get_row_descriptor");
-  }
-
-  oprot->writeMessageBegin("get_row_descriptor", ::apache::thrift::protocol::T_REPLY, seqid);
-  result.write(oprot);
-  oprot->writeMessageEnd();
-  bytes = oprot->getTransport()->writeEnd();
-  oprot->getTransport()->flush();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postWrite(ctx, "MapD.get_row_descriptor", bytes);
-  }
-}
-
 void MapDProcessor::process_get_roles(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
 {
   void* ctx = NULL;
@@ -28725,6 +27327,63 @@ void MapDProcessor::process_get_all_roles_for_user(int32_t seqid, ::apache::thri
   }
 }
 
+void MapDProcessor::process_has_role(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
+{
+  void* ctx = NULL;
+  if (this->eventHandler_.get() != NULL) {
+    ctx = this->eventHandler_->getContext("MapD.has_role", callContext);
+  }
+  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.has_role");
+
+  if (this->eventHandler_.get() != NULL) {
+    this->eventHandler_->preRead(ctx, "MapD.has_role");
+  }
+
+  MapD_has_role_args args;
+  args.read(iprot);
+  iprot->readMessageEnd();
+  uint32_t bytes = iprot->getTransport()->readEnd();
+
+  if (this->eventHandler_.get() != NULL) {
+    this->eventHandler_->postRead(ctx, "MapD.has_role", bytes);
+  }
+
+  MapD_has_role_result result;
+  try {
+    result.success = iface_->has_role(args.session, args.granteeName, args.roleName);
+    result.__isset.success = true;
+  } catch (TMapDException &e) {
+    result.e = e;
+    result.__isset.e = true;
+  } catch (const std::exception& e) {
+    if (this->eventHandler_.get() != NULL) {
+      this->eventHandler_->handlerError(ctx, "MapD.has_role");
+    }
+
+    ::apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("has_role", ::apache::thrift::protocol::T_EXCEPTION, seqid);
+    x.write(oprot);
+    oprot->writeMessageEnd();
+    oprot->getTransport()->writeEnd();
+    oprot->getTransport()->flush();
+    return;
+  }
+
+  if (this->eventHandler_.get() != NULL) {
+    this->eventHandler_->preWrite(ctx, "MapD.has_role");
+  }
+
+  oprot->writeMessageBegin("has_role", ::apache::thrift::protocol::T_REPLY, seqid);
+  result.write(oprot);
+  oprot->writeMessageEnd();
+  bytes = oprot->getTransport()->writeEnd();
+  oprot->getTransport()->flush();
+
+  if (this->eventHandler_.get() != NULL) {
+    this->eventHandler_->postWrite(ctx, "MapD.has_role", bytes);
+  }
+}
+
 void MapDProcessor::process_has_object_privilege(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
 {
   void* ctx = NULL;
@@ -28919,7 +27578,7 @@ void MapDProcessor::process_get_device_parameters(int32_t seqid, ::apache::thrif
 
   MapD_get_device_parameters_result result;
   try {
-    iface_->get_device_parameters(result.success);
+    iface_->get_device_parameters(result.success, args.session);
     result.__isset.success = true;
   } catch (TMapDException &e) {
     result.e = e;
@@ -28953,40 +27612,40 @@ void MapDProcessor::process_get_device_parameters(int32_t seqid, ::apache::thrif
   }
 }
 
-void MapDProcessor::process_register_runtime_udf(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
+void MapDProcessor::process_register_runtime_extension_functions(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
 {
   void* ctx = NULL;
   if (this->eventHandler_.get() != NULL) {
-    ctx = this->eventHandler_->getContext("MapD.register_runtime_udf", callContext);
+    ctx = this->eventHandler_->getContext("MapD.register_runtime_extension_functions", callContext);
   }
-  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.register_runtime_udf");
+  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "MapD.register_runtime_extension_functions");
 
   if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preRead(ctx, "MapD.register_runtime_udf");
+    this->eventHandler_->preRead(ctx, "MapD.register_runtime_extension_functions");
   }
 
-  MapD_register_runtime_udf_args args;
+  MapD_register_runtime_extension_functions_args args;
   args.read(iprot);
   iprot->readMessageEnd();
   uint32_t bytes = iprot->getTransport()->readEnd();
 
   if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postRead(ctx, "MapD.register_runtime_udf", bytes);
+    this->eventHandler_->postRead(ctx, "MapD.register_runtime_extension_functions", bytes);
   }
 
-  MapD_register_runtime_udf_result result;
+  MapD_register_runtime_extension_functions_result result;
   try {
-    iface_->register_runtime_udf(args.session, args.signatures, args.device_ir_map);
+    iface_->register_runtime_extension_functions(args.session, args.udfs, args.udtfs, args.device_ir_map);
   } catch (TMapDException &e) {
     result.e = e;
     result.__isset.e = true;
   } catch (const std::exception& e) {
     if (this->eventHandler_.get() != NULL) {
-      this->eventHandler_->handlerError(ctx, "MapD.register_runtime_udf");
+      this->eventHandler_->handlerError(ctx, "MapD.register_runtime_extension_functions");
     }
 
     ::apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("register_runtime_udf", ::apache::thrift::protocol::T_EXCEPTION, seqid);
+    oprot->writeMessageBegin("register_runtime_extension_functions", ::apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->writeEnd();
@@ -28995,17 +27654,17 @@ void MapDProcessor::process_register_runtime_udf(int32_t seqid, ::apache::thrift
   }
 
   if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preWrite(ctx, "MapD.register_runtime_udf");
+    this->eventHandler_->preWrite(ctx, "MapD.register_runtime_extension_functions");
   }
 
-  oprot->writeMessageBegin("register_runtime_udf", ::apache::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("register_runtime_extension_functions", ::apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   bytes = oprot->getTransport()->writeEnd();
   oprot->getTransport()->flush();
 
   if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postWrite(ctx, "MapD.register_runtime_udf", bytes);
+    this->eventHandler_->postWrite(ctx, "MapD.register_runtime_extension_functions", bytes);
   }
 }
 
@@ -29097,6 +27756,95 @@ void MapDConcurrentClient::recv_connect(TSessionId& _return, const int32_t seqid
       }
       // in a bad state, don't commit
       throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "connect failed: unknown result");
+    }
+    // seqid != rseqid
+    this->sync_.updatePending(fname, mtype, rseqid);
+
+    // this will temporarily unlock the readMutex, and let other clients get work done
+    this->sync_.waitForWork(seqid);
+  } // end while(true)
+}
+
+void MapDConcurrentClient::krb5_connect(TKrb5Session& _return, const std::string& inputToken, const std::string& dbname)
+{
+  int32_t seqid = send_krb5_connect(inputToken, dbname);
+  recv_krb5_connect(_return, seqid);
+}
+
+int32_t MapDConcurrentClient::send_krb5_connect(const std::string& inputToken, const std::string& dbname)
+{
+  int32_t cseqid = this->sync_.generateSeqId();
+  ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
+  oprot_->writeMessageBegin("krb5_connect", ::apache::thrift::protocol::T_CALL, cseqid);
+
+  MapD_krb5_connect_pargs args;
+  args.inputToken = &inputToken;
+  args.dbname = &dbname;
+  args.write(oprot_);
+
+  oprot_->writeMessageEnd();
+  oprot_->getTransport()->writeEnd();
+  oprot_->getTransport()->flush();
+
+  sentry.commit();
+  return cseqid;
+}
+
+void MapDConcurrentClient::recv_krb5_connect(TKrb5Session& _return, const int32_t seqid)
+{
+
+  int32_t rseqid = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TMessageType mtype;
+
+  // the read mutex gets dropped and reacquired as part of waitForWork()
+  // The destructor of this sentry wakes up other clients
+  ::apache::thrift::async::TConcurrentRecvSentry sentry(&this->sync_, seqid);
+
+  while(true) {
+    if(!this->sync_.getPending(fname, mtype, rseqid)) {
+      iprot_->readMessageBegin(fname, mtype, rseqid);
+    }
+    if(seqid == rseqid) {
+      if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+        ::apache::thrift::TApplicationException x;
+        x.read(iprot_);
+        iprot_->readMessageEnd();
+        iprot_->getTransport()->readEnd();
+        sentry.commit();
+        throw x;
+      }
+      if (mtype != ::apache::thrift::protocol::T_REPLY) {
+        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+        iprot_->readMessageEnd();
+        iprot_->getTransport()->readEnd();
+      }
+      if (fname.compare("krb5_connect") != 0) {
+        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+        iprot_->readMessageEnd();
+        iprot_->getTransport()->readEnd();
+
+        // in a bad state, don't commit
+        using ::apache::thrift::protocol::TProtocolException;
+        throw TProtocolException(TProtocolException::INVALID_DATA);
+      }
+      MapD_krb5_connect_presult result;
+      result.success = &_return;
+      result.read(iprot_);
+      iprot_->readMessageEnd();
+      iprot_->getTransport()->readEnd();
+
+      if (result.__isset.success) {
+        // _return pointer has now been filled
+        sentry.commit();
+        return;
+      }
+      if (result.__isset.e) {
+        sentry.commit();
+        throw result.e;
+      }
+      // in a bad state, don't commit
+      throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "krb5_connect failed: unknown result");
     }
     // seqid != rseqid
     this->sync_.updatePending(fname, mtype, rseqid);
@@ -32152,352 +30900,6 @@ void MapDConcurrentClient::recv_get_result_row_for_pixel(TPixelTableRowResult& _
   } // end while(true)
 }
 
-void MapDConcurrentClient::get_frontend_view(TFrontendView& _return, const TSessionId& session, const std::string& view_name)
-{
-  int32_t seqid = send_get_frontend_view(session, view_name);
-  recv_get_frontend_view(_return, seqid);
-}
-
-int32_t MapDConcurrentClient::send_get_frontend_view(const TSessionId& session, const std::string& view_name)
-{
-  int32_t cseqid = this->sync_.generateSeqId();
-  ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
-  oprot_->writeMessageBegin("get_frontend_view", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_get_frontend_view_pargs args;
-  args.session = &session;
-  args.view_name = &view_name;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-
-  sentry.commit();
-  return cseqid;
-}
-
-void MapDConcurrentClient::recv_get_frontend_view(TFrontendView& _return, const int32_t seqid)
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  // the read mutex gets dropped and reacquired as part of waitForWork()
-  // The destructor of this sentry wakes up other clients
-  ::apache::thrift::async::TConcurrentRecvSentry sentry(&this->sync_, seqid);
-
-  while(true) {
-    if(!this->sync_.getPending(fname, mtype, rseqid)) {
-      iprot_->readMessageBegin(fname, mtype, rseqid);
-    }
-    if(seqid == rseqid) {
-      if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-        ::apache::thrift::TApplicationException x;
-        x.read(iprot_);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-        sentry.commit();
-        throw x;
-      }
-      if (mtype != ::apache::thrift::protocol::T_REPLY) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-      }
-      if (fname.compare("get_frontend_view") != 0) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-
-        // in a bad state, don't commit
-        using ::apache::thrift::protocol::TProtocolException;
-        throw TProtocolException(TProtocolException::INVALID_DATA);
-      }
-      MapD_get_frontend_view_presult result;
-      result.success = &_return;
-      result.read(iprot_);
-      iprot_->readMessageEnd();
-      iprot_->getTransport()->readEnd();
-
-      if (result.__isset.success) {
-        // _return pointer has now been filled
-        sentry.commit();
-        return;
-      }
-      if (result.__isset.e) {
-        sentry.commit();
-        throw result.e;
-      }
-      // in a bad state, don't commit
-      throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_frontend_view failed: unknown result");
-    }
-    // seqid != rseqid
-    this->sync_.updatePending(fname, mtype, rseqid);
-
-    // this will temporarily unlock the readMutex, and let other clients get work done
-    this->sync_.waitForWork(seqid);
-  } // end while(true)
-}
-
-void MapDConcurrentClient::get_frontend_views(std::vector<TFrontendView> & _return, const TSessionId& session)
-{
-  int32_t seqid = send_get_frontend_views(session);
-  recv_get_frontend_views(_return, seqid);
-}
-
-int32_t MapDConcurrentClient::send_get_frontend_views(const TSessionId& session)
-{
-  int32_t cseqid = this->sync_.generateSeqId();
-  ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
-  oprot_->writeMessageBegin("get_frontend_views", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_get_frontend_views_pargs args;
-  args.session = &session;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-
-  sentry.commit();
-  return cseqid;
-}
-
-void MapDConcurrentClient::recv_get_frontend_views(std::vector<TFrontendView> & _return, const int32_t seqid)
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  // the read mutex gets dropped and reacquired as part of waitForWork()
-  // The destructor of this sentry wakes up other clients
-  ::apache::thrift::async::TConcurrentRecvSentry sentry(&this->sync_, seqid);
-
-  while(true) {
-    if(!this->sync_.getPending(fname, mtype, rseqid)) {
-      iprot_->readMessageBegin(fname, mtype, rseqid);
-    }
-    if(seqid == rseqid) {
-      if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-        ::apache::thrift::TApplicationException x;
-        x.read(iprot_);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-        sentry.commit();
-        throw x;
-      }
-      if (mtype != ::apache::thrift::protocol::T_REPLY) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-      }
-      if (fname.compare("get_frontend_views") != 0) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-
-        // in a bad state, don't commit
-        using ::apache::thrift::protocol::TProtocolException;
-        throw TProtocolException(TProtocolException::INVALID_DATA);
-      }
-      MapD_get_frontend_views_presult result;
-      result.success = &_return;
-      result.read(iprot_);
-      iprot_->readMessageEnd();
-      iprot_->getTransport()->readEnd();
-
-      if (result.__isset.success) {
-        // _return pointer has now been filled
-        sentry.commit();
-        return;
-      }
-      if (result.__isset.e) {
-        sentry.commit();
-        throw result.e;
-      }
-      // in a bad state, don't commit
-      throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_frontend_views failed: unknown result");
-    }
-    // seqid != rseqid
-    this->sync_.updatePending(fname, mtype, rseqid);
-
-    // this will temporarily unlock the readMutex, and let other clients get work done
-    this->sync_.waitForWork(seqid);
-  } // end while(true)
-}
-
-void MapDConcurrentClient::create_frontend_view(const TSessionId& session, const std::string& view_name, const std::string& view_state, const std::string& image_hash, const std::string& view_metadata)
-{
-  int32_t seqid = send_create_frontend_view(session, view_name, view_state, image_hash, view_metadata);
-  recv_create_frontend_view(seqid);
-}
-
-int32_t MapDConcurrentClient::send_create_frontend_view(const TSessionId& session, const std::string& view_name, const std::string& view_state, const std::string& image_hash, const std::string& view_metadata)
-{
-  int32_t cseqid = this->sync_.generateSeqId();
-  ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
-  oprot_->writeMessageBegin("create_frontend_view", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_create_frontend_view_pargs args;
-  args.session = &session;
-  args.view_name = &view_name;
-  args.view_state = &view_state;
-  args.image_hash = &image_hash;
-  args.view_metadata = &view_metadata;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-
-  sentry.commit();
-  return cseqid;
-}
-
-void MapDConcurrentClient::recv_create_frontend_view(const int32_t seqid)
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  // the read mutex gets dropped and reacquired as part of waitForWork()
-  // The destructor of this sentry wakes up other clients
-  ::apache::thrift::async::TConcurrentRecvSentry sentry(&this->sync_, seqid);
-
-  while(true) {
-    if(!this->sync_.getPending(fname, mtype, rseqid)) {
-      iprot_->readMessageBegin(fname, mtype, rseqid);
-    }
-    if(seqid == rseqid) {
-      if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-        ::apache::thrift::TApplicationException x;
-        x.read(iprot_);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-        sentry.commit();
-        throw x;
-      }
-      if (mtype != ::apache::thrift::protocol::T_REPLY) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-      }
-      if (fname.compare("create_frontend_view") != 0) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-
-        // in a bad state, don't commit
-        using ::apache::thrift::protocol::TProtocolException;
-        throw TProtocolException(TProtocolException::INVALID_DATA);
-      }
-      MapD_create_frontend_view_presult result;
-      result.read(iprot_);
-      iprot_->readMessageEnd();
-      iprot_->getTransport()->readEnd();
-
-      if (result.__isset.e) {
-        sentry.commit();
-        throw result.e;
-      }
-      sentry.commit();
-      return;
-    }
-    // seqid != rseqid
-    this->sync_.updatePending(fname, mtype, rseqid);
-
-    // this will temporarily unlock the readMutex, and let other clients get work done
-    this->sync_.waitForWork(seqid);
-  } // end while(true)
-}
-
-void MapDConcurrentClient::delete_frontend_view(const TSessionId& session, const std::string& view_name)
-{
-  int32_t seqid = send_delete_frontend_view(session, view_name);
-  recv_delete_frontend_view(seqid);
-}
-
-int32_t MapDConcurrentClient::send_delete_frontend_view(const TSessionId& session, const std::string& view_name)
-{
-  int32_t cseqid = this->sync_.generateSeqId();
-  ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
-  oprot_->writeMessageBegin("delete_frontend_view", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_delete_frontend_view_pargs args;
-  args.session = &session;
-  args.view_name = &view_name;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-
-  sentry.commit();
-  return cseqid;
-}
-
-void MapDConcurrentClient::recv_delete_frontend_view(const int32_t seqid)
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  // the read mutex gets dropped and reacquired as part of waitForWork()
-  // The destructor of this sentry wakes up other clients
-  ::apache::thrift::async::TConcurrentRecvSentry sentry(&this->sync_, seqid);
-
-  while(true) {
-    if(!this->sync_.getPending(fname, mtype, rseqid)) {
-      iprot_->readMessageBegin(fname, mtype, rseqid);
-    }
-    if(seqid == rseqid) {
-      if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-        ::apache::thrift::TApplicationException x;
-        x.read(iprot_);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-        sentry.commit();
-        throw x;
-      }
-      if (mtype != ::apache::thrift::protocol::T_REPLY) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-      }
-      if (fname.compare("delete_frontend_view") != 0) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-
-        // in a bad state, don't commit
-        using ::apache::thrift::protocol::TProtocolException;
-        throw TProtocolException(TProtocolException::INVALID_DATA);
-      }
-      MapD_delete_frontend_view_presult result;
-      result.read(iprot_);
-      iprot_->readMessageEnd();
-      iprot_->getTransport()->readEnd();
-
-      if (result.__isset.e) {
-        sentry.commit();
-        throw result.e;
-      }
-      sentry.commit();
-      return;
-    }
-    // seqid != rseqid
-    this->sync_.updatePending(fname, mtype, rseqid);
-
-    // this will temporarily unlock the readMutex, and let other clients get work done
-    this->sync_.waitForWork(seqid);
-  } // end while(true)
-}
-
 void MapDConcurrentClient::get_dashboard(TDashboard& _return, const TSessionId& session, const int32_t dashboard_id)
 {
   int32_t seqid = send_get_dashboard(session, dashboard_id);
@@ -34601,19 +33003,19 @@ void MapDConcurrentClient::recv_start_query(TPendingQuery& _return, const int32_
   } // end while(true)
 }
 
-void MapDConcurrentClient::execute_first_step(TStepResult& _return, const TPendingQuery& pending_query)
+void MapDConcurrentClient::execute_query_step(TStepResult& _return, const TPendingQuery& pending_query)
 {
-  int32_t seqid = send_execute_first_step(pending_query);
-  recv_execute_first_step(_return, seqid);
+  int32_t seqid = send_execute_query_step(pending_query);
+  recv_execute_query_step(_return, seqid);
 }
 
-int32_t MapDConcurrentClient::send_execute_first_step(const TPendingQuery& pending_query)
+int32_t MapDConcurrentClient::send_execute_query_step(const TPendingQuery& pending_query)
 {
   int32_t cseqid = this->sync_.generateSeqId();
   ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
-  oprot_->writeMessageBegin("execute_first_step", ::apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("execute_query_step", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  MapD_execute_first_step_pargs args;
+  MapD_execute_query_step_pargs args;
   args.pending_query = &pending_query;
   args.write(oprot_);
 
@@ -34625,7 +33027,7 @@ int32_t MapDConcurrentClient::send_execute_first_step(const TPendingQuery& pendi
   return cseqid;
 }
 
-void MapDConcurrentClient::recv_execute_first_step(TStepResult& _return, const int32_t seqid)
+void MapDConcurrentClient::recv_execute_query_step(TStepResult& _return, const int32_t seqid)
 {
 
   int32_t rseqid = 0;
@@ -34654,7 +33056,7 @@ void MapDConcurrentClient::recv_execute_first_step(TStepResult& _return, const i
         iprot_->readMessageEnd();
         iprot_->getTransport()->readEnd();
       }
-      if (fname.compare("execute_first_step") != 0) {
+      if (fname.compare("execute_query_step") != 0) {
         iprot_->skip(::apache::thrift::protocol::T_STRUCT);
         iprot_->readMessageEnd();
         iprot_->getTransport()->readEnd();
@@ -34663,7 +33065,7 @@ void MapDConcurrentClient::recv_execute_first_step(TStepResult& _return, const i
         using ::apache::thrift::protocol::TProtocolException;
         throw TProtocolException(TProtocolException::INVALID_DATA);
       }
-      MapD_execute_first_step_presult result;
+      MapD_execute_query_step_presult result;
       result.success = &_return;
       result.read(iprot_);
       iprot_->readMessageEnd();
@@ -34679,7 +33081,7 @@ void MapDConcurrentClient::recv_execute_first_step(TStepResult& _return, const i
         throw result.e;
       }
       // in a bad state, don't commit
-      throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "execute_first_step failed: unknown result");
+      throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "execute_query_step failed: unknown result");
     }
     // seqid != rseqid
     this->sync_.updatePending(fname, mtype, rseqid);
@@ -35120,184 +33522,6 @@ void MapDConcurrentClient::recv_checkpoint(const int32_t seqid)
   } // end while(true)
 }
 
-void MapDConcurrentClient::get_table_descriptor(TTableDescriptor& _return, const TSessionId& session, const std::string& table_name)
-{
-  int32_t seqid = send_get_table_descriptor(session, table_name);
-  recv_get_table_descriptor(_return, seqid);
-}
-
-int32_t MapDConcurrentClient::send_get_table_descriptor(const TSessionId& session, const std::string& table_name)
-{
-  int32_t cseqid = this->sync_.generateSeqId();
-  ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
-  oprot_->writeMessageBegin("get_table_descriptor", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_get_table_descriptor_pargs args;
-  args.session = &session;
-  args.table_name = &table_name;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-
-  sentry.commit();
-  return cseqid;
-}
-
-void MapDConcurrentClient::recv_get_table_descriptor(TTableDescriptor& _return, const int32_t seqid)
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  // the read mutex gets dropped and reacquired as part of waitForWork()
-  // The destructor of this sentry wakes up other clients
-  ::apache::thrift::async::TConcurrentRecvSentry sentry(&this->sync_, seqid);
-
-  while(true) {
-    if(!this->sync_.getPending(fname, mtype, rseqid)) {
-      iprot_->readMessageBegin(fname, mtype, rseqid);
-    }
-    if(seqid == rseqid) {
-      if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-        ::apache::thrift::TApplicationException x;
-        x.read(iprot_);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-        sentry.commit();
-        throw x;
-      }
-      if (mtype != ::apache::thrift::protocol::T_REPLY) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-      }
-      if (fname.compare("get_table_descriptor") != 0) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-
-        // in a bad state, don't commit
-        using ::apache::thrift::protocol::TProtocolException;
-        throw TProtocolException(TProtocolException::INVALID_DATA);
-      }
-      MapD_get_table_descriptor_presult result;
-      result.success = &_return;
-      result.read(iprot_);
-      iprot_->readMessageEnd();
-      iprot_->getTransport()->readEnd();
-
-      if (result.__isset.success) {
-        // _return pointer has now been filled
-        sentry.commit();
-        return;
-      }
-      if (result.__isset.e) {
-        sentry.commit();
-        throw result.e;
-      }
-      // in a bad state, don't commit
-      throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_table_descriptor failed: unknown result");
-    }
-    // seqid != rseqid
-    this->sync_.updatePending(fname, mtype, rseqid);
-
-    // this will temporarily unlock the readMutex, and let other clients get work done
-    this->sync_.waitForWork(seqid);
-  } // end while(true)
-}
-
-void MapDConcurrentClient::get_row_descriptor(TRowDescriptor& _return, const TSessionId& session, const std::string& table_name)
-{
-  int32_t seqid = send_get_row_descriptor(session, table_name);
-  recv_get_row_descriptor(_return, seqid);
-}
-
-int32_t MapDConcurrentClient::send_get_row_descriptor(const TSessionId& session, const std::string& table_name)
-{
-  int32_t cseqid = this->sync_.generateSeqId();
-  ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
-  oprot_->writeMessageBegin("get_row_descriptor", ::apache::thrift::protocol::T_CALL, cseqid);
-
-  MapD_get_row_descriptor_pargs args;
-  args.session = &session;
-  args.table_name = &table_name;
-  args.write(oprot_);
-
-  oprot_->writeMessageEnd();
-  oprot_->getTransport()->writeEnd();
-  oprot_->getTransport()->flush();
-
-  sentry.commit();
-  return cseqid;
-}
-
-void MapDConcurrentClient::recv_get_row_descriptor(TRowDescriptor& _return, const int32_t seqid)
-{
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  // the read mutex gets dropped and reacquired as part of waitForWork()
-  // The destructor of this sentry wakes up other clients
-  ::apache::thrift::async::TConcurrentRecvSentry sentry(&this->sync_, seqid);
-
-  while(true) {
-    if(!this->sync_.getPending(fname, mtype, rseqid)) {
-      iprot_->readMessageBegin(fname, mtype, rseqid);
-    }
-    if(seqid == rseqid) {
-      if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-        ::apache::thrift::TApplicationException x;
-        x.read(iprot_);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-        sentry.commit();
-        throw x;
-      }
-      if (mtype != ::apache::thrift::protocol::T_REPLY) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-      }
-      if (fname.compare("get_row_descriptor") != 0) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-
-        // in a bad state, don't commit
-        using ::apache::thrift::protocol::TProtocolException;
-        throw TProtocolException(TProtocolException::INVALID_DATA);
-      }
-      MapD_get_row_descriptor_presult result;
-      result.success = &_return;
-      result.read(iprot_);
-      iprot_->readMessageEnd();
-      iprot_->getTransport()->readEnd();
-
-      if (result.__isset.success) {
-        // _return pointer has now been filled
-        sentry.commit();
-        return;
-      }
-      if (result.__isset.e) {
-        sentry.commit();
-        throw result.e;
-      }
-      // in a bad state, don't commit
-      throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "get_row_descriptor failed: unknown result");
-    }
-    // seqid != rseqid
-    this->sync_.updatePending(fname, mtype, rseqid);
-
-    // this will temporarily unlock the readMutex, and let other clients get work done
-    this->sync_.waitForWork(seqid);
-  } // end while(true)
-}
-
 void MapDConcurrentClient::get_roles(std::vector<std::string> & _return, const TSessionId& session)
 {
   int32_t seqid = send_get_roles(session);
@@ -35654,6 +33878,96 @@ void MapDConcurrentClient::recv_get_all_roles_for_user(std::vector<std::string> 
   } // end while(true)
 }
 
+bool MapDConcurrentClient::has_role(const TSessionId& session, const std::string& granteeName, const std::string& roleName)
+{
+  int32_t seqid = send_has_role(session, granteeName, roleName);
+  return recv_has_role(seqid);
+}
+
+int32_t MapDConcurrentClient::send_has_role(const TSessionId& session, const std::string& granteeName, const std::string& roleName)
+{
+  int32_t cseqid = this->sync_.generateSeqId();
+  ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
+  oprot_->writeMessageBegin("has_role", ::apache::thrift::protocol::T_CALL, cseqid);
+
+  MapD_has_role_pargs args;
+  args.session = &session;
+  args.granteeName = &granteeName;
+  args.roleName = &roleName;
+  args.write(oprot_);
+
+  oprot_->writeMessageEnd();
+  oprot_->getTransport()->writeEnd();
+  oprot_->getTransport()->flush();
+
+  sentry.commit();
+  return cseqid;
+}
+
+bool MapDConcurrentClient::recv_has_role(const int32_t seqid)
+{
+
+  int32_t rseqid = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TMessageType mtype;
+
+  // the read mutex gets dropped and reacquired as part of waitForWork()
+  // The destructor of this sentry wakes up other clients
+  ::apache::thrift::async::TConcurrentRecvSentry sentry(&this->sync_, seqid);
+
+  while(true) {
+    if(!this->sync_.getPending(fname, mtype, rseqid)) {
+      iprot_->readMessageBegin(fname, mtype, rseqid);
+    }
+    if(seqid == rseqid) {
+      if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+        ::apache::thrift::TApplicationException x;
+        x.read(iprot_);
+        iprot_->readMessageEnd();
+        iprot_->getTransport()->readEnd();
+        sentry.commit();
+        throw x;
+      }
+      if (mtype != ::apache::thrift::protocol::T_REPLY) {
+        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+        iprot_->readMessageEnd();
+        iprot_->getTransport()->readEnd();
+      }
+      if (fname.compare("has_role") != 0) {
+        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+        iprot_->readMessageEnd();
+        iprot_->getTransport()->readEnd();
+
+        // in a bad state, don't commit
+        using ::apache::thrift::protocol::TProtocolException;
+        throw TProtocolException(TProtocolException::INVALID_DATA);
+      }
+      bool _return;
+      MapD_has_role_presult result;
+      result.success = &_return;
+      result.read(iprot_);
+      iprot_->readMessageEnd();
+      iprot_->getTransport()->readEnd();
+
+      if (result.__isset.success) {
+        sentry.commit();
+        return _return;
+      }
+      if (result.__isset.e) {
+        sentry.commit();
+        throw result.e;
+      }
+      // in a bad state, don't commit
+      throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "has_role failed: unknown result");
+    }
+    // seqid != rseqid
+    this->sync_.updatePending(fname, mtype, rseqid);
+
+    // this will temporarily unlock the readMutex, and let other clients get work done
+    this->sync_.waitForWork(seqid);
+  } // end while(true)
+}
+
 bool MapDConcurrentClient::has_object_privilege(const TSessionId& session, const std::string& granteeName, const std::string& ObjectName, const TDBObjectType::type objectType, const TDBObjectPermissions& permissions)
 {
   int32_t seqid = send_has_object_privilege(session, granteeName, ObjectName, objectType, permissions);
@@ -35925,19 +34239,20 @@ void MapDConcurrentClient::recv_get_license_claims(TLicenseInfo& _return, const 
   } // end while(true)
 }
 
-void MapDConcurrentClient::get_device_parameters(std::map<std::string, std::string> & _return)
+void MapDConcurrentClient::get_device_parameters(std::map<std::string, std::string> & _return, const TSessionId& session)
 {
-  int32_t seqid = send_get_device_parameters();
+  int32_t seqid = send_get_device_parameters(session);
   recv_get_device_parameters(_return, seqid);
 }
 
-int32_t MapDConcurrentClient::send_get_device_parameters()
+int32_t MapDConcurrentClient::send_get_device_parameters(const TSessionId& session)
 {
   int32_t cseqid = this->sync_.generateSeqId();
   ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
   oprot_->writeMessageBegin("get_device_parameters", ::apache::thrift::protocol::T_CALL, cseqid);
 
   MapD_get_device_parameters_pargs args;
+  args.session = &session;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -36012,21 +34327,22 @@ void MapDConcurrentClient::recv_get_device_parameters(std::map<std::string, std:
   } // end while(true)
 }
 
-void MapDConcurrentClient::register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map)
+void MapDConcurrentClient::register_runtime_extension_functions(const TSessionId& session, const std::vector< ::TUserDefinedFunction> & udfs, const std::vector< ::TUserDefinedTableFunction> & udtfs, const std::map<std::string, std::string> & device_ir_map)
 {
-  int32_t seqid = send_register_runtime_udf(session, signatures, device_ir_map);
-  recv_register_runtime_udf(seqid);
+  int32_t seqid = send_register_runtime_extension_functions(session, udfs, udtfs, device_ir_map);
+  recv_register_runtime_extension_functions(seqid);
 }
 
-int32_t MapDConcurrentClient::send_register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map)
+int32_t MapDConcurrentClient::send_register_runtime_extension_functions(const TSessionId& session, const std::vector< ::TUserDefinedFunction> & udfs, const std::vector< ::TUserDefinedTableFunction> & udtfs, const std::map<std::string, std::string> & device_ir_map)
 {
   int32_t cseqid = this->sync_.generateSeqId();
   ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
-  oprot_->writeMessageBegin("register_runtime_udf", ::apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("register_runtime_extension_functions", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  MapD_register_runtime_udf_pargs args;
+  MapD_register_runtime_extension_functions_pargs args;
   args.session = &session;
-  args.signatures = &signatures;
+  args.udfs = &udfs;
+  args.udtfs = &udtfs;
   args.device_ir_map = &device_ir_map;
   args.write(oprot_);
 
@@ -36038,7 +34354,7 @@ int32_t MapDConcurrentClient::send_register_runtime_udf(const TSessionId& sessio
   return cseqid;
 }
 
-void MapDConcurrentClient::recv_register_runtime_udf(const int32_t seqid)
+void MapDConcurrentClient::recv_register_runtime_extension_functions(const int32_t seqid)
 {
 
   int32_t rseqid = 0;
@@ -36067,7 +34383,7 @@ void MapDConcurrentClient::recv_register_runtime_udf(const int32_t seqid)
         iprot_->readMessageEnd();
         iprot_->getTransport()->readEnd();
       }
-      if (fname.compare("register_runtime_udf") != 0) {
+      if (fname.compare("register_runtime_extension_functions") != 0) {
         iprot_->skip(::apache::thrift::protocol::T_STRUCT);
         iprot_->readMessageEnd();
         iprot_->getTransport()->readEnd();
@@ -36076,7 +34392,7 @@ void MapDConcurrentClient::recv_register_runtime_udf(const int32_t seqid)
         using ::apache::thrift::protocol::TProtocolException;
         throw TProtocolException(TProtocolException::INVALID_DATA);
       }
-      MapD_register_runtime_udf_presult result;
+      MapD_register_runtime_extension_functions_presult result;
       result.read(iprot_);
       iprot_->readMessageEnd();
       iprot_->getTransport()->readEnd();

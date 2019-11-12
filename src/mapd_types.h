@@ -19,6 +19,7 @@
 #include "common_types.h"
 #include "completion_hints_types.h"
 #include "serialized_result_set_types.h"
+#include "extension_functions_types.h"
 
 
 
@@ -141,6 +142,8 @@ typedef std::map<std::string, class TColumnType>  TTableDescriptor;
 
 typedef std::string TSessionId;
 
+typedef std::string TKrb5Token;
+
 typedef int64_t TQueryId;
 
 typedef std::map<int32_t, class TRawRenderPassDataResult>  TRenderPassMap;
@@ -162,6 +165,8 @@ class TColumnData;
 class TColumn;
 
 class TStringRow;
+
+class TKrb5Session;
 
 class TStepResult;
 
@@ -680,6 +685,54 @@ class TStringRow : public virtual ::apache::thrift::TBase {
 void swap(TStringRow &a, TStringRow &b);
 
 std::ostream& operator<<(std::ostream& out, const TStringRow& obj);
+
+typedef struct _TKrb5Session__isset {
+  _TKrb5Session__isset() : sessionId(false), krbToken(false) {}
+  bool sessionId :1;
+  bool krbToken :1;
+} _TKrb5Session__isset;
+
+class TKrb5Session : public virtual ::apache::thrift::TBase {
+ public:
+
+  TKrb5Session(const TKrb5Session&);
+  TKrb5Session& operator=(const TKrb5Session&);
+  TKrb5Session() : sessionId(), krbToken() {
+  }
+
+  virtual ~TKrb5Session() throw();
+  TSessionId sessionId;
+  TKrb5Token krbToken;
+
+  _TKrb5Session__isset __isset;
+
+  void __set_sessionId(const TSessionId& val);
+
+  void __set_krbToken(const TKrb5Token& val);
+
+  bool operator == (const TKrb5Session & rhs) const
+  {
+    if (!(sessionId == rhs.sessionId))
+      return false;
+    if (!(krbToken == rhs.krbToken))
+      return false;
+    return true;
+  }
+  bool operator != (const TKrb5Session &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const TKrb5Session & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(TKrb5Session &a, TKrb5Session &b);
+
+std::ostream& operator<<(std::ostream& out, const TKrb5Session& obj);
 
 typedef struct _TStepResult__isset {
   _TStepResult__isset() : serialized_rows(false), execution_finished(false), merge_type(false), sharded(false), row_desc(false), node_id(false) {}
@@ -3416,11 +3469,12 @@ void swap(TDBObjectPermissions &a, TDBObjectPermissions &b);
 std::ostream& operator<<(std::ostream& out, const TDBObjectPermissions& obj);
 
 typedef struct _TDBObject__isset {
-  _TDBObject__isset() : objectName(false), objectType(false), privs(false), grantee(false) {}
+  _TDBObject__isset() : objectName(false), objectType(false), privs(false), grantee(false), privilegeObjectType(false) {}
   bool objectName :1;
   bool objectType :1;
   bool privs :1;
   bool grantee :1;
+  bool privilegeObjectType :1;
 } _TDBObject__isset;
 
 class TDBObject : public virtual ::apache::thrift::TBase {
@@ -3428,7 +3482,7 @@ class TDBObject : public virtual ::apache::thrift::TBase {
 
   TDBObject(const TDBObject&);
   TDBObject& operator=(const TDBObject&);
-  TDBObject() : objectName(), objectType((TDBObjectType::type)0), grantee() {
+  TDBObject() : objectName(), objectType((TDBObjectType::type)0), grantee(), privilegeObjectType((TDBObjectType::type)0) {
   }
 
   virtual ~TDBObject() throw();
@@ -3436,6 +3490,7 @@ class TDBObject : public virtual ::apache::thrift::TBase {
   TDBObjectType::type objectType;
   std::vector<bool>  privs;
   std::string grantee;
+  TDBObjectType::type privilegeObjectType;
 
   _TDBObject__isset __isset;
 
@@ -3447,6 +3502,8 @@ class TDBObject : public virtual ::apache::thrift::TBase {
 
   void __set_grantee(const std::string& val);
 
+  void __set_privilegeObjectType(const TDBObjectType::type val);
+
   bool operator == (const TDBObject & rhs) const
   {
     if (!(objectName == rhs.objectName))
@@ -3456,6 +3513,8 @@ class TDBObject : public virtual ::apache::thrift::TBase {
     if (!(privs == rhs.privs))
       return false;
     if (!(grantee == rhs.grantee))
+      return false;
+    if (!(privilegeObjectType == rhs.privilegeObjectType))
       return false;
     return true;
   }
