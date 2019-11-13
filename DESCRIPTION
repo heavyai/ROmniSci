@@ -7,10 +7,16 @@ Author: Randy Zwitch
 Maintainer: Randy Zwitch <randy.zwitch@omnisci.com>
 Description: Client for OmniSci GPU-acccelerated Database, using Rcpp to wrap the OmniSci Thrift C++ bindings. 
 License: Apache License (>= 2.0)
-Imports: Rcpp (>= 1.0.1)
+Imports: Rcpp (>= 1.0.1),
+         DBI (>= 0.3.0),
+         methods
 LinkingTo: Rcpp
 RoxygenNote: 6.1.1
 Encoding: UTF-8
 Suggests: 
+<<<<<<< master
     testthat (>= 2.1.0)
 SystemRequirements: GNU make
+=======
+         DBItest, testthat
+>>>>>>> HEAD~3
