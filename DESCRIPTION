@@ -15,3 +15,10 @@ RoxygenNote: 6.1.1
 Encoding: UTF-8
 Suggests: 
          DBItest, testthat
+Collate: 
+    'ROmniSci.R'
+    'Driver.R'
+    'Connection.R'
+    'RcppExports.R'
+    'Result.R'
+    's4.R'
