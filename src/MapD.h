@@ -22,6 +22,7 @@ class MapDIf {
  public:
   virtual ~MapDIf() {}
   virtual void connect(TSessionId& _return, const std::string& user, const std::string& passwd, const std::string& dbname) = 0;
+  virtual void krb5_connect(TKrb5Session& _return, const std::string& inputToken, const std::string& dbname) = 0;
   virtual void disconnect(const TSessionId& session) = 0;
   virtual void switch_database(const TSessionId& session, const std::string& dbname) = 0;
   virtual void get_server_status(TServerStatus& _return, const TSessionId& session) = 0;
@@ -57,10 +58,6 @@ class MapDIf {
   virtual void set_execution_mode(const TSessionId& session, const TExecuteMode::type mode) = 0;
   virtual void render_vega(TRenderResult& _return, const TSessionId& session, const int64_t widget_id, const std::string& vega_json, const int32_t compression_level, const std::string& nonce) = 0;
   virtual void get_result_row_for_pixel(TPixelTableRowResult& _return, const TSessionId& session, const int64_t widget_id, const TPixel& pixel, const std::map<std::string, std::vector<std::string> > & table_col_names, const bool column_format, const int32_t pixelRadius, const std::string& nonce) = 0;
-  virtual void get_frontend_view(TFrontendView& _return, const TSessionId& session, const std::string& view_name) = 0;
-  virtual void get_frontend_views(std::vector<TFrontendView> & _return, const TSessionId& session) = 0;
-  virtual void create_frontend_view(const TSessionId& session, const std::string& view_name, const std::string& view_state, const std::string& image_hash, const std::string& view_metadata) = 0;
-  virtual void delete_frontend_view(const TSessionId& session, const std::string& view_name) = 0;
   virtual void get_dashboard(TDashboard& _return, const TSessionId& session, const int32_t dashboard_id) = 0;
   virtual void get_dashboards(std::vector<TDashboard> & _return, const TSessionId& session) = 0;
   virtual int32_t create_dashboard(const TSessionId& session, const std::string& dashboard_name, const std::string& dashboard_state, const std::string& image_hash, const std::string& dashboard_metadata) = 0;
@@ -85,23 +82,22 @@ class MapDIf {
   virtual void get_layers_in_geo_file(std::vector<TGeoFileLayerInfo> & _return, const TSessionId& session, const std::string& file_name, const TCopyParams& copy_params) = 0;
   virtual void check_table_consistency(TTableMeta& _return, const TSessionId& session, const int32_t table_id) = 0;
   virtual void start_query(TPendingQuery& _return, const TSessionId& session, const std::string& query_ra, const bool just_explain) = 0;
-  virtual void execute_first_step(TStepResult& _return, const TPendingQuery& pending_query) = 0;
+  virtual void execute_query_step(TStepResult& _return, const TPendingQuery& pending_query) = 0;
   virtual void broadcast_serialized_rows(const  ::TSerializedRows& serialized_rows, const TRowDescriptor& row_desc, const TQueryId query_id) = 0;
   virtual void start_render_query(TPendingRenderQuery& _return, const TSessionId& session, const int64_t widget_id, const int16_t node_idx, const std::string& vega_json) = 0;
   virtual void execute_next_render_step(TRenderStepResult& _return, const TPendingRenderQuery& pending_render, const TRenderAggDataMap& merged_data) = 0;
   virtual void insert_data(const TSessionId& session, const TInsertData& insert_data) = 0;
   virtual void checkpoint(const TSessionId& session, const int32_t db_id, const int32_t table_id) = 0;
-  virtual void get_table_descriptor(TTableDescriptor& _return, const TSessionId& session, const std::string& table_name) = 0;
-  virtual void get_row_descriptor(TRowDescriptor& _return, const TSessionId& session, const std::string& table_name) = 0;
   virtual void get_roles(std::vector<std::string> & _return, const TSessionId& session) = 0;
   virtual void get_db_objects_for_grantee(std::vector<TDBObject> & _return, const TSessionId& session, const std::string& roleName) = 0;
   virtual void get_db_object_privs(std::vector<TDBObject> & _return, const TSessionId& session, const std::string& objectName, const TDBObjectType::type type) = 0;
   virtual void get_all_roles_for_user(std::vector<std::string> & _return, const TSessionId& session, const std::string& userName) = 0;
+  virtual bool has_role(const TSessionId& session, const std::string& granteeName, const std::string& roleName) = 0;
   virtual bool has_object_privilege(const TSessionId& session, const std::string& granteeName, const std::string& ObjectName, const TDBObjectType::type objectType, const TDBObjectPermissions& permissions) = 0;
   virtual void set_license_key(TLicenseInfo& _return, const TSessionId& session, const std::string& key, const std::string& nonce) = 0;
   virtual void get_license_claims(TLicenseInfo& _return, const TSessionId& session, const std::string& nonce) = 0;
-  virtual void get_device_parameters(std::map<std::string, std::string> & _return) = 0;
-  virtual void register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map) = 0;
+  virtual void get_device_parameters(std::map<std::string, std::string> & _return, const TSessionId& session) = 0;
+  virtual void register_runtime_extension_functions(const TSessionId& session, const std::vector< ::TUserDefinedFunction> & udfs, const std::vector< ::TUserDefinedTableFunction> & udtfs, const std::map<std::string, std::string> & device_ir_map) = 0;
 };
 
 class MapDIfFactory {
@@ -132,6 +128,9 @@ class MapDNull : virtual public MapDIf {
  public:
   virtual ~MapDNull() {}
   void connect(TSessionId& /* _return */, const std::string& /* user */, const std::string& /* passwd */, const std::string& /* dbname */) {
+    return;
+  }
+  void krb5_connect(TKrb5Session& /* _return */, const std::string& /* inputToken */, const std::string& /* dbname */) {
     return;
   }
   void disconnect(const TSessionId& /* session */) {
@@ -241,18 +240,6 @@ class MapDNull : virtual public MapDIf {
   void get_result_row_for_pixel(TPixelTableRowResult& /* _return */, const TSessionId& /* session */, const int64_t /* widget_id */, const TPixel& /* pixel */, const std::map<std::string, std::vector<std::string> > & /* table_col_names */, const bool /* column_format */, const int32_t /* pixelRadius */, const std::string& /* nonce */) {
     return;
   }
-  void get_frontend_view(TFrontendView& /* _return */, const TSessionId& /* session */, const std::string& /* view_name */) {
-    return;
-  }
-  void get_frontend_views(std::vector<TFrontendView> & /* _return */, const TSessionId& /* session */) {
-    return;
-  }
-  void create_frontend_view(const TSessionId& /* session */, const std::string& /* view_name */, const std::string& /* view_state */, const std::string& /* image_hash */, const std::string& /* view_metadata */) {
-    return;
-  }
-  void delete_frontend_view(const TSessionId& /* session */, const std::string& /* view_name */) {
-    return;
-  }
   void get_dashboard(TDashboard& /* _return */, const TSessionId& /* session */, const int32_t /* dashboard_id */) {
     return;
   }
@@ -326,7 +313,7 @@ class MapDNull : virtual public MapDIf {
   void start_query(TPendingQuery& /* _return */, const TSessionId& /* session */, const std::string& /* query_ra */, const bool /* just_explain */) {
     return;
   }
-  void execute_first_step(TStepResult& /* _return */, const TPendingQuery& /* pending_query */) {
+  void execute_query_step(TStepResult& /* _return */, const TPendingQuery& /* pending_query */) {
     return;
   }
   void broadcast_serialized_rows(const  ::TSerializedRows& /* serialized_rows */, const TRowDescriptor& /* row_desc */, const TQueryId /* query_id */) {
@@ -344,12 +331,6 @@ class MapDNull : virtual public MapDIf {
   void checkpoint(const TSessionId& /* session */, const int32_t /* db_id */, const int32_t /* table_id */) {
     return;
   }
-  void get_table_descriptor(TTableDescriptor& /* _return */, const TSessionId& /* session */, const std::string& /* table_name */) {
-    return;
-  }
-  void get_row_descriptor(TRowDescriptor& /* _return */, const TSessionId& /* session */, const std::string& /* table_name */) {
-    return;
-  }
   void get_roles(std::vector<std::string> & /* _return */, const TSessionId& /* session */) {
     return;
   }
@@ -362,6 +343,10 @@ class MapDNull : virtual public MapDIf {
   void get_all_roles_for_user(std::vector<std::string> & /* _return */, const TSessionId& /* session */, const std::string& /* userName */) {
     return;
   }
+  bool has_role(const TSessionId& /* session */, const std::string& /* granteeName */, const std::string& /* roleName */) {
+    bool _return = false;
+    return _return;
+  }
   bool has_object_privilege(const TSessionId& /* session */, const std::string& /* granteeName */, const std::string& /* ObjectName */, const TDBObjectType::type /* objectType */, const TDBObjectPermissions& /* permissions */) {
     bool _return = false;
     return _return;
@@ -372,10 +357,10 @@ class MapDNull : virtual public MapDIf {
   void get_license_claims(TLicenseInfo& /* _return */, const TSessionId& /* session */, const std::string& /* nonce */) {
     return;
   }
-  void get_device_parameters(std::map<std::string, std::string> & /* _return */) {
+  void get_device_parameters(std::map<std::string, std::string> & /* _return */, const TSessionId& /* session */) {
     return;
   }
-  void register_runtime_udf(const TSessionId& /* session */, const std::string& /* signatures */, const std::map<std::string, std::string> & /* device_ir_map */) {
+  void register_runtime_extension_functions(const TSessionId& /* session */, const std::vector< ::TUserDefinedFunction> & /* udfs */, const std::vector< ::TUserDefinedTableFunction> & /* udtfs */, const std::map<std::string, std::string> & /* device_ir_map */) {
     return;
   }
 };
@@ -501,6 +486,125 @@ class MapD_connect_presult {
   TMapDException e;
 
   _MapD_connect_presult__isset __isset;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+
+};
+
+typedef struct _MapD_krb5_connect_args__isset {
+  _MapD_krb5_connect_args__isset() : inputToken(false), dbname(false) {}
+  bool inputToken :1;
+  bool dbname :1;
+} _MapD_krb5_connect_args__isset;
+
+class MapD_krb5_connect_args {
+ public:
+
+  MapD_krb5_connect_args(const MapD_krb5_connect_args&);
+  MapD_krb5_connect_args& operator=(const MapD_krb5_connect_args&);
+  MapD_krb5_connect_args() : inputToken(), dbname() {
+  }
+
+  virtual ~MapD_krb5_connect_args() throw();
+  std::string inputToken;
+  std::string dbname;
+
+  _MapD_krb5_connect_args__isset __isset;
+
+  void __set_inputToken(const std::string& val);
+
+  void __set_dbname(const std::string& val);
+
+  bool operator == (const MapD_krb5_connect_args & rhs) const
+  {
+    if (!(inputToken == rhs.inputToken))
+      return false;
+    if (!(dbname == rhs.dbname))
+      return false;
+    return true;
+  }
+  bool operator != (const MapD_krb5_connect_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const MapD_krb5_connect_args & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+
+class MapD_krb5_connect_pargs {
+ public:
+
+
+  virtual ~MapD_krb5_connect_pargs() throw();
+  const std::string* inputToken;
+  const std::string* dbname;
+
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _MapD_krb5_connect_result__isset {
+  _MapD_krb5_connect_result__isset() : success(false), e(false) {}
+  bool success :1;
+  bool e :1;
+} _MapD_krb5_connect_result__isset;
+
+class MapD_krb5_connect_result {
+ public:
+
+  MapD_krb5_connect_result(const MapD_krb5_connect_result&);
+  MapD_krb5_connect_result& operator=(const MapD_krb5_connect_result&);
+  MapD_krb5_connect_result() {
+  }
+
+  virtual ~MapD_krb5_connect_result() throw();
+  TKrb5Session success;
+  TMapDException e;
+
+  _MapD_krb5_connect_result__isset __isset;
+
+  void __set_success(const TKrb5Session& val);
+
+  void __set_e(const TMapDException& val);
+
+  bool operator == (const MapD_krb5_connect_result & rhs) const
+  {
+    if (!(success == rhs.success))
+      return false;
+    if (!(e == rhs.e))
+      return false;
+    return true;
+  }
+  bool operator != (const MapD_krb5_connect_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const MapD_krb5_connect_result & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _MapD_krb5_connect_presult__isset {
+  _MapD_krb5_connect_presult__isset() : success(false), e(false) {}
+  bool success :1;
+  bool e :1;
+} _MapD_krb5_connect_presult__isset;
+
+class MapD_krb5_connect_presult {
+ public:
+
+
+  virtual ~MapD_krb5_connect_presult() throw();
+  TKrb5Session* success;
+  TMapDException e;
+
+  _MapD_krb5_connect_presult__isset __isset;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
@@ -4597,480 +4701,6 @@ class MapD_get_result_row_for_pixel_presult {
 
 };
 
-typedef struct _MapD_get_frontend_view_args__isset {
-  _MapD_get_frontend_view_args__isset() : session(false), view_name(false) {}
-  bool session :1;
-  bool view_name :1;
-} _MapD_get_frontend_view_args__isset;
-
-class MapD_get_frontend_view_args {
- public:
-
-  MapD_get_frontend_view_args(const MapD_get_frontend_view_args&);
-  MapD_get_frontend_view_args& operator=(const MapD_get_frontend_view_args&);
-  MapD_get_frontend_view_args() : session(), view_name() {
-  }
-
-  virtual ~MapD_get_frontend_view_args() throw();
-  TSessionId session;
-  std::string view_name;
-
-  _MapD_get_frontend_view_args__isset __isset;
-
-  void __set_session(const TSessionId& val);
-
-  void __set_view_name(const std::string& val);
-
-  bool operator == (const MapD_get_frontend_view_args & rhs) const
-  {
-    if (!(session == rhs.session))
-      return false;
-    if (!(view_name == rhs.view_name))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_get_frontend_view_args &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_get_frontend_view_args & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-
-class MapD_get_frontend_view_pargs {
- public:
-
-
-  virtual ~MapD_get_frontend_view_pargs() throw();
-  const TSessionId* session;
-  const std::string* view_name;
-
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_get_frontend_view_result__isset {
-  _MapD_get_frontend_view_result__isset() : success(false), e(false) {}
-  bool success :1;
-  bool e :1;
-} _MapD_get_frontend_view_result__isset;
-
-class MapD_get_frontend_view_result {
- public:
-
-  MapD_get_frontend_view_result(const MapD_get_frontend_view_result&);
-  MapD_get_frontend_view_result& operator=(const MapD_get_frontend_view_result&);
-  MapD_get_frontend_view_result() {
-  }
-
-  virtual ~MapD_get_frontend_view_result() throw();
-  TFrontendView success;
-  TMapDException e;
-
-  _MapD_get_frontend_view_result__isset __isset;
-
-  void __set_success(const TFrontendView& val);
-
-  void __set_e(const TMapDException& val);
-
-  bool operator == (const MapD_get_frontend_view_result & rhs) const
-  {
-    if (!(success == rhs.success))
-      return false;
-    if (!(e == rhs.e))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_get_frontend_view_result &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_get_frontend_view_result & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_get_frontend_view_presult__isset {
-  _MapD_get_frontend_view_presult__isset() : success(false), e(false) {}
-  bool success :1;
-  bool e :1;
-} _MapD_get_frontend_view_presult__isset;
-
-class MapD_get_frontend_view_presult {
- public:
-
-
-  virtual ~MapD_get_frontend_view_presult() throw();
-  TFrontendView* success;
-  TMapDException e;
-
-  _MapD_get_frontend_view_presult__isset __isset;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-
-};
-
-typedef struct _MapD_get_frontend_views_args__isset {
-  _MapD_get_frontend_views_args__isset() : session(false) {}
-  bool session :1;
-} _MapD_get_frontend_views_args__isset;
-
-class MapD_get_frontend_views_args {
- public:
-
-  MapD_get_frontend_views_args(const MapD_get_frontend_views_args&);
-  MapD_get_frontend_views_args& operator=(const MapD_get_frontend_views_args&);
-  MapD_get_frontend_views_args() : session() {
-  }
-
-  virtual ~MapD_get_frontend_views_args() throw();
-  TSessionId session;
-
-  _MapD_get_frontend_views_args__isset __isset;
-
-  void __set_session(const TSessionId& val);
-
-  bool operator == (const MapD_get_frontend_views_args & rhs) const
-  {
-    if (!(session == rhs.session))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_get_frontend_views_args &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_get_frontend_views_args & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-
-class MapD_get_frontend_views_pargs {
- public:
-
-
-  virtual ~MapD_get_frontend_views_pargs() throw();
-  const TSessionId* session;
-
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_get_frontend_views_result__isset {
-  _MapD_get_frontend_views_result__isset() : success(false), e(false) {}
-  bool success :1;
-  bool e :1;
-} _MapD_get_frontend_views_result__isset;
-
-class MapD_get_frontend_views_result {
- public:
-
-  MapD_get_frontend_views_result(const MapD_get_frontend_views_result&);
-  MapD_get_frontend_views_result& operator=(const MapD_get_frontend_views_result&);
-  MapD_get_frontend_views_result() {
-  }
-
-  virtual ~MapD_get_frontend_views_result() throw();
-  std::vector<TFrontendView>  success;
-  TMapDException e;
-
-  _MapD_get_frontend_views_result__isset __isset;
-
-  void __set_success(const std::vector<TFrontendView> & val);
-
-  void __set_e(const TMapDException& val);
-
-  bool operator == (const MapD_get_frontend_views_result & rhs) const
-  {
-    if (!(success == rhs.success))
-      return false;
-    if (!(e == rhs.e))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_get_frontend_views_result &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_get_frontend_views_result & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_get_frontend_views_presult__isset {
-  _MapD_get_frontend_views_presult__isset() : success(false), e(false) {}
-  bool success :1;
-  bool e :1;
-} _MapD_get_frontend_views_presult__isset;
-
-class MapD_get_frontend_views_presult {
- public:
-
-
-  virtual ~MapD_get_frontend_views_presult() throw();
-  std::vector<TFrontendView> * success;
-  TMapDException e;
-
-  _MapD_get_frontend_views_presult__isset __isset;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-
-};
-
-typedef struct _MapD_create_frontend_view_args__isset {
-  _MapD_create_frontend_view_args__isset() : session(false), view_name(false), view_state(false), image_hash(false), view_metadata(false) {}
-  bool session :1;
-  bool view_name :1;
-  bool view_state :1;
-  bool image_hash :1;
-  bool view_metadata :1;
-} _MapD_create_frontend_view_args__isset;
-
-class MapD_create_frontend_view_args {
- public:
-
-  MapD_create_frontend_view_args(const MapD_create_frontend_view_args&);
-  MapD_create_frontend_view_args& operator=(const MapD_create_frontend_view_args&);
-  MapD_create_frontend_view_args() : session(), view_name(), view_state(), image_hash(), view_metadata() {
-  }
-
-  virtual ~MapD_create_frontend_view_args() throw();
-  TSessionId session;
-  std::string view_name;
-  std::string view_state;
-  std::string image_hash;
-  std::string view_metadata;
-
-  _MapD_create_frontend_view_args__isset __isset;
-
-  void __set_session(const TSessionId& val);
-
-  void __set_view_name(const std::string& val);
-
-  void __set_view_state(const std::string& val);
-
-  void __set_image_hash(const std::string& val);
-
-  void __set_view_metadata(const std::string& val);
-
-  bool operator == (const MapD_create_frontend_view_args & rhs) const
-  {
-    if (!(session == rhs.session))
-      return false;
-    if (!(view_name == rhs.view_name))
-      return false;
-    if (!(view_state == rhs.view_state))
-      return false;
-    if (!(image_hash == rhs.image_hash))
-      return false;
-    if (!(view_metadata == rhs.view_metadata))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_create_frontend_view_args &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_create_frontend_view_args & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-
-class MapD_create_frontend_view_pargs {
- public:
-
-
-  virtual ~MapD_create_frontend_view_pargs() throw();
-  const TSessionId* session;
-  const std::string* view_name;
-  const std::string* view_state;
-  const std::string* image_hash;
-  const std::string* view_metadata;
-
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_create_frontend_view_result__isset {
-  _MapD_create_frontend_view_result__isset() : e(false) {}
-  bool e :1;
-} _MapD_create_frontend_view_result__isset;
-
-class MapD_create_frontend_view_result {
- public:
-
-  MapD_create_frontend_view_result(const MapD_create_frontend_view_result&);
-  MapD_create_frontend_view_result& operator=(const MapD_create_frontend_view_result&);
-  MapD_create_frontend_view_result() {
-  }
-
-  virtual ~MapD_create_frontend_view_result() throw();
-  TMapDException e;
-
-  _MapD_create_frontend_view_result__isset __isset;
-
-  void __set_e(const TMapDException& val);
-
-  bool operator == (const MapD_create_frontend_view_result & rhs) const
-  {
-    if (!(e == rhs.e))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_create_frontend_view_result &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_create_frontend_view_result & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_create_frontend_view_presult__isset {
-  _MapD_create_frontend_view_presult__isset() : e(false) {}
-  bool e :1;
-} _MapD_create_frontend_view_presult__isset;
-
-class MapD_create_frontend_view_presult {
- public:
-
-
-  virtual ~MapD_create_frontend_view_presult() throw();
-  TMapDException e;
-
-  _MapD_create_frontend_view_presult__isset __isset;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-
-};
-
-typedef struct _MapD_delete_frontend_view_args__isset {
-  _MapD_delete_frontend_view_args__isset() : session(false), view_name(false) {}
-  bool session :1;
-  bool view_name :1;
-} _MapD_delete_frontend_view_args__isset;
-
-class MapD_delete_frontend_view_args {
- public:
-
-  MapD_delete_frontend_view_args(const MapD_delete_frontend_view_args&);
-  MapD_delete_frontend_view_args& operator=(const MapD_delete_frontend_view_args&);
-  MapD_delete_frontend_view_args() : session(), view_name() {
-  }
-
-  virtual ~MapD_delete_frontend_view_args() throw();
-  TSessionId session;
-  std::string view_name;
-
-  _MapD_delete_frontend_view_args__isset __isset;
-
-  void __set_session(const TSessionId& val);
-
-  void __set_view_name(const std::string& val);
-
-  bool operator == (const MapD_delete_frontend_view_args & rhs) const
-  {
-    if (!(session == rhs.session))
-      return false;
-    if (!(view_name == rhs.view_name))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_delete_frontend_view_args &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_delete_frontend_view_args & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-
-class MapD_delete_frontend_view_pargs {
- public:
-
-
-  virtual ~MapD_delete_frontend_view_pargs() throw();
-  const TSessionId* session;
-  const std::string* view_name;
-
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_delete_frontend_view_result__isset {
-  _MapD_delete_frontend_view_result__isset() : e(false) {}
-  bool e :1;
-} _MapD_delete_frontend_view_result__isset;
-
-class MapD_delete_frontend_view_result {
- public:
-
-  MapD_delete_frontend_view_result(const MapD_delete_frontend_view_result&);
-  MapD_delete_frontend_view_result& operator=(const MapD_delete_frontend_view_result&);
-  MapD_delete_frontend_view_result() {
-  }
-
-  virtual ~MapD_delete_frontend_view_result() throw();
-  TMapDException e;
-
-  _MapD_delete_frontend_view_result__isset __isset;
-
-  void __set_e(const TMapDException& val);
-
-  bool operator == (const MapD_delete_frontend_view_result & rhs) const
-  {
-    if (!(e == rhs.e))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_delete_frontend_view_result &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_delete_frontend_view_result & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_delete_frontend_view_presult__isset {
-  _MapD_delete_frontend_view_presult__isset() : e(false) {}
-  bool e :1;
-} _MapD_delete_frontend_view_presult__isset;
-
-class MapD_delete_frontend_view_presult {
- public:
-
-
-  virtual ~MapD_delete_frontend_view_presult() throw();
-  TMapDException e;
-
-  _MapD_delete_frontend_view_presult__isset __isset;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-
-};
-
 typedef struct _MapD_get_dashboard_args__isset {
   _MapD_get_dashboard_args__isset() : session(false), dashboard_id(false) {}
   bool session :1;
@@ -8072,37 +7702,37 @@ class MapD_start_query_presult {
 
 };
 
-typedef struct _MapD_execute_first_step_args__isset {
-  _MapD_execute_first_step_args__isset() : pending_query(false) {}
+typedef struct _MapD_execute_query_step_args__isset {
+  _MapD_execute_query_step_args__isset() : pending_query(false) {}
   bool pending_query :1;
-} _MapD_execute_first_step_args__isset;
+} _MapD_execute_query_step_args__isset;
 
-class MapD_execute_first_step_args {
+class MapD_execute_query_step_args {
  public:
 
-  MapD_execute_first_step_args(const MapD_execute_first_step_args&);
-  MapD_execute_first_step_args& operator=(const MapD_execute_first_step_args&);
-  MapD_execute_first_step_args() {
+  MapD_execute_query_step_args(const MapD_execute_query_step_args&);
+  MapD_execute_query_step_args& operator=(const MapD_execute_query_step_args&);
+  MapD_execute_query_step_args() {
   }
 
-  virtual ~MapD_execute_first_step_args() throw();
+  virtual ~MapD_execute_query_step_args() throw();
   TPendingQuery pending_query;
 
-  _MapD_execute_first_step_args__isset __isset;
+  _MapD_execute_query_step_args__isset __isset;
 
   void __set_pending_query(const TPendingQuery& val);
 
-  bool operator == (const MapD_execute_first_step_args & rhs) const
+  bool operator == (const MapD_execute_query_step_args & rhs) const
   {
     if (!(pending_query == rhs.pending_query))
       return false;
     return true;
   }
-  bool operator != (const MapD_execute_first_step_args &rhs) const {
+  bool operator != (const MapD_execute_query_step_args &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const MapD_execute_first_step_args & ) const;
+  bool operator < (const MapD_execute_query_step_args & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
@@ -8110,42 +7740,42 @@ class MapD_execute_first_step_args {
 };
 
 
-class MapD_execute_first_step_pargs {
+class MapD_execute_query_step_pargs {
  public:
 
 
-  virtual ~MapD_execute_first_step_pargs() throw();
+  virtual ~MapD_execute_query_step_pargs() throw();
   const TPendingQuery* pending_query;
 
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-typedef struct _MapD_execute_first_step_result__isset {
-  _MapD_execute_first_step_result__isset() : success(false), e(false) {}
+typedef struct _MapD_execute_query_step_result__isset {
+  _MapD_execute_query_step_result__isset() : success(false), e(false) {}
   bool success :1;
   bool e :1;
-} _MapD_execute_first_step_result__isset;
+} _MapD_execute_query_step_result__isset;
 
-class MapD_execute_first_step_result {
+class MapD_execute_query_step_result {
  public:
 
-  MapD_execute_first_step_result(const MapD_execute_first_step_result&);
-  MapD_execute_first_step_result& operator=(const MapD_execute_first_step_result&);
-  MapD_execute_first_step_result() {
+  MapD_execute_query_step_result(const MapD_execute_query_step_result&);
+  MapD_execute_query_step_result& operator=(const MapD_execute_query_step_result&);
+  MapD_execute_query_step_result() {
   }
 
-  virtual ~MapD_execute_first_step_result() throw();
+  virtual ~MapD_execute_query_step_result() throw();
   TStepResult success;
   TMapDException e;
 
-  _MapD_execute_first_step_result__isset __isset;
+  _MapD_execute_query_step_result__isset __isset;
 
   void __set_success(const TStepResult& val);
 
   void __set_e(const TMapDException& val);
 
-  bool operator == (const MapD_execute_first_step_result & rhs) const
+  bool operator == (const MapD_execute_query_step_result & rhs) const
   {
     if (!(success == rhs.success))
       return false;
@@ -8153,32 +7783,32 @@ class MapD_execute_first_step_result {
       return false;
     return true;
   }
-  bool operator != (const MapD_execute_first_step_result &rhs) const {
+  bool operator != (const MapD_execute_query_step_result &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const MapD_execute_first_step_result & ) const;
+  bool operator < (const MapD_execute_query_step_result & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-typedef struct _MapD_execute_first_step_presult__isset {
-  _MapD_execute_first_step_presult__isset() : success(false), e(false) {}
+typedef struct _MapD_execute_query_step_presult__isset {
+  _MapD_execute_query_step_presult__isset() : success(false), e(false) {}
   bool success :1;
   bool e :1;
-} _MapD_execute_first_step_presult__isset;
+} _MapD_execute_query_step_presult__isset;
 
-class MapD_execute_first_step_presult {
+class MapD_execute_query_step_presult {
  public:
 
 
-  virtual ~MapD_execute_first_step_presult() throw();
+  virtual ~MapD_execute_query_step_presult() throw();
   TStepResult* success;
   TMapDException e;
 
-  _MapD_execute_first_step_presult__isset __isset;
+  _MapD_execute_query_step_presult__isset __isset;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
@@ -8783,244 +8413,6 @@ class MapD_checkpoint_presult {
 
 };
 
-typedef struct _MapD_get_table_descriptor_args__isset {
-  _MapD_get_table_descriptor_args__isset() : session(false), table_name(false) {}
-  bool session :1;
-  bool table_name :1;
-} _MapD_get_table_descriptor_args__isset;
-
-class MapD_get_table_descriptor_args {
- public:
-
-  MapD_get_table_descriptor_args(const MapD_get_table_descriptor_args&);
-  MapD_get_table_descriptor_args& operator=(const MapD_get_table_descriptor_args&);
-  MapD_get_table_descriptor_args() : session(), table_name() {
-  }
-
-  virtual ~MapD_get_table_descriptor_args() throw();
-  TSessionId session;
-  std::string table_name;
-
-  _MapD_get_table_descriptor_args__isset __isset;
-
-  void __set_session(const TSessionId& val);
-
-  void __set_table_name(const std::string& val);
-
-  bool operator == (const MapD_get_table_descriptor_args & rhs) const
-  {
-    if (!(session == rhs.session))
-      return false;
-    if (!(table_name == rhs.table_name))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_get_table_descriptor_args &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_get_table_descriptor_args & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-
-class MapD_get_table_descriptor_pargs {
- public:
-
-
-  virtual ~MapD_get_table_descriptor_pargs() throw();
-  const TSessionId* session;
-  const std::string* table_name;
-
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_get_table_descriptor_result__isset {
-  _MapD_get_table_descriptor_result__isset() : success(false), e(false) {}
-  bool success :1;
-  bool e :1;
-} _MapD_get_table_descriptor_result__isset;
-
-class MapD_get_table_descriptor_result {
- public:
-
-  MapD_get_table_descriptor_result(const MapD_get_table_descriptor_result&);
-  MapD_get_table_descriptor_result& operator=(const MapD_get_table_descriptor_result&);
-  MapD_get_table_descriptor_result() {
-  }
-
-  virtual ~MapD_get_table_descriptor_result() throw();
-  TTableDescriptor success;
-  TMapDException e;
-
-  _MapD_get_table_descriptor_result__isset __isset;
-
-  void __set_success(const TTableDescriptor& val);
-
-  void __set_e(const TMapDException& val);
-
-  bool operator == (const MapD_get_table_descriptor_result & rhs) const
-  {
-    if (!(success == rhs.success))
-      return false;
-    if (!(e == rhs.e))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_get_table_descriptor_result &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_get_table_descriptor_result & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_get_table_descriptor_presult__isset {
-  _MapD_get_table_descriptor_presult__isset() : success(false), e(false) {}
-  bool success :1;
-  bool e :1;
-} _MapD_get_table_descriptor_presult__isset;
-
-class MapD_get_table_descriptor_presult {
- public:
-
-
-  virtual ~MapD_get_table_descriptor_presult() throw();
-  TTableDescriptor* success;
-  TMapDException e;
-
-  _MapD_get_table_descriptor_presult__isset __isset;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-
-};
-
-typedef struct _MapD_get_row_descriptor_args__isset {
-  _MapD_get_row_descriptor_args__isset() : session(false), table_name(false) {}
-  bool session :1;
-  bool table_name :1;
-} _MapD_get_row_descriptor_args__isset;
-
-class MapD_get_row_descriptor_args {
- public:
-
-  MapD_get_row_descriptor_args(const MapD_get_row_descriptor_args&);
-  MapD_get_row_descriptor_args& operator=(const MapD_get_row_descriptor_args&);
-  MapD_get_row_descriptor_args() : session(), table_name() {
-  }
-
-  virtual ~MapD_get_row_descriptor_args() throw();
-  TSessionId session;
-  std::string table_name;
-
-  _MapD_get_row_descriptor_args__isset __isset;
-
-  void __set_session(const TSessionId& val);
-
-  void __set_table_name(const std::string& val);
-
-  bool operator == (const MapD_get_row_descriptor_args & rhs) const
-  {
-    if (!(session == rhs.session))
-      return false;
-    if (!(table_name == rhs.table_name))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_get_row_descriptor_args &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_get_row_descriptor_args & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-
-class MapD_get_row_descriptor_pargs {
- public:
-
-
-  virtual ~MapD_get_row_descriptor_pargs() throw();
-  const TSessionId* session;
-  const std::string* table_name;
-
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_get_row_descriptor_result__isset {
-  _MapD_get_row_descriptor_result__isset() : success(false), e(false) {}
-  bool success :1;
-  bool e :1;
-} _MapD_get_row_descriptor_result__isset;
-
-class MapD_get_row_descriptor_result {
- public:
-
-  MapD_get_row_descriptor_result(const MapD_get_row_descriptor_result&);
-  MapD_get_row_descriptor_result& operator=(const MapD_get_row_descriptor_result&);
-  MapD_get_row_descriptor_result() {
-  }
-
-  virtual ~MapD_get_row_descriptor_result() throw();
-  TRowDescriptor success;
-  TMapDException e;
-
-  _MapD_get_row_descriptor_result__isset __isset;
-
-  void __set_success(const TRowDescriptor& val);
-
-  void __set_e(const TMapDException& val);
-
-  bool operator == (const MapD_get_row_descriptor_result & rhs) const
-  {
-    if (!(success == rhs.success))
-      return false;
-    if (!(e == rhs.e))
-      return false;
-    return true;
-  }
-  bool operator != (const MapD_get_row_descriptor_result &rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const MapD_get_row_descriptor_result & ) const;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-typedef struct _MapD_get_row_descriptor_presult__isset {
-  _MapD_get_row_descriptor_presult__isset() : success(false), e(false) {}
-  bool success :1;
-  bool e :1;
-} _MapD_get_row_descriptor_presult__isset;
-
-class MapD_get_row_descriptor_presult {
- public:
-
-
-  virtual ~MapD_get_row_descriptor_presult() throw();
-  TRowDescriptor* success;
-  TMapDException e;
-
-  _MapD_get_row_descriptor_presult__isset __isset;
-
-  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
-
-};
-
 typedef struct _MapD_get_roles_args__isset {
   _MapD_get_roles_args__isset() : session(false) {}
   bool session :1;
@@ -9497,6 +8889,132 @@ class MapD_get_all_roles_for_user_presult {
 
 };
 
+typedef struct _MapD_has_role_args__isset {
+  _MapD_has_role_args__isset() : session(false), granteeName(false), roleName(false) {}
+  bool session :1;
+  bool granteeName :1;
+  bool roleName :1;
+} _MapD_has_role_args__isset;
+
+class MapD_has_role_args {
+ public:
+
+  MapD_has_role_args(const MapD_has_role_args&);
+  MapD_has_role_args& operator=(const MapD_has_role_args&);
+  MapD_has_role_args() : session(), granteeName(), roleName() {
+  }
+
+  virtual ~MapD_has_role_args() throw();
+  TSessionId session;
+  std::string granteeName;
+  std::string roleName;
+
+  _MapD_has_role_args__isset __isset;
+
+  void __set_session(const TSessionId& val);
+
+  void __set_granteeName(const std::string& val);
+
+  void __set_roleName(const std::string& val);
+
+  bool operator == (const MapD_has_role_args & rhs) const
+  {
+    if (!(session == rhs.session))
+      return false;
+    if (!(granteeName == rhs.granteeName))
+      return false;
+    if (!(roleName == rhs.roleName))
+      return false;
+    return true;
+  }
+  bool operator != (const MapD_has_role_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const MapD_has_role_args & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+
+class MapD_has_role_pargs {
+ public:
+
+
+  virtual ~MapD_has_role_pargs() throw();
+  const TSessionId* session;
+  const std::string* granteeName;
+  const std::string* roleName;
+
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _MapD_has_role_result__isset {
+  _MapD_has_role_result__isset() : success(false), e(false) {}
+  bool success :1;
+  bool e :1;
+} _MapD_has_role_result__isset;
+
+class MapD_has_role_result {
+ public:
+
+  MapD_has_role_result(const MapD_has_role_result&);
+  MapD_has_role_result& operator=(const MapD_has_role_result&);
+  MapD_has_role_result() : success(0) {
+  }
+
+  virtual ~MapD_has_role_result() throw();
+  bool success;
+  TMapDException e;
+
+  _MapD_has_role_result__isset __isset;
+
+  void __set_success(const bool val);
+
+  void __set_e(const TMapDException& val);
+
+  bool operator == (const MapD_has_role_result & rhs) const
+  {
+    if (!(success == rhs.success))
+      return false;
+    if (!(e == rhs.e))
+      return false;
+    return true;
+  }
+  bool operator != (const MapD_has_role_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const MapD_has_role_result & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _MapD_has_role_presult__isset {
+  _MapD_has_role_presult__isset() : success(false), e(false) {}
+  bool success :1;
+  bool e :1;
+} _MapD_has_role_presult__isset;
+
+class MapD_has_role_presult {
+ public:
+
+
+  virtual ~MapD_has_role_presult() throw();
+  bool* success;
+  TMapDException e;
+
+  _MapD_has_role_presult__isset __isset;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+
+};
+
 typedef struct _MapD_has_object_privilege_args__isset {
   _MapD_has_object_privilege_args__isset() : session(false), granteeName(false), ObjectName(false), objectType(false), permissions(false) {}
   bool session :1;
@@ -9882,19 +9400,30 @@ class MapD_get_license_claims_presult {
 
 };
 
+typedef struct _MapD_get_device_parameters_args__isset {
+  _MapD_get_device_parameters_args__isset() : session(false) {}
+  bool session :1;
+} _MapD_get_device_parameters_args__isset;
 
 class MapD_get_device_parameters_args {
  public:
 
   MapD_get_device_parameters_args(const MapD_get_device_parameters_args&);
   MapD_get_device_parameters_args& operator=(const MapD_get_device_parameters_args&);
-  MapD_get_device_parameters_args() {
+  MapD_get_device_parameters_args() : session() {
   }
 
   virtual ~MapD_get_device_parameters_args() throw();
+  TSessionId session;
 
-  bool operator == (const MapD_get_device_parameters_args & /* rhs */) const
+  _MapD_get_device_parameters_args__isset __isset;
+
+  void __set_session(const TSessionId& val);
+
+  bool operator == (const MapD_get_device_parameters_args & rhs) const
   {
+    if (!(session == rhs.session))
+      return false;
     return true;
   }
   bool operator != (const MapD_get_device_parameters_args &rhs) const {
@@ -9914,6 +9443,7 @@ class MapD_get_device_parameters_pargs {
 
 
   virtual ~MapD_get_device_parameters_pargs() throw();
+  const TSessionId* session;
 
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
@@ -9982,49 +9512,55 @@ class MapD_get_device_parameters_presult {
 
 };
 
-typedef struct _MapD_register_runtime_udf_args__isset {
-  _MapD_register_runtime_udf_args__isset() : session(false), signatures(false), device_ir_map(false) {}
+typedef struct _MapD_register_runtime_extension_functions_args__isset {
+  _MapD_register_runtime_extension_functions_args__isset() : session(false), udfs(false), udtfs(false), device_ir_map(false) {}
   bool session :1;
-  bool signatures :1;
+  bool udfs :1;
+  bool udtfs :1;
   bool device_ir_map :1;
-} _MapD_register_runtime_udf_args__isset;
+} _MapD_register_runtime_extension_functions_args__isset;
 
-class MapD_register_runtime_udf_args {
+class MapD_register_runtime_extension_functions_args {
  public:
 
-  MapD_register_runtime_udf_args(const MapD_register_runtime_udf_args&);
-  MapD_register_runtime_udf_args& operator=(const MapD_register_runtime_udf_args&);
-  MapD_register_runtime_udf_args() : session(), signatures() {
+  MapD_register_runtime_extension_functions_args(const MapD_register_runtime_extension_functions_args&);
+  MapD_register_runtime_extension_functions_args& operator=(const MapD_register_runtime_extension_functions_args&);
+  MapD_register_runtime_extension_functions_args() : session() {
   }
 
-  virtual ~MapD_register_runtime_udf_args() throw();
+  virtual ~MapD_register_runtime_extension_functions_args() throw();
   TSessionId session;
-  std::string signatures;
+  std::vector< ::TUserDefinedFunction>  udfs;
+  std::vector< ::TUserDefinedTableFunction>  udtfs;
   std::map<std::string, std::string>  device_ir_map;
 
-  _MapD_register_runtime_udf_args__isset __isset;
+  _MapD_register_runtime_extension_functions_args__isset __isset;
 
   void __set_session(const TSessionId& val);
 
-  void __set_signatures(const std::string& val);
+  void __set_udfs(const std::vector< ::TUserDefinedFunction> & val);
+
+  void __set_udtfs(const std::vector< ::TUserDefinedTableFunction> & val);
 
   void __set_device_ir_map(const std::map<std::string, std::string> & val);
 
-  bool operator == (const MapD_register_runtime_udf_args & rhs) const
+  bool operator == (const MapD_register_runtime_extension_functions_args & rhs) const
   {
     if (!(session == rhs.session))
       return false;
-    if (!(signatures == rhs.signatures))
+    if (!(udfs == rhs.udfs))
+      return false;
+    if (!(udtfs == rhs.udtfs))
       return false;
     if (!(device_ir_map == rhs.device_ir_map))
       return false;
     return true;
   }
-  bool operator != (const MapD_register_runtime_udf_args &rhs) const {
+  bool operator != (const MapD_register_runtime_extension_functions_args &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const MapD_register_runtime_udf_args & ) const;
+  bool operator < (const MapD_register_runtime_extension_functions_args & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
@@ -10032,69 +9568,70 @@ class MapD_register_runtime_udf_args {
 };
 
 
-class MapD_register_runtime_udf_pargs {
+class MapD_register_runtime_extension_functions_pargs {
  public:
 
 
-  virtual ~MapD_register_runtime_udf_pargs() throw();
+  virtual ~MapD_register_runtime_extension_functions_pargs() throw();
   const TSessionId* session;
-  const std::string* signatures;
+  const std::vector< ::TUserDefinedFunction> * udfs;
+  const std::vector< ::TUserDefinedTableFunction> * udtfs;
   const std::map<std::string, std::string> * device_ir_map;
 
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-typedef struct _MapD_register_runtime_udf_result__isset {
-  _MapD_register_runtime_udf_result__isset() : e(false) {}
+typedef struct _MapD_register_runtime_extension_functions_result__isset {
+  _MapD_register_runtime_extension_functions_result__isset() : e(false) {}
   bool e :1;
-} _MapD_register_runtime_udf_result__isset;
+} _MapD_register_runtime_extension_functions_result__isset;
 
-class MapD_register_runtime_udf_result {
+class MapD_register_runtime_extension_functions_result {
  public:
 
-  MapD_register_runtime_udf_result(const MapD_register_runtime_udf_result&);
-  MapD_register_runtime_udf_result& operator=(const MapD_register_runtime_udf_result&);
-  MapD_register_runtime_udf_result() {
+  MapD_register_runtime_extension_functions_result(const MapD_register_runtime_extension_functions_result&);
+  MapD_register_runtime_extension_functions_result& operator=(const MapD_register_runtime_extension_functions_result&);
+  MapD_register_runtime_extension_functions_result() {
   }
 
-  virtual ~MapD_register_runtime_udf_result() throw();
+  virtual ~MapD_register_runtime_extension_functions_result() throw();
   TMapDException e;
 
-  _MapD_register_runtime_udf_result__isset __isset;
+  _MapD_register_runtime_extension_functions_result__isset __isset;
 
   void __set_e(const TMapDException& val);
 
-  bool operator == (const MapD_register_runtime_udf_result & rhs) const
+  bool operator == (const MapD_register_runtime_extension_functions_result & rhs) const
   {
     if (!(e == rhs.e))
       return false;
     return true;
   }
-  bool operator != (const MapD_register_runtime_udf_result &rhs) const {
+  bool operator != (const MapD_register_runtime_extension_functions_result &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const MapD_register_runtime_udf_result & ) const;
+  bool operator < (const MapD_register_runtime_extension_functions_result & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-typedef struct _MapD_register_runtime_udf_presult__isset {
-  _MapD_register_runtime_udf_presult__isset() : e(false) {}
+typedef struct _MapD_register_runtime_extension_functions_presult__isset {
+  _MapD_register_runtime_extension_functions_presult__isset() : e(false) {}
   bool e :1;
-} _MapD_register_runtime_udf_presult__isset;
+} _MapD_register_runtime_extension_functions_presult__isset;
 
-class MapD_register_runtime_udf_presult {
+class MapD_register_runtime_extension_functions_presult {
  public:
 
 
-  virtual ~MapD_register_runtime_udf_presult() throw();
+  virtual ~MapD_register_runtime_extension_functions_presult() throw();
   TMapDException e;
 
-  _MapD_register_runtime_udf_presult__isset __isset;
+  _MapD_register_runtime_extension_functions_presult__isset __isset;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
@@ -10128,6 +9665,9 @@ class MapDClient : virtual public MapDIf {
   void connect(TSessionId& _return, const std::string& user, const std::string& passwd, const std::string& dbname);
   void send_connect(const std::string& user, const std::string& passwd, const std::string& dbname);
   void recv_connect(TSessionId& _return);
+  void krb5_connect(TKrb5Session& _return, const std::string& inputToken, const std::string& dbname);
+  void send_krb5_connect(const std::string& inputToken, const std::string& dbname);
+  void recv_krb5_connect(TKrb5Session& _return);
   void disconnect(const TSessionId& session);
   void send_disconnect(const TSessionId& session);
   void recv_disconnect();
@@ -10233,18 +9773,6 @@ class MapDClient : virtual public MapDIf {
   void get_result_row_for_pixel(TPixelTableRowResult& _return, const TSessionId& session, const int64_t widget_id, const TPixel& pixel, const std::map<std::string, std::vector<std::string> > & table_col_names, const bool column_format, const int32_t pixelRadius, const std::string& nonce);
   void send_get_result_row_for_pixel(const TSessionId& session, const int64_t widget_id, const TPixel& pixel, const std::map<std::string, std::vector<std::string> > & table_col_names, const bool column_format, const int32_t pixelRadius, const std::string& nonce);
   void recv_get_result_row_for_pixel(TPixelTableRowResult& _return);
-  void get_frontend_view(TFrontendView& _return, const TSessionId& session, const std::string& view_name);
-  void send_get_frontend_view(const TSessionId& session, const std::string& view_name);
-  void recv_get_frontend_view(TFrontendView& _return);
-  void get_frontend_views(std::vector<TFrontendView> & _return, const TSessionId& session);
-  void send_get_frontend_views(const TSessionId& session);
-  void recv_get_frontend_views(std::vector<TFrontendView> & _return);
-  void create_frontend_view(const TSessionId& session, const std::string& view_name, const std::string& view_state, const std::string& image_hash, const std::string& view_metadata);
-  void send_create_frontend_view(const TSessionId& session, const std::string& view_name, const std::string& view_state, const std::string& image_hash, const std::string& view_metadata);
-  void recv_create_frontend_view();
-  void delete_frontend_view(const TSessionId& session, const std::string& view_name);
-  void send_delete_frontend_view(const TSessionId& session, const std::string& view_name);
-  void recv_delete_frontend_view();
   void get_dashboard(TDashboard& _return, const TSessionId& session, const int32_t dashboard_id);
   void send_get_dashboard(const TSessionId& session, const int32_t dashboard_id);
   void recv_get_dashboard(TDashboard& _return);
@@ -10317,9 +9845,9 @@ class MapDClient : virtual public MapDIf {
   void start_query(TPendingQuery& _return, const TSessionId& session, const std::string& query_ra, const bool just_explain);
   void send_start_query(const TSessionId& session, const std::string& query_ra, const bool just_explain);
   void recv_start_query(TPendingQuery& _return);
-  void execute_first_step(TStepResult& _return, const TPendingQuery& pending_query);
-  void send_execute_first_step(const TPendingQuery& pending_query);
-  void recv_execute_first_step(TStepResult& _return);
+  void execute_query_step(TStepResult& _return, const TPendingQuery& pending_query);
+  void send_execute_query_step(const TPendingQuery& pending_query);
+  void recv_execute_query_step(TStepResult& _return);
   void broadcast_serialized_rows(const  ::TSerializedRows& serialized_rows, const TRowDescriptor& row_desc, const TQueryId query_id);
   void send_broadcast_serialized_rows(const  ::TSerializedRows& serialized_rows, const TRowDescriptor& row_desc, const TQueryId query_id);
   void recv_broadcast_serialized_rows();
@@ -10335,12 +9863,6 @@ class MapDClient : virtual public MapDIf {
   void checkpoint(const TSessionId& session, const int32_t db_id, const int32_t table_id);
   void send_checkpoint(const TSessionId& session, const int32_t db_id, const int32_t table_id);
   void recv_checkpoint();
-  void get_table_descriptor(TTableDescriptor& _return, const TSessionId& session, const std::string& table_name);
-  void send_get_table_descriptor(const TSessionId& session, const std::string& table_name);
-  void recv_get_table_descriptor(TTableDescriptor& _return);
-  void get_row_descriptor(TRowDescriptor& _return, const TSessionId& session, const std::string& table_name);
-  void send_get_row_descriptor(const TSessionId& session, const std::string& table_name);
-  void recv_get_row_descriptor(TRowDescriptor& _return);
   void get_roles(std::vector<std::string> & _return, const TSessionId& session);
   void send_get_roles(const TSessionId& session);
   void recv_get_roles(std::vector<std::string> & _return);
@@ -10353,6 +9875,9 @@ class MapDClient : virtual public MapDIf {
   void get_all_roles_for_user(std::vector<std::string> & _return, const TSessionId& session, const std::string& userName);
   void send_get_all_roles_for_user(const TSessionId& session, const std::string& userName);
   void recv_get_all_roles_for_user(std::vector<std::string> & _return);
+  bool has_role(const TSessionId& session, const std::string& granteeName, const std::string& roleName);
+  void send_has_role(const TSessionId& session, const std::string& granteeName, const std::string& roleName);
+  bool recv_has_role();
   bool has_object_privilege(const TSessionId& session, const std::string& granteeName, const std::string& ObjectName, const TDBObjectType::type objectType, const TDBObjectPermissions& permissions);
   void send_has_object_privilege(const TSessionId& session, const std::string& granteeName, const std::string& ObjectName, const TDBObjectType::type objectType, const TDBObjectPermissions& permissions);
   bool recv_has_object_privilege();
@@ -10362,12 +9887,12 @@ class MapDClient : virtual public MapDIf {
   void get_license_claims(TLicenseInfo& _return, const TSessionId& session, const std::string& nonce);
   void send_get_license_claims(const TSessionId& session, const std::string& nonce);
   void recv_get_license_claims(TLicenseInfo& _return);
-  void get_device_parameters(std::map<std::string, std::string> & _return);
-  void send_get_device_parameters();
+  void get_device_parameters(std::map<std::string, std::string> & _return, const TSessionId& session);
+  void send_get_device_parameters(const TSessionId& session);
   void recv_get_device_parameters(std::map<std::string, std::string> & _return);
-  void register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map);
-  void send_register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map);
-  void recv_register_runtime_udf();
+  void register_runtime_extension_functions(const TSessionId& session, const std::vector< ::TUserDefinedFunction> & udfs, const std::vector< ::TUserDefinedTableFunction> & udtfs, const std::map<std::string, std::string> & device_ir_map);
+  void send_register_runtime_extension_functions(const TSessionId& session, const std::vector< ::TUserDefinedFunction> & udfs, const std::vector< ::TUserDefinedTableFunction> & udtfs, const std::map<std::string, std::string> & device_ir_map);
+  void recv_register_runtime_extension_functions();
  protected:
   apache::thrift::stdcxx::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
   apache::thrift::stdcxx::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot_;
@@ -10384,6 +9909,7 @@ class MapDProcessor : public ::apache::thrift::TDispatchProcessor {
   typedef std::map<std::string, ProcessFunction> ProcessMap;
   ProcessMap processMap_;
   void process_connect(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
+  void process_krb5_connect(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_disconnect(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_switch_database(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_get_server_status(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
@@ -10419,10 +9945,6 @@ class MapDProcessor : public ::apache::thrift::TDispatchProcessor {
   void process_set_execution_mode(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_render_vega(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_get_result_row_for_pixel(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
-  void process_get_frontend_view(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
-  void process_get_frontend_views(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
-  void process_create_frontend_view(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
-  void process_delete_frontend_view(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_get_dashboard(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_get_dashboards(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_create_dashboard(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
@@ -10447,27 +9969,27 @@ class MapDProcessor : public ::apache::thrift::TDispatchProcessor {
   void process_get_layers_in_geo_file(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_check_table_consistency(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_start_query(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
-  void process_execute_first_step(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
+  void process_execute_query_step(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_broadcast_serialized_rows(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_start_render_query(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_execute_next_render_step(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_insert_data(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_checkpoint(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
-  void process_get_table_descriptor(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
-  void process_get_row_descriptor(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_get_roles(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_get_db_objects_for_grantee(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_get_db_object_privs(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_get_all_roles_for_user(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
+  void process_has_role(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_has_object_privilege(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_set_license_key(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_get_license_claims(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_get_device_parameters(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
-  void process_register_runtime_udf(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
+  void process_register_runtime_extension_functions(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
  public:
   MapDProcessor(::apache::thrift::stdcxx::shared_ptr<MapDIf> iface) :
     iface_(iface) {
     processMap_["connect"] = &MapDProcessor::process_connect;
+    processMap_["krb5_connect"] = &MapDProcessor::process_krb5_connect;
     processMap_["disconnect"] = &MapDProcessor::process_disconnect;
     processMap_["switch_database"] = &MapDProcessor::process_switch_database;
     processMap_["get_server_status"] = &MapDProcessor::process_get_server_status;
@@ -10503,10 +10025,6 @@ class MapDProcessor : public ::apache::thrift::TDispatchProcessor {
     processMap_["set_execution_mode"] = &MapDProcessor::process_set_execution_mode;
     processMap_["render_vega"] = &MapDProcessor::process_render_vega;
     processMap_["get_result_row_for_pixel"] = &MapDProcessor::process_get_result_row_for_pixel;
-    processMap_["get_frontend_view"] = &MapDProcessor::process_get_frontend_view;
-    processMap_["get_frontend_views"] = &MapDProcessor::process_get_frontend_views;
-    processMap_["create_frontend_view"] = &MapDProcessor::process_create_frontend_view;
-    processMap_["delete_frontend_view"] = &MapDProcessor::process_delete_frontend_view;
     processMap_["get_dashboard"] = &MapDProcessor::process_get_dashboard;
     processMap_["get_dashboards"] = &MapDProcessor::process_get_dashboards;
     processMap_["create_dashboard"] = &MapDProcessor::process_create_dashboard;
@@ -10531,23 +10049,22 @@ class MapDProcessor : public ::apache::thrift::TDispatchProcessor {
     processMap_["get_layers_in_geo_file"] = &MapDProcessor::process_get_layers_in_geo_file;
     processMap_["check_table_consistency"] = &MapDProcessor::process_check_table_consistency;
     processMap_["start_query"] = &MapDProcessor::process_start_query;
-    processMap_["execute_first_step"] = &MapDProcessor::process_execute_first_step;
+    processMap_["execute_query_step"] = &MapDProcessor::process_execute_query_step;
     processMap_["broadcast_serialized_rows"] = &MapDProcessor::process_broadcast_serialized_rows;
     processMap_["start_render_query"] = &MapDProcessor::process_start_render_query;
     processMap_["execute_next_render_step"] = &MapDProcessor::process_execute_next_render_step;
     processMap_["insert_data"] = &MapDProcessor::process_insert_data;
     processMap_["checkpoint"] = &MapDProcessor::process_checkpoint;
-    processMap_["get_table_descriptor"] = &MapDProcessor::process_get_table_descriptor;
-    processMap_["get_row_descriptor"] = &MapDProcessor::process_get_row_descriptor;
     processMap_["get_roles"] = &MapDProcessor::process_get_roles;
     processMap_["get_db_objects_for_grantee"] = &MapDProcessor::process_get_db_objects_for_grantee;
     processMap_["get_db_object_privs"] = &MapDProcessor::process_get_db_object_privs;
     processMap_["get_all_roles_for_user"] = &MapDProcessor::process_get_all_roles_for_user;
+    processMap_["has_role"] = &MapDProcessor::process_has_role;
     processMap_["has_object_privilege"] = &MapDProcessor::process_has_object_privilege;
     processMap_["set_license_key"] = &MapDProcessor::process_set_license_key;
     processMap_["get_license_claims"] = &MapDProcessor::process_get_license_claims;
     processMap_["get_device_parameters"] = &MapDProcessor::process_get_device_parameters;
-    processMap_["register_runtime_udf"] = &MapDProcessor::process_register_runtime_udf;
+    processMap_["register_runtime_extension_functions"] = &MapDProcessor::process_register_runtime_extension_functions;
   }
 
   virtual ~MapDProcessor() {}
@@ -10583,6 +10100,16 @@ class MapDMultiface : virtual public MapDIf {
       ifaces_[i]->connect(_return, user, passwd, dbname);
     }
     ifaces_[i]->connect(_return, user, passwd, dbname);
+    return;
+  }
+
+  void krb5_connect(TKrb5Session& _return, const std::string& inputToken, const std::string& dbname) {
+    size_t sz = ifaces_.size();
+    size_t i = 0;
+    for (; i < (sz - 1); ++i) {
+      ifaces_[i]->krb5_connect(_return, inputToken, dbname);
+    }
+    ifaces_[i]->krb5_connect(_return, inputToken, dbname);
     return;
   }
 
@@ -10923,44 +10450,6 @@ class MapDMultiface : virtual public MapDIf {
     return;
   }
 
-  void get_frontend_view(TFrontendView& _return, const TSessionId& session, const std::string& view_name) {
-    size_t sz = ifaces_.size();
-    size_t i = 0;
-    for (; i < (sz - 1); ++i) {
-      ifaces_[i]->get_frontend_view(_return, session, view_name);
-    }
-    ifaces_[i]->get_frontend_view(_return, session, view_name);
-    return;
-  }
-
-  void get_frontend_views(std::vector<TFrontendView> & _return, const TSessionId& session) {
-    size_t sz = ifaces_.size();
-    size_t i = 0;
-    for (; i < (sz - 1); ++i) {
-      ifaces_[i]->get_frontend_views(_return, session);
-    }
-    ifaces_[i]->get_frontend_views(_return, session);
-    return;
-  }
-
-  void create_frontend_view(const TSessionId& session, const std::string& view_name, const std::string& view_state, const std::string& image_hash, const std::string& view_metadata) {
-    size_t sz = ifaces_.size();
-    size_t i = 0;
-    for (; i < (sz - 1); ++i) {
-      ifaces_[i]->create_frontend_view(session, view_name, view_state, image_hash, view_metadata);
-    }
-    ifaces_[i]->create_frontend_view(session, view_name, view_state, image_hash, view_metadata);
-  }
-
-  void delete_frontend_view(const TSessionId& session, const std::string& view_name) {
-    size_t sz = ifaces_.size();
-    size_t i = 0;
-    for (; i < (sz - 1); ++i) {
-      ifaces_[i]->delete_frontend_view(session, view_name);
-    }
-    ifaces_[i]->delete_frontend_view(session, view_name);
-  }
-
   void get_dashboard(TDashboard& _return, const TSessionId& session, const int32_t dashboard_id) {
     size_t sz = ifaces_.size();
     size_t i = 0;
@@ -11189,13 +10678,13 @@ class MapDMultiface : virtual public MapDIf {
     return;
   }
 
-  void execute_first_step(TStepResult& _return, const TPendingQuery& pending_query) {
+  void execute_query_step(TStepResult& _return, const TPendingQuery& pending_query) {
     size_t sz = ifaces_.size();
     size_t i = 0;
     for (; i < (sz - 1); ++i) {
-      ifaces_[i]->execute_first_step(_return, pending_query);
+      ifaces_[i]->execute_query_step(_return, pending_query);
     }
-    ifaces_[i]->execute_first_step(_return, pending_query);
+    ifaces_[i]->execute_query_step(_return, pending_query);
     return;
   }
 
@@ -11246,26 +10735,6 @@ class MapDMultiface : virtual public MapDIf {
     ifaces_[i]->checkpoint(session, db_id, table_id);
   }
 
-  void get_table_descriptor(TTableDescriptor& _return, const TSessionId& session, const std::string& table_name) {
-    size_t sz = ifaces_.size();
-    size_t i = 0;
-    for (; i < (sz - 1); ++i) {
-      ifaces_[i]->get_table_descriptor(_return, session, table_name);
-    }
-    ifaces_[i]->get_table_descriptor(_return, session, table_name);
-    return;
-  }
-
-  void get_row_descriptor(TRowDescriptor& _return, const TSessionId& session, const std::string& table_name) {
-    size_t sz = ifaces_.size();
-    size_t i = 0;
-    for (; i < (sz - 1); ++i) {
-      ifaces_[i]->get_row_descriptor(_return, session, table_name);
-    }
-    ifaces_[i]->get_row_descriptor(_return, session, table_name);
-    return;
-  }
-
   void get_roles(std::vector<std::string> & _return, const TSessionId& session) {
     size_t sz = ifaces_.size();
     size_t i = 0;
@@ -11306,6 +10775,15 @@ class MapDMultiface : virtual public MapDIf {
     return;
   }
 
+  bool has_role(const TSessionId& session, const std::string& granteeName, const std::string& roleName) {
+    size_t sz = ifaces_.size();
+    size_t i = 0;
+    for (; i < (sz - 1); ++i) {
+      ifaces_[i]->has_role(session, granteeName, roleName);
+    }
+    return ifaces_[i]->has_role(session, granteeName, roleName);
+  }
+
   bool has_object_privilege(const TSessionId& session, const std::string& granteeName, const std::string& ObjectName, const TDBObjectType::type objectType, const TDBObjectPermissions& permissions) {
     size_t sz = ifaces_.size();
     size_t i = 0;
@@ -11335,23 +10813,23 @@ class MapDMultiface : virtual public MapDIf {
     return;
   }
 
-  void get_device_parameters(std::map<std::string, std::string> & _return) {
+  void get_device_parameters(std::map<std::string, std::string> & _return, const TSessionId& session) {
     size_t sz = ifaces_.size();
     size_t i = 0;
     for (; i < (sz - 1); ++i) {
-      ifaces_[i]->get_device_parameters(_return);
+      ifaces_[i]->get_device_parameters(_return, session);
     }
-    ifaces_[i]->get_device_parameters(_return);
+    ifaces_[i]->get_device_parameters(_return, session);
     return;
   }
 
-  void register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map) {
+  void register_runtime_extension_functions(const TSessionId& session, const std::vector< ::TUserDefinedFunction> & udfs, const std::vector< ::TUserDefinedTableFunction> & udtfs, const std::map<std::string, std::string> & device_ir_map) {
     size_t sz = ifaces_.size();
     size_t i = 0;
     for (; i < (sz - 1); ++i) {
-      ifaces_[i]->register_runtime_udf(session, signatures, device_ir_map);
+      ifaces_[i]->register_runtime_extension_functions(session, udfs, udtfs, device_ir_map);
     }
-    ifaces_[i]->register_runtime_udf(session, signatures, device_ir_map);
+    ifaces_[i]->register_runtime_extension_functions(session, udfs, udtfs, device_ir_map);
   }
 
 };
@@ -11387,6 +10865,9 @@ class MapDConcurrentClient : virtual public MapDIf {
   void connect(TSessionId& _return, const std::string& user, const std::string& passwd, const std::string& dbname);
   int32_t send_connect(const std::string& user, const std::string& passwd, const std::string& dbname);
   void recv_connect(TSessionId& _return, const int32_t seqid);
+  void krb5_connect(TKrb5Session& _return, const std::string& inputToken, const std::string& dbname);
+  int32_t send_krb5_connect(const std::string& inputToken, const std::string& dbname);
+  void recv_krb5_connect(TKrb5Session& _return, const int32_t seqid);
   void disconnect(const TSessionId& session);
   int32_t send_disconnect(const TSessionId& session);
   void recv_disconnect(const int32_t seqid);
@@ -11492,18 +10973,6 @@ class MapDConcurrentClient : virtual public MapDIf {
   void get_result_row_for_pixel(TPixelTableRowResult& _return, const TSessionId& session, const int64_t widget_id, const TPixel& pixel, const std::map<std::string, std::vector<std::string> > & table_col_names, const bool column_format, const int32_t pixelRadius, const std::string& nonce);
   int32_t send_get_result_row_for_pixel(const TSessionId& session, const int64_t widget_id, const TPixel& pixel, const std::map<std::string, std::vector<std::string> > & table_col_names, const bool column_format, const int32_t pixelRadius, const std::string& nonce);
   void recv_get_result_row_for_pixel(TPixelTableRowResult& _return, const int32_t seqid);
-  void get_frontend_view(TFrontendView& _return, const TSessionId& session, const std::string& view_name);
-  int32_t send_get_frontend_view(const TSessionId& session, const std::string& view_name);
-  void recv_get_frontend_view(TFrontendView& _return, const int32_t seqid);
-  void get_frontend_views(std::vector<TFrontendView> & _return, const TSessionId& session);
-  int32_t send_get_frontend_views(const TSessionId& session);
-  void recv_get_frontend_views(std::vector<TFrontendView> & _return, const int32_t seqid);
-  void create_frontend_view(const TSessionId& session, const std::string& view_name, const std::string& view_state, const std::string& image_hash, const std::string& view_metadata);
-  int32_t send_create_frontend_view(const TSessionId& session, const std::string& view_name, const std::string& view_state, const std::string& image_hash, const std::string& view_metadata);
-  void recv_create_frontend_view(const int32_t seqid);
-  void delete_frontend_view(const TSessionId& session, const std::string& view_name);
-  int32_t send_delete_frontend_view(const TSessionId& session, const std::string& view_name);
-  void recv_delete_frontend_view(const int32_t seqid);
   void get_dashboard(TDashboard& _return, const TSessionId& session, const int32_t dashboard_id);
   int32_t send_get_dashboard(const TSessionId& session, const int32_t dashboard_id);
   void recv_get_dashboard(TDashboard& _return, const int32_t seqid);
@@ -11576,9 +11045,9 @@ class MapDConcurrentClient : virtual public MapDIf {
   void start_query(TPendingQuery& _return, const TSessionId& session, const std::string& query_ra, const bool just_explain);
   int32_t send_start_query(const TSessionId& session, const std::string& query_ra, const bool just_explain);
   void recv_start_query(TPendingQuery& _return, const int32_t seqid);
-  void execute_first_step(TStepResult& _return, const TPendingQuery& pending_query);
-  int32_t send_execute_first_step(const TPendingQuery& pending_query);
-  void recv_execute_first_step(TStepResult& _return, const int32_t seqid);
+  void execute_query_step(TStepResult& _return, const TPendingQuery& pending_query);
+  int32_t send_execute_query_step(const TPendingQuery& pending_query);
+  void recv_execute_query_step(TStepResult& _return, const int32_t seqid);
   void broadcast_serialized_rows(const  ::TSerializedRows& serialized_rows, const TRowDescriptor& row_desc, const TQueryId query_id);
   int32_t send_broadcast_serialized_rows(const  ::TSerializedRows& serialized_rows, const TRowDescriptor& row_desc, const TQueryId query_id);
   void recv_broadcast_serialized_rows(const int32_t seqid);
@@ -11594,12 +11063,6 @@ class MapDConcurrentClient : virtual public MapDIf {
   void checkpoint(const TSessionId& session, const int32_t db_id, const int32_t table_id);
   int32_t send_checkpoint(const TSessionId& session, const int32_t db_id, const int32_t table_id);
   void recv_checkpoint(const int32_t seqid);
-  void get_table_descriptor(TTableDescriptor& _return, const TSessionId& session, const std::string& table_name);
-  int32_t send_get_table_descriptor(const TSessionId& session, const std::string& table_name);
-  void recv_get_table_descriptor(TTableDescriptor& _return, const int32_t seqid);
-  void get_row_descriptor(TRowDescriptor& _return, const TSessionId& session, const std::string& table_name);
-  int32_t send_get_row_descriptor(const TSessionId& session, const std::string& table_name);
-  void recv_get_row_descriptor(TRowDescriptor& _return, const int32_t seqid);
   void get_roles(std::vector<std::string> & _return, const TSessionId& session);
   int32_t send_get_roles(const TSessionId& session);
   void recv_get_roles(std::vector<std::string> & _return, const int32_t seqid);
@@ -11612,6 +11075,9 @@ class MapDConcurrentClient : virtual public MapDIf {
   void get_all_roles_for_user(std::vector<std::string> & _return, const TSessionId& session, const std::string& userName);
   int32_t send_get_all_roles_for_user(const TSessionId& session, const std::string& userName);
   void recv_get_all_roles_for_user(std::vector<std::string> & _return, const int32_t seqid);
+  bool has_role(const TSessionId& session, const std::string& granteeName, const std::string& roleName);
+  int32_t send_has_role(const TSessionId& session, const std::string& granteeName, const std::string& roleName);
+  bool recv_has_role(const int32_t seqid);
   bool has_object_privilege(const TSessionId& session, const std::string& granteeName, const std::string& ObjectName, const TDBObjectType::type objectType, const TDBObjectPermissions& permissions);
   int32_t send_has_object_privilege(const TSessionId& session, const std::string& granteeName, const std::string& ObjectName, const TDBObjectType::type objectType, const TDBObjectPermissions& permissions);
   bool recv_has_object_privilege(const int32_t seqid);
@@ -11621,12 +11087,12 @@ class MapDConcurrentClient : virtual public MapDIf {
   void get_license_claims(TLicenseInfo& _return, const TSessionId& session, const std::string& nonce);
   int32_t send_get_license_claims(const TSessionId& session, const std::string& nonce);
   void recv_get_license_claims(TLicenseInfo& _return, const int32_t seqid);
-  void get_device_parameters(std::map<std::string, std::string> & _return);
-  int32_t send_get_device_parameters();
+  void get_device_parameters(std::map<std::string, std::string> & _return, const TSessionId& session);
+  int32_t send_get_device_parameters(const TSessionId& session);
   void recv_get_device_parameters(std::map<std::string, std::string> & _return, const int32_t seqid);
-  void register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map);
-  int32_t send_register_runtime_udf(const TSessionId& session, const std::string& signatures, const std::map<std::string, std::string> & device_ir_map);
-  void recv_register_runtime_udf(const int32_t seqid);
+  void register_runtime_extension_functions(const TSessionId& session, const std::vector< ::TUserDefinedFunction> & udfs, const std::vector< ::TUserDefinedTableFunction> & udtfs, const std::map<std::string, std::string> & device_ir_map);
+  int32_t send_register_runtime_extension_functions(const TSessionId& session, const std::vector< ::TUserDefinedFunction> & udfs, const std::vector< ::TUserDefinedTableFunction> & udtfs, const std::map<std::string, std::string> & device_ir_map);
+  void recv_register_runtime_extension_functions(const int32_t seqid);
  protected:
   apache::thrift::stdcxx::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
   apache::thrift::stdcxx::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot_;
