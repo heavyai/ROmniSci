@@ -1,2 +1,5 @@
 CXX_STD = CXX11
 PKG_LIBS = -lthrift
+
+SOURCES = $(wildcard gen-cpp/*.cpp)
+OBJECTS = RcppExports.o $(SOURCES:.cpp=.o) rcpp_wrap.o rcpp_main_code.o

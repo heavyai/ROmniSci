@@ -1,4 +1,4 @@
-#include "MapD.h"
+#include "gen-cpp/MapD.h"
 #include <Rcpp.h>
 
 namespace Rcpp {

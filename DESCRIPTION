@@ -1,8 +1,8 @@
 Package: ROmniSci
 Type: Package
 Title: Client for OmniSci GPU-accelerated Database
-Version: 0.1
-Date: 2019-07-01
+Version: 0.2
+Date: 2019-11-21
 Author: Randy Zwitch
 Maintainer: Randy Zwitch <randy.zwitch@omnisci.com>
 Description: Client for OmniSci GPU-acccelerated Database, using Rcpp to wrap the OmniSci Thrift C++ bindings. 
@@ -13,3 +13,4 @@ RoxygenNote: 6.1.1
 Encoding: UTF-8
 Suggests: 
     testthat (>= 2.1.0)
+SystemRequirements: GNU make
