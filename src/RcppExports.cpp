@@ -5,9 +5,9 @@
 
 using namespace Rcpp;
 
-// connect
-List connect(std::string host, int port, std::string username, std::string password, std::string dbname);
-RcppExport SEXP _ROmniSci_connect(SEXP hostSEXP, SEXP portSEXP, SEXP usernameSEXP, SEXP passwordSEXP, SEXP dbnameSEXP) {
+// connect_binary
+List connect_binary(std::string host, int port, std::string username, std::string password, std::string dbname);
+RcppExport SEXP _ROmniSci_connect_binary(SEXP hostSEXP, SEXP portSEXP, SEXP usernameSEXP, SEXP passwordSEXP, SEXP dbnameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -16,7 +16,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type username(usernameSEXP);
     Rcpp::traits::input_parameter< std::string >::type password(passwordSEXP);
     Rcpp::traits::input_parameter< std::string >::type dbname(dbnameSEXP);
-    rcpp_result_gen = Rcpp::wrap(connect(host, port, username, password, dbname));
+    rcpp_result_gen = Rcpp::wrap(connect_binary(host, port, username, password, dbname));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -190,7 +190,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_ROmniSci_connect", (DL_FUNC) &_ROmniSci_connect, 5},
+    {"_ROmniSci_connect_binary", (DL_FUNC) &_ROmniSci_connect_binary, 5},
     {"_ROmniSci_disconnect", (DL_FUNC) &_ROmniSci_disconnect, 1},
     {"_ROmniSci_get_table_details", (DL_FUNC) &_ROmniSci_get_table_details, 2},
     {"_ROmniSci_get_server_status", (DL_FUNC) &_ROmniSci_get_server_status, 1},

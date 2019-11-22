@@ -33,11 +33,11 @@ using namespace apache::thrift::transport;
 //'   
 //' }
 // [[Rcpp::export]]
-List connect(std::string host, 
-             int port, 
-             std::string username, 
-             std::string password, 
-             std::string dbname){
+List connect_binary(std::string host, 
+                   int port, 
+                   std::string username, 
+                   std::string password, 
+                   std::string dbname){
   
   auto socket = std::make_shared<TSocket>(host, port);
   auto transport = std::make_shared<TBufferedTransport>(socket);

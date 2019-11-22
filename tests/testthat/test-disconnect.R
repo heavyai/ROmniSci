@@ -1,6 +1,6 @@
 test_that("Disconnect from OmniSci on localhost and defaults", {
   
-  conn <- connect("0.0.0.0", 6274, "admin", "HyperInteractive", "omnisci")
+  conn <- connect_binary("0.0.0.0", 6274, "admin", "HyperInteractive", "omnisci")
   disconnect(conn)
   
   # When disconnect called, no return from function
