@@ -4,7 +4,7 @@
 #include <thrift/transport/TSocket.h>
 #include <thrift/transport/TTransportUtils.h>
 #include "gen-cpp/MapD.h"
-#include "rcpp_wrap.h" //forward declarations have to come before '#include <Rcpp.h>'
+#include "thrift_struct_wrap.h" //forward declarations have to come before '#include <Rcpp.h>'
 #include <Rcpp.h>
 
 using namespace Rcpp;
