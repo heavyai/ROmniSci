@@ -21,8 +21,8 @@
 #'   conn <- connect("localhost", 6274, "admin", "HyperInteractive", "omnisci")
 #'   
 #' }
-connect <- function(host, port, username, password, dbname) {
-    .Call('_ROmniSci_connect', PACKAGE = 'ROmniSci', host, port, username, password, dbname)
+connect_binary <- function(host, port, username, password, dbname) {
+    .Call('_ROmniSci_connect_binary', PACKAGE = 'ROmniSci', host, port, username, password, dbname)
 }
 
 #' @title Disconnect from an OmniSci database

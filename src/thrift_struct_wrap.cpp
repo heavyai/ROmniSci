@@ -1,22 +1,8 @@
-#include "MapD.h"
+#include "gen-cpp/MapD.h"
 #include <Rcpp.h>
 
 namespace Rcpp {
 
-    //TODO: define enums to return strings, remove static casts below?
-    // template <> SEXP wrap(const TPartitionDetail& tpd);
-    // template <> SEXP wrap(const TEncodingType& tet);
-    // template <> SEXP wrap(const TDatumType& x){
-    //   
-    //   TDatumType y{x};
-    //   
-    //   switch(static_cast<int>(y))
-    //   
-    //   return List::create(_["TODO"] = 1);
-    // 
-    // };
-
-    //structs
     template <> SEXP wrap(const TTypeInfo& x){
 
       return List::create(_["type"] = static_cast<int>(x.type),  //enum

@@ -1,6 +1,6 @@
 test_that("Connect to OmniSci on localhost, create, then switch database", {
   
-  conn <- connect("0.0.0.0", 6274, "admin", "HyperInteractive", "omnisci")
+  conn <- connect_binary("0.0.0.0", 6274, "admin", "HyperInteractive", "omnisci")
   
   sql_execute(conn, "create database if not exists romnisci (owner='admin')")
   expect_error(switch_database(conn, "romnisci"), NA)

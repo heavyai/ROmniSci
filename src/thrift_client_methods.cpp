@@ -3,8 +3,8 @@
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/transport/TSocket.h>
 #include <thrift/transport/TTransportUtils.h>
-#include "MapD.h"
-#include "rcpp_wrap.h" //forward declarations have to come before '#include <Rcpp.h>'
+#include "gen-cpp/MapD.h"
+#include "thrift_struct_wrap.h" //forward declarations have to come before '#include <Rcpp.h>'
 #include <Rcpp.h>
 
 using namespace Rcpp;
@@ -33,11 +33,11 @@ using namespace apache::thrift::transport;
 //'   
 //' }
 // [[Rcpp::export]]
-List connect(std::string host, 
-             int port, 
-             std::string username, 
-             std::string password, 
-             std::string dbname){
+List connect_binary(std::string host, 
+                   int port, 
+                   std::string username, 
+                   std::string password, 
+                   std::string dbname){
   
   auto socket = std::make_shared<TSocket>(host, port);
   auto transport = std::make_shared<TBufferedTransport>(socket);

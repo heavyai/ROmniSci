@@ -1,2 +1,5 @@
-CXX_STD = CXX11
+CXX_STD = CXX14
 PKG_LIBS = -lthrift
+
+SOURCES = $(wildcard gen-cpp/*.cpp)
+OBJECTS = RcppExports.o $(SOURCES:.cpp=.o) thrift_struct_wrap.o thrift_client_methods.o
