@@ -3,7 +3,6 @@
 \docType{package}
 \name{ROmniSci}
 \alias{ROmniSci}
-\alias{ROmniSci-package}
 \title{ROmniSci}
 \description{
 Client for OnmiSci GPU-accelerated database
