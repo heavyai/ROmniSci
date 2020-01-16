@@ -8,8 +8,6 @@
 \alias{dbConnect,OmniSciDriver-method}
 \alias{dbDataType,OmniSciDriver,ANY-method}
 \alias{dbDataType,OmniSciDriver,list-method}
-\alias{dbIsValid,OmniSciDriver-method}
-\alias{dbGetInfo,OmniSciDriver-method}
 \alias{OmniSciConnection-class}
 \alias{show,OmniSciConnection-method}
 \alias{dbIsValid,OmniSciConnection-method}
@@ -50,10 +48,6 @@
 \S4method{dbDataType}{OmniSciDriver,ANY}(dbObj, obj, ...)
 
 \S4method{dbDataType}{OmniSciDriver,list}(dbObj, obj, ...)
-
-\S4method{dbIsValid}{OmniSciDriver}(dbObj, ...)
-
-\S4method{dbGetInfo}{OmniSciDriver}(dbObj, ...)
 
 \S4method{show}{OmniSciConnection}(object)
 
