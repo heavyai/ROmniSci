@@ -26,6 +26,11 @@ OmniSci <- function() {
 #' @export
 setClass("OmniSciDriver", contains = "DBIDriver")
 
+#' @export
+setMethod("dbUnloadDriver", "OmniSciDriver", function(drv, ...) {
+  NULL
+})
+
 #' @rdname DBI
 #' @inheritParams methods::show
 #' @export
@@ -33,8 +38,7 @@ setMethod(
   "show", "OmniSciDriver",
   function(object) {
     cat("<OmniSciDriver>\n")
-    # TODO: Print more details
-  })
+})
 
 #' @rdname DBI
 #' @inheritParams DBI::dbConnect
