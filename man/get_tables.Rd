@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{get_tables}
 \alias{get_tables}
-\title{Get tables in current database}
+\title{THRIFT: Get tables in current database}
 \usage{
 get_tables(conn)
 }

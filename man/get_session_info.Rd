@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{get_session_info}
 \alias{get_session_info}
-\title{Get session information}
+\title{THRIFT: Get session information}
 \usage{
 get_session_info(conn)
 }

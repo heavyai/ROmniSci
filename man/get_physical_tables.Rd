@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{get_physical_tables}
 \alias{get_physical_tables}
-\title{Get physical tables in current database}
+\title{THRIFT: Get physical tables in current database}
 \usage{
 get_physical_tables(conn)
 }

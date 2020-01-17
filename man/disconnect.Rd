@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{disconnect}
 \alias{disconnect}
-\title{Disconnect from an OmniSci database}
+\title{THRIFT: Disconnect from an OmniSci database}
 \usage{
 disconnect(conn)
 }

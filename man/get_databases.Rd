@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{get_databases}
 \alias{get_databases}
-\title{Get databases list}
+\title{THRIFT: Get databases list}
 \usage{
 get_databases(conn)
 }

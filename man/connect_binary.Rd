@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{connect_binary}
 \alias{connect_binary}
-\title{Connect to an OmniSci database}
+\title{THRIFT: Connect to an OmniSci database}
 \usage{
 connect_binary(host, port, username, password, dbname)
 }

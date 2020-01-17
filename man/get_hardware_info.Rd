@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{get_hardware_info}
 \alias{get_hardware_info}
-\title{Get hardware info}
+\title{THRIFT: Get hardware info}
 \usage{
 get_hardware_info(conn)
 }
