@@ -44,6 +44,16 @@ setMethod(
   }
 )
 
+#' @rdname DBI
+#' @inheritParams DBI::dbGetInfo
+#' @export
+setMethod(
+  "dbGetInfo", "OmniSciConnection",
+  function(dbObj, ...) {
+    
+    return(c(get_session_info(dbObj@thriftconn), get_hardware_info(dbObj@thriftconn)))
+    
+})
 
 
 
@@ -190,15 +200,6 @@ setMethod(
   "dbRemoveTable", c("OmniSciConnection", "character"),
   function(conn, name, ...) {
     testthat::skip("Not yet implemented: dbRemoveTable(Connection, character)")
-  })
-
-#' @rdname DBI
-#' @inheritParams DBI::dbGetInfo
-#' @export
-setMethod(
-  "dbGetInfo", "OmniSciConnection",
-  function(dbObj, ...) {
-    testthat::skip("Not yet implemented: dbGetInfo(Connection)")
   })
 
 #' @rdname DBI
