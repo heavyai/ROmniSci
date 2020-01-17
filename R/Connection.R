@@ -1,18 +1,56 @@
 #' @include Driver.R
 NULL
 
-OmniSciConnection <- function() {
-  # TODO: Add arguments
-  new("OmniSciConnection")
-}
-
 #' @rdname DBI
 #' @export
 setClass(
   "OmniSciConnection",
   contains = "DBIConnection",
-  slots = list()
+  slots = list(thriftconn = "list")
 )
+
+#' Connect to an OmniSci database
+#' 
+#' @param host TBD
+#' @param port TBD
+#' @param username TBD
+#' @param password TBD
+#' @param dbname TBD
+#' @param protocol TBD
+#' 
+#' @rdname DBI
+#' @inheritParams DBI::dbConnect
+#' @export
+setMethod(
+  "dbConnect", "OmniSciDriver",
+  function(drv, host = "localhost", port = 6274, username = "admin", 
+           password = "HyperInteractive", dbname = "omnisci", 
+           protocol = "binary", ...) {
+
+    if (tolower(protocol) == "binary") {
+      
+      thriftconn <- connect_binary(host, port, username, password, dbname)
+      
+    } else {
+      
+      stop("Only 'binary' protocol supported at this time")
+      
+    }
+    
+    conn <- new("OmniSciConnection", thriftconn = list())
+    conn@thriftconn <- thriftconn
+    
+    return(conn)
+  }
+)
+
+
+
+
+
+
+#### Not implemented yet
+
 
 #' @rdname DBI
 #' @inheritParams methods::show

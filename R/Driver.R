@@ -1,8 +1,6 @@
 #' @include ROmniSci.R
 NULL
 
-
-
 #' OmniSci driver
 #'
 #' Formal class OmniSciDriver
@@ -16,21 +14,15 @@ OmniSci <- function() {
   new("OmniSciDriver")
 }
 
-
-
 #' @rdname DBI
 #' @export
 setClass("OmniSciDriver", contains = "DBIDriver")
 
-
-
 #' @rdname DBI
 #' @export
 setMethod("dbUnloadDriver", "OmniSciDriver", function(drv, ...) {
-  NULL
+  NULL  #set as a no-op
 })
-
-
 
 #' @rdname DBI
 #' @inheritParams methods::show
@@ -43,19 +35,11 @@ setMethod(
 
 
 
-#' @rdname DBI
-#' @inheritParams DBI::dbConnect
-#' @export
-setMethod(
-  "dbConnect", "OmniSciDriver",
-  function(drv, ...) {
-    testthat::skip("Not connecting")
-    # TODO: Remove skip() call
-    OmniSciConnection()
-  }
-)
 
 
+
+
+#### Not implemented yet
 
 #' @rdname DBI
 #' @inheritParams DBI::dbDataType
@@ -69,8 +53,6 @@ setMethod(
       error = function(e) testthat::skip("Not yet implemented: dbDataType(Driver)"))
   })
 
-
-
 #' @rdname DBI
 #' @inheritParams DBI::dbDataType
 #' @export
@@ -81,8 +63,6 @@ setMethod(
     testthat::skip("Not yet implemented: dbDataType(Driver, list)")
   })
 
-
-
 #' @rdname DBI
 #' @inheritParams DBI::dbIsValid
 #' @export
@@ -91,8 +71,6 @@ setMethod(
   function(dbObj, ...) {
     testthat::skip("Not yet implemented: dbIsValid(Driver)")
   })
-
-
 
 #' @rdname DBI
 #' @inheritParams DBI::dbGetInfo

@@ -7,12 +7,12 @@
 \alias{OmniSciDriver-class}
 \alias{dbUnloadDriver,OmniSciDriver-method}
 \alias{show,OmniSciDriver-method}
-\alias{dbConnect,OmniSciDriver-method}
 \alias{dbDataType,OmniSciDriver,ANY-method}
 \alias{dbDataType,OmniSciDriver,list-method}
 \alias{dbIsValid,OmniSciDriver-method}
 \alias{dbGetInfo,OmniSciDriver-method}
 \alias{OmniSciConnection-class}
+\alias{dbConnect,OmniSciDriver-method}
 \alias{show,OmniSciConnection-method}
 \alias{dbIsValid,OmniSciConnection-method}
 \alias{dbDisconnect,OmniSciConnection-method}
@@ -49,8 +49,6 @@
 
 \S4method{show}{OmniSciDriver}(object)
 
-\S4method{dbConnect}{OmniSciDriver}(drv, ...)
-
 \S4method{dbDataType}{OmniSciDriver,ANY}(dbObj, obj, ...)
 
 \S4method{dbDataType}{OmniSciDriver,list}(dbObj, obj, ...)
@@ -58,6 +56,17 @@
 \S4method{dbIsValid}{OmniSciDriver}(dbObj, ...)
 
 \S4method{dbGetInfo}{OmniSciDriver}(dbObj, ...)
+
+\S4method{dbConnect}{OmniSciDriver}(
+  drv,
+  host = "localhost",
+  port = 6274,
+  username = "admin",
+  password = "HyperInteractive",
+  dbname = "omnisci",
+  protocol = "binary",
+  ...
+)
 
 \S4method{show}{OmniSciConnection}(object)
 
@@ -122,9 +131,7 @@
 or an existing \linkS4class{DBIConnection}
 object (in order to clone an existing connection).}
 
-\item{...}{authentication arguments needed by the DBMS instance; these
-typically include \code{user}, \code{password}, \code{host}, \code{port}, \code{dbname}, etc.
-For details see the appropriate \code{DBIDriver}.}
+\item{...}{Other arguments passed on to methods.}
 
 \item{object}{Any R object}
 
@@ -132,6 +139,18 @@ For details see the appropriate \code{DBIDriver}.}
 or \linkS4class{DBIConnection}}
 
 \item{obj}{An R object whose SQL type we want to determine.}
+
+\item{host}{TBD}
+
+\item{port}{TBD}
+
+\item{username}{TBD}
+
+\item{password}{TBD}
+
+\item{dbname}{TBD}
+
+\item{protocol}{TBD}
 
 \item{conn}{A \linkS4class{DBIConnection} object, as returned by
 \code{\link[DBI:dbConnect]{dbConnect()}}.}
