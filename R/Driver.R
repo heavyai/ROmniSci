@@ -33,7 +33,20 @@ setMethod(
     cat("<OmniSciDriver>\n")
 })
 
-
+#' @rdname DBI
+#' @inheritParams DBI::dbGetInfo
+#' @export
+setMethod(
+  "dbGetInfo", "OmniSciDriver",
+  function(dbObj, ...) {
+    
+    #Unclear what this is supposed to represent
+    #Returning package name and version until it becomes more clear
+    return(list(name = utils::packageName(), 
+                version = utils::packageVersion(utils::packageName()))
+           )
+    
+})
 
 
 
@@ -70,13 +83,4 @@ setMethod(
   "dbIsValid", "OmniSciDriver",
   function(dbObj, ...) {
     testthat::skip("Not yet implemented: dbIsValid(Driver)")
-  })
-
-#' @rdname DBI
-#' @inheritParams DBI::dbGetInfo
-#' @export
-setMethod(
-  "dbGetInfo", "OmniSciDriver",
-  function(dbObj, ...) {
-    testthat::skip("Not yet implemented: dbGetInfo(Driver)")
   })

@@ -7,12 +7,13 @@
 \alias{OmniSciDriver-class}
 \alias{dbUnloadDriver,OmniSciDriver-method}
 \alias{show,OmniSciDriver-method}
+\alias{dbGetInfo,OmniSciDriver-method}
 \alias{dbDataType,OmniSciDriver,ANY-method}
 \alias{dbDataType,OmniSciDriver,list-method}
 \alias{dbIsValid,OmniSciDriver-method}
-\alias{dbGetInfo,OmniSciDriver-method}
 \alias{OmniSciConnection-class}
 \alias{dbConnect,OmniSciDriver-method}
+\alias{dbGetInfo,OmniSciConnection-method}
 \alias{show,OmniSciConnection-method}
 \alias{dbIsValid,OmniSciConnection-method}
 \alias{dbDisconnect,OmniSciConnection-method}
@@ -27,7 +28,6 @@
 \alias{dbExistsTable,OmniSciConnection,character-method}
 \alias{dbListFields,OmniSciConnection,character-method}
 \alias{dbRemoveTable,OmniSciConnection,character-method}
-\alias{dbGetInfo,OmniSciConnection-method}
 \alias{dbBegin,OmniSciConnection-method}
 \alias{dbCommit,OmniSciConnection-method}
 \alias{dbRollback,OmniSciConnection-method}
@@ -49,13 +49,13 @@
 
 \S4method{show}{OmniSciDriver}(object)
 
+\S4method{dbGetInfo}{OmniSciDriver}(dbObj, ...)
+
 \S4method{dbDataType}{OmniSciDriver,ANY}(dbObj, obj, ...)
 
 \S4method{dbDataType}{OmniSciDriver,list}(dbObj, obj, ...)
 
 \S4method{dbIsValid}{OmniSciDriver}(dbObj, ...)
-
-\S4method{dbGetInfo}{OmniSciDriver}(dbObj, ...)
 
 \S4method{dbConnect}{OmniSciDriver}(
   drv,
@@ -67,6 +67,8 @@
   protocol = "binary",
   ...
 )
+
+\S4method{dbGetInfo}{OmniSciConnection}(dbObj, ...)
 
 \S4method{show}{OmniSciConnection}(object)
 
@@ -95,8 +97,6 @@
 \S4method{dbListFields}{OmniSciConnection,character}(conn, name, ...)
 
 \S4method{dbRemoveTable}{OmniSciConnection,character}(conn, name, ...)
-
-\S4method{dbGetInfo}{OmniSciConnection}(dbObj, ...)
 
 \S4method{dbBegin}{OmniSciConnection}(conn, ...)
 
@@ -131,12 +131,13 @@
 or an existing \linkS4class{DBIConnection}
 object (in order to clone an existing connection).}
 
-\item{...}{Other arguments passed on to methods.}
+\item{...}{Other arguments to methods.}
 
 \item{object}{Any R object}
 
-\item{dbObj}{A object inheriting from \linkS4class{DBIDriver}
-or \linkS4class{DBIConnection}}
+\item{dbObj}{An object inheriting from \linkS4class{DBIObject},
+i.e. \linkS4class{DBIDriver}, \linkS4class{DBIConnection},
+or a \linkS4class{DBIResult}}
 
 \item{obj}{An R object whose SQL type we want to determine.}
 
