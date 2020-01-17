@@ -5,6 +5,7 @@
 \name{DBI}
 \alias{DBI}
 \alias{OmniSciDriver-class}
+\alias{dbUnloadDriver,OmniSciDriver-method}
 \alias{show,OmniSciDriver-method}
 \alias{dbConnect,OmniSciDriver-method}
 \alias{dbDataType,OmniSciDriver,ANY-method}
@@ -44,6 +45,8 @@
 \alias{dbBind,OmniSciResult-method}
 \title{DBI methods}
 \usage{
+\S4method{dbUnloadDriver}{OmniSciDriver}(drv, ...)
+
 \S4method{show}{OmniSciDriver}(object)
 
 \S4method{dbConnect}{OmniSciDriver}(drv, ...)
@@ -115,8 +118,6 @@
 \S4method{dbBind}{OmniSciResult}(res, params, ...)
 }
 \arguments{
-\item{object}{Any R object}
-
 \item{drv}{an object that inherits from \linkS4class{DBIDriver},
 or an existing \linkS4class{DBIConnection}
 object (in order to clone an existing connection).}
@@ -124,6 +125,8 @@ object (in order to clone an existing connection).}
 \item{...}{authentication arguments needed by the DBMS instance; these
 typically include \code{user}, \code{password}, \code{host}, \code{port}, \code{dbname}, etc.
 For details see the appropriate \code{DBIDriver}.}
+
+\item{object}{Any R object}
 
 \item{dbObj}{A object inheriting from \linkS4class{DBIDriver}
 or \linkS4class{DBIConnection}}

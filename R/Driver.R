@@ -24,6 +24,7 @@ setClass("OmniSciDriver", contains = "DBIDriver")
 
 
 
+#' @rdname DBI
 #' @export
 setMethod("dbUnloadDriver", "OmniSciDriver", function(drv, ...) {
   NULL
