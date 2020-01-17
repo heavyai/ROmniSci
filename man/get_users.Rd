@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{get_users}
 \alias{get_users}
-\title{Get users in current database}
+\title{THRIFT: Get users in current database}
 \usage{
 get_users(conn)
 }

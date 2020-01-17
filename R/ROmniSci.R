@@ -15,3 +15,9 @@
 #' @name ROmniSci
 #' 
 NULL
+
+#' DBI methods
+#'
+#' Implementations of pure virtual functions defined in the `DBI` package.
+#' @name DBI
+NULL  #This code required to have the other function documentation inherit from

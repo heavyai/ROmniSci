@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{get_status}
 \alias{get_status}
-\title{Get status of OmniSci server}
+\title{THRIFT: Get status of OmniSci server}
 \usage{
 get_status(conn)
 }

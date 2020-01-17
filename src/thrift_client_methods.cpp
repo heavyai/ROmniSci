@@ -12,7 +12,7 @@ using namespace apache::thrift;
 using namespace apache::thrift::protocol;
 using namespace apache::thrift::transport;
 
-//' @title Connect to an OmniSci database
+//' @title THRIFT: Connect to an OmniSci database
 //' 
 //' @details TBD Details
 //' 
@@ -62,7 +62,7 @@ List connect_binary(std::string host,
   
 }
 
-//' @title Disconnect from an OmniSci database
+//' @title THRIFT: Disconnect from an OmniSci database
 //'
 //' @param conn conn
 //' 
@@ -90,7 +90,7 @@ void disconnect(List conn){
   
 }
   
-//' @title Get details of the specified database table
+//' @title THRIFT: Get details of the specified database table
 //'
 //' @param conn conn
 //' @param table_name table_name
@@ -120,7 +120,7 @@ List get_table_details(List conn, std::string table_name) {
   return(Rcpp::wrap(table_details));
 }
 
-//' @title Get status of OmniSci server
+//' @title THRIFT: Get status of OmniSci server
 //' 
 //' @param conn conn
 //' 
@@ -151,7 +151,7 @@ List get_server_status(List conn){
   
 }
 
-//' @title Get status of OmniSci server
+//' @title THRIFT: Get status of OmniSci server
 //' 
 //' @param conn conn
 //' 
@@ -186,7 +186,7 @@ List get_status(List conn){
   
 }
 
-//' @title Get version of OmniSci server
+//' @title THRIFT: Get version of OmniSci server
 //' 
 //' @param conn conn
 //' 
@@ -216,7 +216,7 @@ CharacterVector get_version(List conn){
   
 }
 
-//' @title Get tables in current database
+//' @title THRIFT: Get tables in current database
 //' 
 //' @param conn conn
 //' 
@@ -247,7 +247,7 @@ CharacterVector get_tables(List conn){
   
 }
 
-//' @title Get users in current database
+//' @title THRIFT: Get users in current database
 //' 
 //' @param conn conn
 //' 
@@ -278,7 +278,7 @@ CharacterVector get_users(List conn){
   
 }
 
-//' @title Get physical tables in current database
+//' @title THRIFT: Get physical tables in current database
 //' 
 //' @param conn conn
 //' 
@@ -309,7 +309,7 @@ CharacterVector get_physical_tables(List conn){
   
 }
 
-//' @title Get views in current database
+//' @title THRIFT: Get views in current database
 //' 
 //' @param conn conn
 //' 
@@ -340,7 +340,7 @@ CharacterVector get_views(List conn){
   
 }
 
-//' @title Get session information
+//' @title THRIFT: Get session information
 //' 
 //' @param conn conn
 //' 
@@ -371,7 +371,7 @@ List get_session_info(List conn){
   
 }
 
-//' @title Get databases list
+//' @title THRIFT: Get databases list
 //' 
 //' @param conn conn
 //' 
@@ -402,7 +402,7 @@ List get_databases(List conn){
   
 }
 
-//' @title Get hardware info
+//' @title THRIFT: Get hardware info
 //' 
 //' @param conn conn
 //' 
@@ -433,7 +433,7 @@ List get_hardware_info(List conn){
   
 }
 
-//' @title Get metadata of tables in current database
+//' @title THRIFT: Get metadata of tables in current database
 //' 
 //' @param conn conn
 //' 
@@ -464,7 +464,7 @@ List get_tables_meta(List conn){
   
 }
 
-//' @title Switch current database
+//' @title THRIFT: Switch current database
 //' 
 //' @param conn conn
 //' @param dbname dbname
@@ -492,7 +492,7 @@ void switch_database(List conn, std::string dbname){
   
 }
 
-//' @title Execute SQL statement
+//' @title THRIFT: Execute SQL statement
 //' 
 //' @param conn conn
 //' @param query query

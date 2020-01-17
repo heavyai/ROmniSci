@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{switch_database}
 \alias{switch_database}
-\title{Switch current database}
+\title{THRIFT: Switch current database}
 \usage{
 switch_database(conn, dbname)
 }

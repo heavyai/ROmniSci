@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{get_views}
 \alias{get_views}
-\title{Get views in current database}
+\title{THRIFT: Get views in current database}
 \usage{
 get_views(conn)
 }

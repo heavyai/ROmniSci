@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{get_version}
 \alias{get_version}
-\title{Get version of OmniSci server}
+\title{THRIFT: Get version of OmniSci server}
 \usage{
 get_version(conn)
 }

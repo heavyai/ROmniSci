@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{sql_execute}
 \alias{sql_execute}
-\title{Execute SQL statement}
+\title{THRIFT: Execute SQL statement}
 \usage{
 sql_execute(conn, query, first_n = -1L, at_most_n = -1L)
 }

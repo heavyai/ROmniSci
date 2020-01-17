@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{get_tables_meta}
 \alias{get_tables_meta}
-\title{Get metadata of tables in current database}
+\title{THRIFT: Get metadata of tables in current database}
 \usage{
 get_tables_meta(conn)
 }

@@ -7,11 +7,9 @@
 OmniSci()
 }
 \description{
-TBD.
+Formal class OmniSciDriver
 }
 \examples{
-\dontrun{
-#' library(DBI)
+library(DBI)
 ROmniSci::OmniSci()
-}
 }

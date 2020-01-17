@@ -1,35 +1,35 @@
 #' @include ROmniSci.R
 NULL
 
-#' DBI methods
-#'
-#' Implementations of pure virtual functions defined in the `DBI` package.
-#' @name DBI
-NULL
+
 
 #' OmniSci driver
 #'
-#' TBD.
+#' Formal class OmniSciDriver
 #'
 #' @export
 #' @import methods DBI
 #' @examples
-#' \dontrun{
-#' #' library(DBI)
+#' library(DBI)
 #' ROmniSci::OmniSci()
-#' }
 OmniSci <- function() {
   new("OmniSciDriver")
 }
+
+
 
 #' @rdname DBI
 #' @export
 setClass("OmniSciDriver", contains = "DBIDriver")
 
+
+
 #' @export
 setMethod("dbUnloadDriver", "OmniSciDriver", function(drv, ...) {
   NULL
 })
+
+
 
 #' @rdname DBI
 #' @inheritParams methods::show
@@ -39,6 +39,8 @@ setMethod(
   function(object) {
     cat("<OmniSciDriver>\n")
 })
+
+
 
 #' @rdname DBI
 #' @inheritParams DBI::dbConnect
@@ -52,6 +54,8 @@ setMethod(
   }
 )
 
+
+
 #' @rdname DBI
 #' @inheritParams DBI::dbDataType
 #' @export
@@ -64,6 +68,8 @@ setMethod(
       error = function(e) testthat::skip("Not yet implemented: dbDataType(Driver)"))
   })
 
+
+
 #' @rdname DBI
 #' @inheritParams DBI::dbDataType
 #' @export
@@ -74,6 +80,8 @@ setMethod(
     testthat::skip("Not yet implemented: dbDataType(Driver, list)")
   })
 
+
+
 #' @rdname DBI
 #' @inheritParams DBI::dbIsValid
 #' @export
@@ -82,6 +90,8 @@ setMethod(
   function(dbObj, ...) {
     testthat::skip("Not yet implemented: dbIsValid(Driver)")
   })
+
+
 
 #' @rdname DBI
 #' @inheritParams DBI::dbGetInfo
