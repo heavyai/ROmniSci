@@ -201,3 +201,25 @@ setMethod(
   function(conn, name, ...) {
     testthat::skip("Not yet implemented: dbRemoveTable(Connection, character)")
   })
+
+#' @rdname DBI
+#' @inheritParams DBI::dbDataType
+#' @export
+setMethod(
+  "dbDataType", "OmniSciDriver",
+  function(dbObj, obj, ...) {
+    # Optional: Can remove this if all data types conform to SQL-92
+    tryCatch(
+      getMethod("dbDataType", "DBIObject", asNamespace("DBI"))(dbObj, obj, ...),
+      error = function(e) testthat::skip("Not yet implemented: dbDataType(Driver)"))
+  })
+
+#' @rdname DBI
+#' @inheritParams DBI::dbDataType
+#' @export
+setMethod(
+  "dbDataType", c("OmniSciDriver", "list"),
+  function(dbObj, obj, ...) {
+    # rstats-db/DBI#70
+    testthat::skip("Not yet implemented: dbDataType(Driver, list)")
+  })
