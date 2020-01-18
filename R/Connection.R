@@ -201,30 +201,3 @@ setMethod(
   function(conn, name, ...) {
     testthat::skip("Not yet implemented: dbRemoveTable(Connection, character)")
   })
-
-#' @rdname DBI
-#' @inheritParams DBI::dbBegin
-#' @export
-setMethod(
-  "dbBegin", "OmniSciConnection",
-  function(conn, ...) {
-    testthat::skip("Not yet implemented: dbBegin(Connection)")
-  })
-
-#' @rdname DBI
-#' @inheritParams DBI::dbCommit
-#' @export
-setMethod(
-  "dbCommit", "OmniSciConnection",
-  function(conn, ...) {
-    testthat::skip("Not yet implemented: dbCommit(Connection)")
-  })
-
-#' @rdname DBI
-#' @inheritParams DBI::dbRollback
-#' @export
-setMethod(
-  "dbRollback", "OmniSciConnection",
-  function(conn, ...) {
-    testthat::skip("Not yet implemented: dbRollback(Connection)")
-  })
