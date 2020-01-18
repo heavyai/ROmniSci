@@ -28,9 +28,6 @@
 \alias{dbExistsTable,OmniSciConnection,character-method}
 \alias{dbListFields,OmniSciConnection,character-method}
 \alias{dbRemoveTable,OmniSciConnection,character-method}
-\alias{dbBegin,OmniSciConnection-method}
-\alias{dbCommit,OmniSciConnection-method}
-\alias{dbRollback,OmniSciConnection-method}
 \alias{OmniSciResult-class}
 \alias{show,OmniSciResult-method}
 \alias{dbClearResult,OmniSciResult-method}
@@ -97,12 +94,6 @@
 \S4method{dbListFields}{OmniSciConnection,character}(conn, name, ...)
 
 \S4method{dbRemoveTable}{OmniSciConnection,character}(conn, name, ...)
-
-\S4method{dbBegin}{OmniSciConnection}(conn, ...)
-
-\S4method{dbCommit}{OmniSciConnection}(conn, ...)
-
-\S4method{dbRollback}{OmniSciConnection}(conn, ...)
 
 \S4method{show}{OmniSciResult}(object)
 
