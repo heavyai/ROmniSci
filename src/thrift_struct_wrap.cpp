@@ -176,11 +176,38 @@ namespace Rcpp {
     
     template <> SEXP wrap(const TQueryResult& x){
       
-      return List::create(_["row_set"] = x.row_set,
-                          _["execution_time_ms"] = x.execution_time_ms,
-                          _["total_time_ms"] = x.total_time_ms,
-                          _["nonce"] = x.nonce
-                          );
+      //1. get number of columns from result
+      int numcols = x.row_set.columns.size();
+      
+      //2. for each column, get column name and (data, nulls)
+      List result;
+      for (int i; i < numcols; i++) {
+        
+        //get relevant source data from struct
+        auto col_name = x.row_set.row_desc[i].col_name;
+        TColumnData datacol = x.row_set.columns[i].data;
+        
+        //find which field in TColumnData has data in it
+        //this doesn't actually work, data scope lost after loop
+        if(datacol.int_col.size() > 0){
+          auto data = datacol.int_col;
+        } else 
+        if (datacol.real_col.size() > 0){
+          auto data = datacol.real_col;
+        } else
+        if (datacol.str_col.size() > 0){
+          auto data = datacol.str_col;
+        } else {
+          auto data = datacol.arr_col;
+        }
+        
+        //need a function to collapse 'data' and 'nullcol' into single column
+        auto nullscol = x.row_set.columns[i].nulls;
+
+        result.push_back(datacol, col_name);
+      }
+
+      return result;
     };
     
 } //end namespace
