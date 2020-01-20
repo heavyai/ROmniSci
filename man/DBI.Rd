@@ -8,8 +8,6 @@
 \alias{dbUnloadDriver,OmniSciDriver-method}
 \alias{show,OmniSciDriver-method}
 \alias{dbGetInfo,OmniSciDriver-method}
-\alias{dbDataType,OmniSciDriver,ANY-method}
-\alias{dbDataType,OmniSciDriver,list-method}
 \alias{dbIsValid,OmniSciDriver-method}
 \alias{OmniSciConnection-class}
 \alias{dbConnect,OmniSciDriver-method}
@@ -28,6 +26,8 @@
 \alias{dbExistsTable,OmniSciConnection,character-method}
 \alias{dbListFields,OmniSciConnection,character-method}
 \alias{dbRemoveTable,OmniSciConnection,character-method}
+\alias{dbDataType,OmniSciDriver,ANY-method}
+\alias{dbDataType,OmniSciDriver,list-method}
 \alias{OmniSciResult-class}
 \alias{show,OmniSciResult-method}
 \alias{dbClearResult,OmniSciResult-method}
@@ -47,10 +47,6 @@
 \S4method{show}{OmniSciDriver}(object)
 
 \S4method{dbGetInfo}{OmniSciDriver}(dbObj, ...)
-
-\S4method{dbDataType}{OmniSciDriver,ANY}(dbObj, obj, ...)
-
-\S4method{dbDataType}{OmniSciDriver,list}(dbObj, obj, ...)
 
 \S4method{dbIsValid}{OmniSciDriver}(dbObj, ...)
 
@@ -95,6 +91,10 @@
 
 \S4method{dbRemoveTable}{OmniSciConnection,character}(conn, name, ...)
 
+\S4method{dbDataType}{OmniSciDriver,ANY}(dbObj, obj, ...)
+
+\S4method{dbDataType}{OmniSciDriver,list}(dbObj, obj, ...)
+
 \S4method{show}{OmniSciResult}(object)
 
 \S4method{dbClearResult}{OmniSciResult}(res, ...)
@@ -130,8 +130,6 @@ object (in order to clone an existing connection).}
 i.e. \linkS4class{DBIDriver}, \linkS4class{DBIConnection},
 or a \linkS4class{DBIResult}}
 
-\item{obj}{An R object whose SQL type we want to determine.}
-
 \item{host}{TBD}
 
 \item{port}{TBD}
@@ -148,6 +146,8 @@ or a \linkS4class{DBIResult}}
 \code{\link[DBI:dbConnect]{dbConnect()}}.}
 
 \item{statement}{a character string containing SQL.}
+
+\item{obj}{An R object whose SQL type we want to determine.}
 
 \item{x}{A character vector to quote as string.}
 

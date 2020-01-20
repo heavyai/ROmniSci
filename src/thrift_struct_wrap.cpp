@@ -63,7 +63,7 @@ namespace Rcpp {
       
       return List::create(_["user"] = x.user,
                           _["database"] = x.database,
-                          _["start_time"] = x.start_time
+                          _["start_time"] = static_cast<Datetime>(x.start_time)
       );
       
     };
