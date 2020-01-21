@@ -1,5 +1,6 @@
 #include "gen-cpp/MapD.h"
 #include <Rcpp.h>
+#include "integer64.h"
 
 namespace Rcpp {
 
@@ -25,22 +26,23 @@ namespace Rcpp {
                           _["src_name"] = x.src_name,
                           _["is_system"] = x.is_system,
                           _["is_physical"] = x.is_physical,
-                          _["col_id"] = x.col_id
+                          _["col_id"] = makeInt64(x.col_id)
       );
 
     };
 
     template <> SEXP wrap(const TTableDetails& x){
 
-      return List::create(_["fragment_size"] = x.fragment_size,
-                          _["page_size"] = static_cast<int>(x.page_size),
-                          _["max_rows"] = x.max_rows,
+      return List::create(_["row_desc"] = x.row_desc,
+                          _["fragment_size"] = makeInt64(x.fragment_size),
+                          _["page_size"] = makeInt64(x.page_size),
+                          _["max_rows"] = makeInt64(x.max_rows),
                           _["view_sql"] = x.view_sql,
-                          _["shard_count"] = static_cast<int>(x.shard_count),
+                          _["shard_count"] = makeInt64(x.shard_count),
                           _["key_metainfo"] = x.key_metainfo,
                           _["is_temporary"] = x.is_temporary,
-                          _["partition_detail"] = static_cast<int>(x.partition_detail), //enum
-                          _["row_desc"] = x.row_desc
+                          _["partition_detail"] = static_cast<int>(x.partition_detail) //enum
+                          
       );
 
     };
@@ -96,8 +98,8 @@ namespace Rcpp {
     template <> SEXP wrap(const TGpuSpecification& x){
       
       return List::create(_["num_sm"] = x.num_sm,
-                          _["clock_frequency_kHz"] = x.clock_frequency_kHz,
-                          _["memory"] = x.memory,
+                          _["clock_frequency_kHz"] = makeInt64(x.clock_frequency_kHz),
+                          _["memory"] = makeInt64(x.memory),
                           _["compute_capability_major"] = x.compute_capability_major,
                           _["compute_capability_minor"] = x.compute_capability_minor
                          );
@@ -126,7 +128,7 @@ namespace Rcpp {
     
     template <> SEXP wrap(const TDatumVal& x){
 
-      return List::create(_["int_val"] = x.int_val,
+      return List::create(_["int_val"] = makeInt64(x.int_val),
                           _["real_val"] = x.real_val,
                           _["str_val"] = x.str_val,
                           _["arr_val"] = x.arr_val
@@ -149,7 +151,7 @@ namespace Rcpp {
     
     template <> SEXP wrap(const TColumnData& x){
 
-      return List::create(_["int_col"] = x.int_col,
+      return List::create(_["int_col"] = makeInt64(x.int_col),
                           _["real_col"] = x.real_col,
                           _["str_col"] = x.str_col,
                           _["arr_col"] = x.arr_col
@@ -177,8 +179,8 @@ namespace Rcpp {
     template <> SEXP wrap(const TQueryResult& x){
       
       return List::create(_["row_set"] = x.row_set,
-                          _["execution_time_ms"] = x.execution_time_ms,
-                          _["total_time_ms"] = x.total_time_ms,
+                          _["execution_time_ms"] = makeInt64(x.execution_time_ms),
+                          _["total_time_ms"] = makeInt64(x.total_time_ms),
                           _["nonce"] = x.nonce
                           );
     };
