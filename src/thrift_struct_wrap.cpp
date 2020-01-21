@@ -177,13 +177,7 @@ namespace Rcpp {
     };
 
     template <> SEXP wrap(const TQueryResult& x){
-
-      return List::create(_["row_set"] = x.row_set,
-                          _["execution_time_ms"] = makeInt64(x.execution_time_ms),
-                          _["total_time_ms"] = makeInt64(x.total_time_ms),
-                          _["nonce"] = x.nonce
-                          );
-
+      
       //1. get number of columns from result
       int numcols = x.row_set.columns.size();
 
@@ -216,7 +210,6 @@ namespace Rcpp {
       }
 
       return result;
-
     };
 
 } //end namespace
